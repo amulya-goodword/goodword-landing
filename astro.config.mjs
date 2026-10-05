@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 // Pages that exist for review only and must never be indexed or listed.
-const INTERNAL = ['/styleguide/', '/concepts/'];
+const INTERNAL = ['/styleguide/'];
 
 export default defineConfig({
   site: 'https://goodword.tech',

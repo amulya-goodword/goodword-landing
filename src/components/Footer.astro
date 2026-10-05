@@ -1,5 +1,6 @@
 ---
 import AppLink from './AppLink.astro';
+import Wordmark from './Wordmark.astro';
 import { SITE } from '../config';
 interface Props { page: string }
 const { page } = Astro.props;
@@ -8,7 +9,7 @@ const { page } = Astro.props;
   <div class="wrap">
     <div class="footer-grid">
       <div class="stack" style="--stack: var(--s-3)">
-        <a class="wordmark" href="/" aria-label="GoodWord home">Good<b>Word</b></a>
+        <a class="wordmark-link" href="/" aria-label="GoodWord home"><Wordmark decorative /></a>
         <p class="gold-text" style="font-weight:700">{SITE.signature}</p>
         <p class="meta">{SITE.company}<br />{SITE.address}</p>
         <p class="meta"><a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>

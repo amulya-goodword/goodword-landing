@@ -1,0 +1,161 @@
+---
+// Four steps, then the moment a report comes together: three voices arrive and the report unlocks.
+import Tick from '../Tick.astro';
+import QuoteCard from '../report/QuoteCard.astro';
+import { sample } from '../../data/sample';
+const r = sample.referees;
+const steps = [
+  { t: 'Invite up to 5 people', d: 'Managers, peers, people who reported to you, clients. You choose who.' },
+  { t: 'They answer in their own words', d: 'Each gets a private link by email and a short questionnaire. It takes about 5 minutes. The link works for 30 days.' },
+  { t: 'Three responses unlock your report', d: 'You read every word and you know who wrote what. You cannot edit any of it.' },
+  { t: 'Send it with every application', d: 'As a link, a PDF, a card for LinkedIn or joined to your resume.' },
+];
+---
+<section class="how" id="how-it-works" aria-labelledby="how-h">
+  <div class="wrap">
+    <div class="how-head">
+      <p class="eyebrow">How it works</p>
+      <h2 id="how-h">Three people who know your work. One report.</h2>
+    </div>
+    <ol class="how-steps">
+      {steps.map((s, i) => (
+        <li class="reveal">
+          <span class="how-n" aria-hidden="true">{i + 1}</span>
+          <h3>{s.t}</h3>
+          <p>{s.d}</p>
+        </li>
+      ))}
+    </ol>
+  </div>
+
+  <div class="c1" aria-label="A report coming together as three referees respond">
+    <div class="c1-stage">
+      <div class="wrap c1-grid">
+        <div class="c1-left">
+          <h3 class="c1-kicker">Their words arrive. At three, your report unlocks.</h3>
+          <ol class="c1-voices">
+            <li class="c1-voice v1 anim"><QuoteCard referee={r[0]} variant="short" /></li>
+            <li class="c1-voice v2 anim"><QuoteCard referee={r[1]} variant="short" /></li>
+            <li class="c1-voice v3 anim"><QuoteCard referee={r[2]} variant="short" /></li>
+          </ol>
+        </div>
+        <div class="c1-right">
+          <div class="rp rp-pad c1-report">
+            <div class="c1-status">
+              <p class="rp-label">Your report</p>
+              <div class="c1-counts">
+                <p class="c1-count c0 anim" aria-hidden="true">Invites sent. Waiting for the first response.</p>
+                <p class="c1-count ca anim" aria-hidden="true">1 of 3 responses in.</p>
+                <p class="c1-count cb anim" aria-hidden="true">2 of 3 responses in. One more unlocks it.</p>
+                <p class="c1-count cc anim">3 of 3 responses in. Your report is unlocked.</p>
+              </div>
+              <ol class="c1-meter" aria-hidden="true"><li class="b1"></li><li class="b2"></li><li class="b3"></li></ol>
+            </div>
+            <div class="c1-body">
+              <div class="c1-locked anim" aria-hidden="true">
+                <span class="c1-lock"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="9" width="12" height="8" rx="2" /><path d="M7 9V6.5a3 3 0 016 0V9" /></svg></span>
+                <p>Unlocks at 3 references</p>
+                <div class="c1-skeleton"><i style="width:88%"></i><i style="width:72%"></i><i style="width:80%"></i><i style="width:56%"></i></div>
+              </div>
+              <div class="c1-open anim stack" style="--stack: var(--s-3)">
+                <p class="tally"><span class="ticks"><Tick /><Tick /><Tick /></span><span>{sample.tally}</span></p>
+                <p class="rp-label">Validated strengths</p>
+                <ul class="points">
+                  <li><Tick small /><span>{sample.strengths[0]}</span></li>
+                  <li><Tick small /><span>{sample.strengths[1]}</span></li>
+                </ul>
+                <p><span class="chip chip-navy">Response Integrity: {sample.integrity.level}</span></p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <p class="wrap how-more"><a class="link" href="/how-it-works/">How it works, step by step</a></p>
+</section>
+
+<style is:global>
+  .how { padding-block: var(--section); background: var(--surface); border-block: 1px solid var(--line); }
+  .how-head { display: grid; gap: var(--s-3); max-width: 44rem; }
+  .how-steps { margin-top: var(--s-7); display: grid; gap: var(--s-5); counter-reset: step; }
+  @media (min-width: 40rem) { .how-steps { grid-template-columns: repeat(2, 1fr); gap: var(--s-6); } }
+  @media (min-width: 62rem) { .how-steps { grid-template-columns: repeat(4, 1fr); } }
+  .how-steps li { display: grid; gap: var(--s-2); align-content: start; padding-top: var(--s-4); border-top: 3px solid var(--ink); }
+  .how-steps li:nth-child(3) { border-top-color: var(--gold); }
+  .how-n { font-size: var(--step-4); font-weight: 900; letter-spacing: -0.04em; line-height: 1; color: var(--ink); }
+  .how-steps li:nth-child(3) .how-n { color: var(--gold-ink); }
+  .how-steps h3 { font-size: var(--step-1); letter-spacing: -0.015em; }
+  .how-steps p { color: var(--ink-2); font-size: var(--step--1); line-height: 1.55; }
+  .how-more { margin-top: var(--s-6); }
+
+  /* The finished state of the scene */
+  .c1 { padding-block: var(--s-7) 0; }
+  .c1-grid { display: grid; gap: var(--s-5); align-items: center; }
+  @media (min-width: 62rem) { .c1-grid { grid-template-columns: 1fr 1fr; gap: var(--s-8); } }
+  .c1-kicker { font-size: var(--step-3); font-weight: 850; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: var(--s-5); max-width: 18ch; }
+  .c1-voices { display: grid; gap: var(--s-3); }
+  .c1-report { display: grid; gap: var(--s-4); box-shadow: var(--sh-3); }
+  .c1-status { display: grid; gap: var(--s-2); }
+  .c1-count { font-weight: 750; line-height: 1.3; }
+  .c1-count.c0, .c1-count.ca, .c1-count.cb { display: none; }
+  .c1-meter { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.375rem; }
+  .c1-meter li { height: 0.5rem; border-radius: var(--r-pill); background: var(--line); position: relative; overflow: hidden; }
+  .c1-meter li::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: var(--gold); }
+  .c1-body { display: grid; }
+  .c1-locked { display: none; }
+  .c1-locked, .c1-open { grid-area: 1 / 1; }
+  .c1-lock { width: 2.75rem; height: 2.75rem; border-radius: 50%; background: var(--canvas); border: 1px solid var(--line); display: grid; place-items: center; color: var(--ink-2); }
+  .c1-lock svg { width: 1.25rem; height: 1.25rem; }
+  .c1-skeleton { display: grid; gap: 0.5rem; width: 100%; margin-top: var(--s-2); }
+  .c1-skeleton i { display: block; height: 0.625rem; border-radius: var(--r-pill); background: var(--line); }
+
+  /* The scroll-driven version. Transform and opacity only. */
+  @media (prefers-reduced-motion: no-preference) and (min-width: 62rem) and (min-height: 600px), (prefers-reduced-motion: no-preference) and (max-width: 61.99rem) and (min-height: 740px) {
+    @supports (animation-timeline: view()) {
+      .c1 { padding-block: 0; height: 300vh; view-timeline-name: --c1; view-timeline-axis: block; }
+      .c1-stage { position: sticky; top: 4rem; height: calc(100svh - 4rem); display: grid; align-items: center; overflow: clip; }
+      .c1 .anim { animation-timeline: --c1; animation-range: contain 0% contain 100%; animation-timing-function: linear; animation-fill-mode: both; animation-duration: auto; }
+      .c1-voices { gap: 0; padding-top: 2.25rem; }
+      .c1-voice { grid-area: 1 / 1; transform-origin: 50% 0; }
+      .v1 { animation-name: c1-v1; z-index: 1; }
+      .v2 { animation-name: c1-v2; z-index: 2; }
+      .v3 { animation-name: c1-v3; z-index: 3; }
+      @keyframes c1-v1 { 0%, 2% { opacity: 0; transform: translateY(28px); } 4.5% { opacity: 1; } 10%, 30% { opacity: 1; transform: none; } 38%, 58% { opacity: 0.6; transform: translateY(-17px) scale(0.955); } 66%, 100% { opacity: 0.32; transform: translateY(-32px) scale(0.91); } }
+      @keyframes c1-v2 { 0%, 30% { opacity: 0; transform: translateY(28px); } 32.5% { opacity: 1; } 38%, 58% { opacity: 1; transform: none; } 66%, 100% { opacity: 0.6; transform: translateY(-17px) scale(0.955); } }
+      @keyframes c1-v3 { 0%, 58% { opacity: 0; transform: translateY(28px); } 60.5% { opacity: 1; } 66%, 100% { opacity: 1; transform: none; } }
+      .c1-counts { display: grid; }
+      .c1-count { grid-area: 1 / 1; }
+      .c1-count.c0, .c1-count.ca, .c1-count.cb { display: block; }
+      .c0 { animation-name: c1-c0; } .ca { animation-name: c1-ca; } .cb { animation-name: c1-cb; } .cc { animation-name: c1-cc; }
+      @keyframes c1-c0 { 0%, 6% { opacity: 1; } 9%, 100% { opacity: 0; } }
+      @keyframes c1-ca { 0%, 7% { opacity: 0; } 10%, 34% { opacity: 1; } 37%, 100% { opacity: 0; } }
+      @keyframes c1-cb { 0%, 35% { opacity: 0; } 38%, 62% { opacity: 1; } 65%, 100% { opacity: 0; } }
+      @keyframes c1-cc { 0%, 63% { opacity: 0; } 66%, 100% { opacity: 1; } }
+      .c1-meter li::after { transform-origin: 0 50%; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: --c1; animation-range: contain 0% contain 100%; }
+      .c1-meter .b1::after { animation-name: c1-b1; }
+      .c1-meter .b2::after { animation-name: c1-b2; }
+      .c1-meter .b3::after { animation-name: c1-b3; }
+      @keyframes c1-b1 { 0%, 4% { transform: scaleX(0); } 10%, 100% { transform: none; } }
+      @keyframes c1-b2 { 0%, 32% { transform: scaleX(0); } 38%, 100% { transform: none; } }
+      @keyframes c1-b3 { 0%, 60% { transform: scaleX(0); } 66%, 100% { transform: none; } }
+      .c1-locked { display: grid; justify-items: center; align-content: center; gap: var(--s-2); text-align: center; font-weight: 700; color: var(--ink-2); animation-name: c1-locked; }
+      .c1-open { animation-name: c1-open; }
+      @keyframes c1-locked { 0%, 66% { opacity: 1; transform: none; } 73%, 100% { opacity: 0; transform: scale(0.97); } }
+      @keyframes c1-open { 0%, 68% { opacity: 0; transform: translateY(14px); } 78%, 100% { opacity: 1; transform: none; } }
+    }
+  }
+  @media (prefers-reduced-motion: no-preference) and (max-width: 61.99rem) and (min-height: 740px) {
+    @supports (animation-timeline: view()) {
+      .c1-kicker { font-size: var(--step-1); margin-bottom: var(--s-2); max-width: none; }
+      .c1-grid { gap: var(--s-3); }
+      .c1-voices { padding-top: 1.75rem; }
+      .c1-voice .rp-pad, .c1-report.rp-pad { padding: var(--s-3) var(--s-4); }
+      .c1-voice .quote { gap: var(--s-2); }
+      .c1-voice .quote-mark { width: 1.5rem; height: 1.125rem; }
+      .c1-report { gap: var(--s-3); }
+      .c1-open .points li:nth-child(2) { display: none; }
+    }
+  }
+</style>

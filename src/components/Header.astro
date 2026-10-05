@@ -1,11 +1,12 @@
 ---
 import AppLink from './AppLink.astro';
+import Wordmark from './Wordmark.astro';
 interface Props { page: string }
 const { page } = Astro.props;
 ---
 <header class="site-header">
   <div class="wrap bar">
-    <a class="wordmark" href="/" aria-label="GoodWord home">Good<b>Word</b></a>
+    <a class="wordmark-link" href="/" aria-label="GoodWord home"><Wordmark decorative /></a>
     <nav class="site-nav" aria-label="Main">
       <a href="/how-it-works/">How it works</a>
       <a href="/sample-report/">Sample report</a>

@@ -1,0 +1,120 @@
+---
+// The signature moment. A resume makes three claims. For each, someone who was there answers in their own words.
+// It plays as you scroll, runs backwards when you scroll up and shows its finished state without motion.
+import Tick from '../Tick.astro';
+import { sample } from '../../data/sample';
+const r = sample.referees;
+// The resume lines are written to sit beside the sample referees' real words.
+const claims = [
+  { n: 1, text: 'Turned around merchant onboarding. Completion rose from about half to over 70 percent in a quarter.' },
+  { n: 2, text: 'Trusted partner to engineering on scope and dates.' },
+  { n: 3, text: 'Coached associate product managers into owning their own launches.' },
+];
+const notes = [
+  { n: 1, role: r[0].role, who: r[0].label, words: 'He spent a week sitting in on support calls, came back with one page that showed where merchants were actually getting stuck, and had engineering, risk and sales agree on a plan in a single meeting.' },
+  { n: 2, role: r[1].role, who: 'Shown by role', words: 'Engineers on my team trusted him because he never promised something on our behalf without asking first.' },
+  { n: 3, role: r[2].role, who: 'Shown by role', words: 'He reviewed my first three documents line by line and never rewrote them for me.' },
+];
+---
+<section class="c2" aria-labelledby="sayswho-h">
+  <div class="c2-stage">
+    <div class="wrap">
+      <h2 class="c2-h" id="sayswho-h">The part of your application you cannot write yourself.</h2>
+      <div class="c2-grid">
+        <div class="rp rp-pad c2-resume">
+          <p class="c2-name">Aarav Mehta</p>
+          <p class="meta">Senior Product Manager · Bengaluru</p>
+          <p class="rp-label rp-label-quiet c2-exp">Experience, as he wrote it</p>
+          <ul class="c2-claims">
+            {claims.map((c) => (
+              <li class:list={['c2-claim', `k${c.n}`]}>
+                <span class="c2-n" aria-hidden="true">{c.n}</span>
+                <span class="c2-t">{c.text}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+        <ol class="c2-notes" aria-label="What the people he worked with said">
+          {notes.map((n) => (
+            <li class="c2-slot">
+              <span class:list={['c2-tag', `t${n.n}`, 'anim']} aria-hidden="true">Says who?</span>
+              <div class:list={['c2-note', `n${n.n}`, 'anim']}>
+                <span class="c2-n c2-n-gold" aria-hidden="true">{n.n}</span>
+                <figure class="stack" style="--stack: var(--s-2)">
+                  <blockquote>{n.words}</blockquote>
+                  <figcaption class="cluster" style="--cluster: var(--s-2)"><span class="chip chip-gold"><Tick small />{n.role} · Verified</span><span class="meta">{n.who}</span></figcaption>
+                </figure>
+              </div>
+            </li>
+          ))}
+        </ol>
+      </div>
+      <p class="c2-close anim">Your resume says it. <span class="gold-text">They back it up.</span></p>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  /* The finished state. This is what shows with motion off or without scroll animation. */
+  .c2 { padding-block: var(--section); }
+  .c2-h { font-size: var(--step-4); max-width: 20ch; margin-bottom: var(--s-6); }
+  .c2-grid { display: grid; gap: var(--s-5); align-items: start; }
+  @media (min-width: 62rem) { .c2-grid { grid-template-columns: 1fr 1fr; gap: var(--s-7); align-items: center; } }
+  .c2-resume { box-shadow: var(--sh-3); }
+  .c2-name { font-size: var(--step-2); font-weight: 850; letter-spacing: -0.03em; line-height: 1.1; }
+  .c2-exp { display: block; margin-top: var(--s-4); padding-top: var(--s-3); border-top: 1px solid var(--line); }
+  .c2-claims { display: grid; gap: var(--s-4); margin-top: var(--s-4); }
+  .c2-claim { position: relative; display: grid; grid-template-columns: auto 1fr; gap: var(--s-3); align-items: start; line-height: 1.5; isolation: isolate; }
+  .c2-claim::before { content: ''; position: absolute; inset: -0.5rem -0.625rem; border-radius: var(--r-sm); background: var(--gold-tint); z-index: -1; opacity: 1; }
+  .c2-n { width: 1.625rem; height: 1.625rem; border-radius: 50%; background: var(--ink); color: var(--on-navy); display: grid; place-items: center; font-size: 0.875rem; font-weight: 800; flex: none; }
+  .c2-n-gold { background: var(--gold); color: var(--ink); }
+  .c2-notes { display: grid; gap: var(--s-3); }
+  .c2-slot { position: relative; }
+  .c2-tag { display: none; position: absolute; left: var(--s-4); top: 50%; margin-top: -1.125rem; z-index: 2; background: var(--ink); color: var(--on-navy); font-weight: 800; font-size: var(--step-1); line-height: 1; padding: 0.625rem 1rem; border-radius: var(--r-pill); box-shadow: var(--sh-2); white-space: nowrap; }
+  .c2-note { display: grid; grid-template-columns: auto 1fr; gap: var(--s-3); align-items: start; background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: var(--s-4); box-shadow: var(--sh-2); }
+  .c2-note blockquote { font-weight: 600; line-height: 1.45; letter-spacing: -0.005em; }
+  .c2-close { margin-top: var(--s-6); font-size: var(--step-4); font-weight: 850; letter-spacing: -0.03em; line-height: 1.1; text-wrap: balance; }
+
+  /* The scroll-driven version. Transform and opacity only. */
+  @media (prefers-reduced-motion: no-preference) and (min-width: 62rem) and (min-height: 600px), (prefers-reduced-motion: no-preference) and (max-width: 61.99rem) and (min-height: 740px) {
+    @supports (animation-timeline: view()) {
+      .c2 { padding-block: 0; height: 340vh; view-timeline-name: --c2; view-timeline-axis: block; }
+      .c2-stage { position: sticky; top: 4rem; height: calc(100svh - 4rem); display: grid; align-items: center; overflow: clip; }
+      .c2 .anim { animation-timeline: --c2; animation-range: contain 0% contain 100%; animation-timing-function: linear; animation-fill-mode: both; animation-duration: auto; }
+      .c2-h { font-size: var(--step-3); margin-bottom: var(--s-5); }
+      .c2-close { margin-top: var(--s-4); font-size: var(--step-3); animation-name: c2-close; }
+      .c2-claim::before { animation: c2-hl linear both; animation-timeline: --c2; }
+      .k1::before { animation-range: contain 8% contain 14%; }
+      .k2::before { animation-range: contain 36% contain 42%; }
+      .k3::before { animation-range: contain 64% contain 70%; }
+      @keyframes c2-hl { from { opacity: 0; } to { opacity: 1; } }
+      .c2-tag { display: block; transform-origin: 20% 100%; }
+      .t1 { animation-name: c2-t1; } .t2 { animation-name: c2-t2; } .t3 { animation-name: c2-t3; }
+      @keyframes c2-t1 { 0%, 11% { opacity: 0; transform: scale(0.6) rotate(-10deg); } 15%, 20% { opacity: 1; transform: rotate(-3deg); } 23%, 100% { opacity: 0; transform: translateY(-10px) rotate(-3deg); } }
+      @keyframes c2-t2 { 0%, 39% { opacity: 0; transform: scale(0.6) rotate(-10deg); } 43%, 48% { opacity: 1; transform: rotate(-3deg); } 51%, 100% { opacity: 0; transform: translateY(-10px) rotate(-3deg); } }
+      @keyframes c2-t3 { 0%, 67% { opacity: 0; transform: scale(0.6) rotate(-10deg); } 71%, 76% { opacity: 1; transform: rotate(-3deg); } 79%, 100% { opacity: 0; transform: translateY(-10px) rotate(-3deg); } }
+      .n1 { animation-name: c2-n1; } .n2 { animation-name: c2-n2; } .n3 { animation-name: c2-n3; }
+      @keyframes c2-n1 { 0%, 23% { opacity: 0; transform: translateY(16px); } 31%, 100% { opacity: 1; transform: none; } }
+      @keyframes c2-n2 { 0%, 51% { opacity: 0; transform: translateY(16px); } 59%, 100% { opacity: 1; transform: none; } }
+      @keyframes c2-n3 { 0%, 79% { opacity: 0; transform: translateY(16px); } 87%, 100% { opacity: 1; transform: none; } }
+      @keyframes c2-close { 0%, 90% { opacity: 0; transform: translateY(12px); } 97%, 100% { opacity: 1; transform: none; } }
+    }
+  }
+  /* On a phone there is room for one answer at a time, so each gives way to the next. */
+  @media (prefers-reduced-motion: no-preference) and (max-width: 61.99rem) and (min-height: 740px) {
+    @supports (animation-timeline: view()) {
+      .c2-h { font-size: var(--step-2); margin-bottom: var(--s-4); }
+      .c2-grid { gap: var(--s-4); }
+      .c2-claims { gap: var(--s-3); margin-top: var(--s-3); }
+      .c2-claim { font-size: 0.9375rem; }
+      .c2-exp { margin-top: var(--s-3); }
+      .c2-notes { gap: 0; }
+      .c2-slot { grid-area: 1 / 1; }
+      .c2-tag { top: var(--s-5); margin-top: 0; }
+      .c2-close { font-size: var(--step-2); }
+      @keyframes c2-n1 { 0%, 23% { opacity: 0; transform: translateY(20px); } 30%, 37% { opacity: 1; transform: none; } 41%, 100% { opacity: 0; transform: translateY(-14px); } }
+      @keyframes c2-n2 { 0%, 51% { opacity: 0; transform: translateY(20px); } 58%, 65% { opacity: 1; transform: none; } 69%, 100% { opacity: 0; transform: translateY(-14px); } }
+      @keyframes c2-n3 { 0%, 79% { opacity: 0; transform: translateY(20px); } 87%, 100% { opacity: 1; transform: none; } }
+    }
+  }
+</style>

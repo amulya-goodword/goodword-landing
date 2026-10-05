@@ -2,7 +2,7 @@
 import '../styles/global.css';
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
-import { SITE } from '../config';
+import { SITE, GA_ID } from '../config';
 
 interface Props {
   title: string;
@@ -11,8 +11,11 @@ interface Props {
   page: string;
   /** Internal review pages are kept out of search. */
   noindex?: boolean;
+  /** Share image under /og/, without the extension. */
+  og?: string;
 }
-const { title, description, page, noindex = false } = Astro.props;
+const { title, description, page, noindex = false, og = 'default' } = Astro.props;
+const ogImage = new URL(`/og/${og}.png`, SITE.url).toString();
 const canonical = new URL(Astro.url.pathname, SITE.url).toString();
 ---
 <!doctype html>
@@ -24,7 +27,7 @@ const canonical = new URL(Astro.url.pathname, SITE.url).toString();
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
     {noindex && <meta name="robots" content="noindex, nofollow" />}
-    <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/inter-gw.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="icon" href="/favicon.png" type="image/png" />
     <meta name="theme-color" content="#0f1b2d" />
     <meta property="og:site_name" content={SITE.name} />
@@ -33,7 +36,14 @@ const canonical = new URL(Astro.url.pathname, SITE.url).toString();
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImage} />
+    <slot name="head" />
   </head>
   <body>
     <a class="skip" href="#main">Skip to content</a>
@@ -42,5 +52,51 @@ const canonical = new URL(Astro.url.pathname, SITE.url).toString();
       <slot />
     </main>
     <Footer page={page} />
+    <script is:inline define:vars={{ GA_ID }}>
+      // 1. Campaign tracking. A visitor who arrived with utm or ref parameters keeps them on every link to the app,
+      //    on this page and on the pages they visit next. Without this script the links still carry the site's own tags.
+      (function () {
+        var KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'ref'];
+        var got = {}, has = false, q = new URLSearchParams(location.search);
+        KEYS.forEach(function (k) { var v = q.get(k); if (v) { got[k] = v; has = true; } });
+        try {
+          if (has) sessionStorage.setItem('gw_attr', JSON.stringify(got));
+          else { var s = sessionStorage.getItem('gw_attr'); if (s) { got = JSON.parse(s); has = true; } }
+        } catch (e) {}
+        if (has) {
+          var ownUtm = KEYS.slice(0, 5).some(function (k) { return got[k]; });
+          document.querySelectorAll('a[data-app-link]').forEach(function (a) {
+            var u = new URL(a.href);
+            if (ownUtm) KEYS.slice(0, 5).forEach(function (k) { u.searchParams.delete(k); });
+            KEYS.forEach(function (k) { if (got[k]) u.searchParams.set(k, got[k]); });
+            a.href = u.toString();
+          });
+        }
+        // 2. Analytics, loaded late: on the first interaction or a few seconds after the page has loaded.
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = function () { dataLayer.push(arguments); };
+        gtag('js', new Date());
+        gtag('config', GA_ID);
+        var loaded = false;
+        function load() {
+          if (loaded) return; loaded = true;
+          var s = document.createElement('script'); s.async = true;
+          s.src = 'https://www.googletagmanager.com/gtag/js?id=' + GA_ID;
+          document.head.appendChild(s);
+        }
+        ['pointerdown', 'keydown', 'scroll', 'touchstart'].forEach(function (e) { addEventListener(e, load, { once: true, passive: true }); });
+        addEventListener('load', function () { setTimeout(load, 4000); });
+        // 3. Clicks on the signup and sample buttons, by page and by section.
+        document.addEventListener('click', function (e) {
+          var a = e.target.closest && e.target.closest('a[data-cta]');
+          if (!a) return;
+          var c = a.getAttribute('data-cta');
+          if (c === 'signup' || c === 'sample') {
+            gtag('event', c + '_click', { page: a.getAttribute('data-page'), section: a.getAttribute('data-section'), transport_type: 'beacon' });
+            load();
+          }
+        });
+      })();
+    </script>
   </body>
 </html>

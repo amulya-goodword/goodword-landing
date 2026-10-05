@@ -1,0 +1,131 @@
+---
+// What keeps it honest, what hiring managers said, the questions and the closing ask.
+import AppLink from '../AppLink.astro';
+import Arrow from '../Arrow.astro';
+import Tick from '../Tick.astro';
+import Piece from '../report/ReportPieces.astro';
+
+interface Props { faqs: { q: string; a: string }[] }
+const { faqs } = Astro.props;
+
+const honest = [
+  { t: 'Words only', d: 'No ratings and no scores, anywhere in a report.' },
+  { t: 'You cannot edit it', d: 'You read every word a referee wrote. You cannot change one.' },
+  { t: 'Every reference has an area to grow', d: 'Referees are asked for a real one. It is what makes the praise believable.' },
+  { t: 'Shown by role', d: 'Recruiters see “Direct Manager”, not a name, unless that referee chose to be named. You always know who wrote what.' },
+  { t: 'Checked, within limits', d: 'We check that each reference came from the email address you gave, and we look for signs of misuse.' },
+  { t: 'Not a background check', d: 'We do not verify identity documents or employment records, and we do not claim to.' },
+  { t: 'A referee can withdraw', d: 'One click and a confirm, from a link they get when they submit.' },
+  { t: 'Your data stays yours', d: 'Export or delete all of it at any time, under India’s DPDP Act. A report is valid for 12 months.' },
+];
+---
+<section class="honest on-navy" aria-labelledby="honest-h">
+  <div class="wrap">
+    <div class="honest-head">
+      <p class="eyebrow">Why a recruiter can trust it</p>
+      <h2 id="honest-h">What keeps it honest.</h2>
+    </div>
+    <ul class="honest-list">
+      {honest.map((h) => (
+        <li class="reveal"><Tick /><div><h3>{h.t}</h3><p>{h.d}</p></div></li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<section class="section voices" aria-labelledby="voices-h">
+  <div class="wrap">
+    <div class="voices-head">
+      <p class="eyebrow">From the pilot</p>
+      <h2 id="voices-h">What hiring managers told us.</h2>
+    </div>
+    <div class="grid grid-2 voices-grid">
+      <figure class="card card-raised voice reveal">
+        <svg class="quote-mark" viewBox="0 0 32 24" fill="currentColor" aria-hidden="true"><path d="M0 24V13.5C0 5.6 4.4 1 12.4 0l1.2 3.4C9.4 4.4 7.4 7 7.2 10.4H13V24H0zm18.4 0V13.5C18.4 5.6 22.8 1 30.8 0L32 3.4c-4.2 1-6.2 3.6-6.4 7h5.8V24h-13z" /></svg>
+        <blockquote>It's easier for us to identify the real potential candidates, quicker.</blockquote>
+        <figcaption class="meta">A hiring manager in our pilot</figcaption>
+      </figure>
+      <figure class="card card-raised voice reveal">
+        <svg class="quote-mark" viewBox="0 0 32 24" fill="currentColor" aria-hidden="true"><path d="M0 24V13.5C0 5.6 4.4 1 12.4 0l1.2 3.4C9.4 4.4 7.4 7 7.2 10.4H13V24H0zm18.4 0V13.5C18.4 5.6 22.8 1 30.8 0L32 3.4c-4.2 1-6.2 3.6-6.4 7h5.8V24h-13z" /></svg>
+        <blockquote>Since we already know a person's strengths and improvement areas, it's easy to have a real conversation with them and gauge how they think.</blockquote>
+        <figcaption class="meta">A hiring manager in our pilot</figcaption>
+      </figure>
+    </div>
+    <p class="voices-links">Received a report or an invite? Read the page <a class="link" href="/for-recruiters/">for recruiters</a> or <a class="link" href="/for-referees/">for referees</a>.</p>
+  </div>
+</section>
+
+<section class="section faq-sec" id="questions" aria-labelledby="faq-h">
+  <div class="wrap-narrow">
+    <div class="faq-head">
+      <p class="eyebrow">Questions</p>
+      <h2 id="faq-h">The short answers.</h2>
+    </div>
+    <div class="faq">
+      {faqs.map((f) => (
+        <details>
+          <summary><span>{f.q}</span><span class="faq-x" aria-hidden="true"></span></summary>
+          <p>{f.a}</p>
+        </details>
+      ))}
+    </div>
+    <p class="faq-more"><a class="link" href="/questions/">All questions</a></p>
+  </div>
+</section>
+
+<section class="closer on-navy" aria-labelledby="closer-h">
+  <div class="wrap closer-grid">
+    <div class="closer-copy">
+      <h2 id="closer-h" class="display">Apply to jobs with a GoodWord.</h2>
+      <p class="lede">The next time someone asks for your resume, send the people who will vouch for it too.</p>
+      <div class="cluster closer-cta">
+        <AppLink to="register" page="home" section="closer" class="btn btn-primary btn-lg">Start my GoodWord <Arrow /></AppLink>
+        <AppLink to="sample" page="home" section="closer" class="btn btn-ghost btn-lg">See a sample report</AppLink>
+      </div>
+      <p class="meta">Free for the first 1,000 members. No card needed.</p>
+    </div>
+    <div class="closer-msg reveal"><Piece piece="message" /></div>
+  </div>
+</section>
+
+<style is:global>
+  .honest { padding-block: var(--section); }
+  .honest-head { display: grid; gap: var(--s-3); max-width: 44rem; }
+  .honest-list { margin-top: var(--s-7); display: grid; gap: var(--s-5) var(--s-7); }
+  @media (min-width: 48rem) { .honest-list { grid-template-columns: repeat(2, 1fr); } }
+  .honest-list li { display: grid; grid-template-columns: auto 1fr; gap: var(--s-3); align-items: start; padding-bottom: var(--s-5); border-bottom: 1px solid rgba(255, 255, 255, 0.14); }
+  .honest-list .tick { margin-top: 0.25rem; }
+  .honest-list h3 { font-size: var(--step-1); letter-spacing: -0.015em; }
+  .honest-list p { margin-top: 0.25rem; color: var(--on-navy-2); line-height: 1.55; }
+
+  .voices-head { display: grid; gap: var(--s-3); max-width: 44rem; }
+  .voices-grid { margin-top: var(--s-6); }
+  .voice { display: grid; gap: var(--s-4); align-content: start; padding: clamp(1.25rem, 0.9rem + 1.6vw, 2rem); }
+  .voice blockquote { font-size: var(--step-2); font-weight: 650; letter-spacing: -0.02em; line-height: 1.3; text-wrap: pretty; }
+  .voices-links { margin-top: var(--s-6); color: var(--ink-2); }
+
+  .faq-sec { background: var(--surface); border-top: 1px solid var(--line); }
+  .faq-head { display: grid; gap: var(--s-3); }
+  .faq { margin-top: var(--s-6); border-top: 1px solid var(--line); }
+  .faq details { border-bottom: 1px solid var(--line); }
+  .faq summary { list-style: none; cursor: pointer; display: grid; grid-template-columns: 1fr auto; gap: var(--s-4); align-items: center; padding: var(--s-4) 0; font-size: var(--step-1); font-weight: 700; letter-spacing: -0.01em; line-height: 1.3; }
+  .faq summary::-webkit-details-marker { display: none; }
+  .faq summary:hover { color: var(--gold-ink); }
+  .faq-x { position: relative; width: 1.5rem; height: 1.5rem; flex: none; }
+  .faq-x::before, .faq-x::after { content: ''; position: absolute; left: 50%; top: 50%; width: 0.875rem; height: 2px; margin: -1px 0 0 -0.4375rem; background: currentColor; border-radius: 2px; transition: transform var(--t-base) var(--ease); }
+  .faq-x::after { transform: rotate(90deg); }
+  .faq details[open] .faq-x::after { transform: rotate(0deg); }
+  .faq details p { padding: 0 0 var(--s-5); color: var(--ink-2); max-width: var(--measure); }
+  .faq-more { margin-top: var(--s-5); }
+
+  .closer { padding-block: var(--section); overflow: clip; }
+  .closer-grid { display: grid; gap: var(--s-7); align-items: center; }
+  @media (min-width: 62rem) { .closer-grid { grid-template-columns: 1.1fr 0.9fr; gap: var(--s-8); } }
+  .closer-copy > * + * { margin-top: var(--s-4); }
+  .closer-copy .display { max-width: 11ch; }
+  .closer-cta { margin-top: var(--s-5); }
+  @media (max-width: 30rem) { .closer-cta .btn { width: 100%; } }
+  .closer-msg { color: var(--ink); justify-self: center; width: 100%; max-width: 30rem; }
+  .closer-msg .meta { color: var(--ink-3); }
+  .closer-msg .msg { max-width: none; box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.55); }
+</style>

@@ -1,0 +1,124 @@
+---
+// The second screen: the report itself, on a navy stage, with a numbered key to what is inside.
+import AppLink from '../AppLink.astro';
+import Arrow from '../Arrow.astro';
+import Tick from '../Tick.astro';
+import Wordmark from '../Wordmark.astro';
+import { sample } from '../../data/sample';
+const c = sample.candidate;
+const first = sample.referees[0];
+const key = [
+  { n: 1, t: 'Would they work with you again', d: 'Each referee is asked privately. The report shows the answer.' },
+  { n: 2, t: 'Validated strengths', d: 'What the people you worked with say you do better than most.' },
+  { n: 3, t: 'Areas to grow', d: 'Every reference includes one. It is what makes the rest believable.' },
+  { n: 4, t: 'A written summary', d: 'A short summary of your referees’ words, written with the help of AI.' },
+  { n: 5, t: 'Response Integrity', d: 'A level in words, from Basic to Strong. It reflects how sure we are the references are real and independent. Never how positive they are.' },
+  { n: 6, t: 'Each referee’s response', d: 'Recruiters see the role, such as Direct Manager. A name appears only if that referee chose it. You always know who wrote what.' },
+];
+---
+<section class="stage" aria-labelledby="report-h">
+  <div class="wrap">
+    <div class="stage-head">
+      <p class="eyebrow">The report</p>
+      <h2 id="report-h">One report, in the words of the people who know your work.</h2>
+      <p class="lede">No ratings and no scores. Only what three to five people said about working with you, and nothing you can edit.</p>
+    </div>
+
+    <div class="sheet" aria-label="A sample GoodWord report for Aarav Mehta">
+      <div class="rp-head">
+        <div>
+          <Wordmark />
+          <p class="rp-label" style="margin-top: var(--s-2)">Credibility report</p>
+        </div>
+        <p class="doc"><strong>{sample.id}</strong><br />{sample.generated}<br />{sample.valid}</p>
+      </div>
+      <div class="rp-who">
+        <div>
+          <p class="name">{c.name}</p>
+          <p class="meta">{c.role} · {c.city}</p>
+        </div>
+        <span class="chip chip-navy"><span class="sheet-n" aria-hidden="true">5</span>Response Integrity: {sample.integrity.level}</span>
+      </div>
+
+      <p class="tally sheet-tally"><span class="sheet-n" aria-hidden="true">1</span><span class="ticks"><Tick /><Tick /><Tick /></span><span>{sample.tally}</span></p>
+
+      <div class="sheet-cols">
+        <div class="stack" style="--stack: var(--s-3)">
+          <p class="rp-label"><span class="sheet-n" aria-hidden="true">2</span>Validated strengths</p>
+          <ul class="points">{sample.strengths.map((s) => <li><Tick small /><span>{s}</span></li>)}</ul>
+        </div>
+        <div class="stack" style="--stack: var(--s-3)">
+          <p class="rp-label rp-label-quiet"><span class="sheet-n" aria-hidden="true">3</span>Areas to grow</p>
+          <ul class="points">{sample.growth.map((s) => <li><span class="dot" aria-hidden="true"></span><span>{s}</span></li>)}</ul>
+        </div>
+      </div>
+
+      <div class="sheet-block stack" style="--stack: var(--s-2)">
+        <p class="rp-label"><span class="sheet-n" aria-hidden="true">4</span>Summary</p>
+        <p>{sample.summary}</p>
+      </div>
+
+      <div class="sheet-block stack" style="--stack: var(--s-3)">
+        <p class="rp-label"><span class="sheet-n" aria-hidden="true">6</span>Referee responses</p>
+        <div class="sheet-ref stack" style="--stack: var(--s-2)">
+          <div class="quote-top">
+            <span class="quote-who">{first.label}</span>
+            <span class="chip chip-gold"><Tick small />{first.role} · Verified</span>
+          </div>
+          <p class="rp-label">Where they excel</p>
+          <p>{first.excel}</p>
+        </div>
+        <p class="meta">Two more responses follow in the full sample, from a peer and a direct report.</p>
+      </div>
+    </div>
+
+    <ol class="stage-key">
+      {key.map((k) => (
+        <li>
+          <span class="sheet-n" aria-hidden="true">{k.n}</span>
+          <div><h3>{k.t}</h3><p>{k.d}</p></div>
+        </li>
+      ))}
+    </ol>
+
+    <p class="stage-cta"><AppLink to="sample" page="home" section="report" class="btn btn-primary btn-lg">Read the full sample report <Arrow /></AppLink></p>
+  </div>
+</section>
+
+<style is:global>
+  .stage { background: var(--ink); color: var(--on-navy); padding-block: var(--section); overflow: clip; }
+  .stage-head { max-width: 46rem; margin-inline: auto; text-align: center; display: grid; gap: var(--s-4); justify-items: center; }
+  .stage-head .eyebrow { color: var(--gold); }
+  .stage-head .lede { color: var(--on-navy-2); }
+  .stage :focus-visible { outline-color: var(--gold); }
+
+  .sheet { margin: var(--s-7) auto 0; max-width: 56rem; background: var(--surface); color: var(--ink); border-radius: var(--r-lg); padding: clamp(1.125rem, 0.5rem + 3vw, 2.75rem); box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.55); display: grid; gap: var(--s-5); }
+  .sheet .rp-who { margin-top: 0; }
+  .sheet-tally { align-items: center; }
+  .sheet-cols { display: grid; gap: var(--s-5); }
+  @media (min-width: 48rem) { .sheet-cols { grid-template-columns: 1.15fr 0.85fr; gap: var(--s-6); } }
+  .sheet-block { padding-top: var(--s-4); border-top: 1px solid var(--line); }
+  .sheet-ref { background: var(--canvas); border: 1px solid var(--line); border-radius: var(--r-md); padding: var(--s-4); }
+  .sheet-n { display: inline-grid; place-items: center; width: 1.375rem; height: 1.375rem; margin-right: 0.5rem; border-radius: 50%; background: var(--ink); color: var(--on-navy); font-size: 0.875rem; font-weight: 800; letter-spacing: 0; line-height: 1; vertical-align: -0.2em; flex: none; }
+  .chip-navy .sheet-n, .stage-key .sheet-n { background: var(--gold); color: var(--ink); }
+  .chip-navy .sheet-n { margin-right: 0.25rem; width: 1.25rem; height: 1.25rem; }
+  .sheet-tally .sheet-n { margin-right: 0; }
+
+  .stage-key { margin: var(--s-7) auto 0; max-width: 62rem; display: grid; gap: var(--s-5) var(--s-6); }
+  @media (min-width: 40rem) { .stage-key { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 62rem) { .stage-key { grid-template-columns: repeat(3, 1fr); } }
+  .stage-key li { display: grid; grid-template-columns: auto 1fr; gap: var(--s-2); align-items: start; }
+  .stage-key .sheet-n { margin-top: 0.2rem; }
+  .stage-key h3 { font-size: var(--step-1); letter-spacing: -0.015em; }
+  .stage-key p { margin-top: 0.25rem; color: var(--on-navy-2); font-size: var(--step--1); line-height: 1.55; }
+  .stage-cta { margin-top: var(--s-7); text-align: center; }
+
+  /* The sheet rises and settles as it comes into view */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .sheet { transform-origin: 50% 0; animation: sheet-rise linear both; animation-timeline: view(); animation-range: entry 0px entry 420px; }
+      @keyframes sheet-rise { from { opacity: 0.75; transform: translateY(56px) scale(0.93); } to { opacity: 1; transform: none; } }
+      .stage-key li { animation: reveal-up linear both; animation-timeline: view(); animation-range: entry 10% entry 60%; }
+    }
+  }
+</style>

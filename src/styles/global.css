@@ -4,17 +4,28 @@
 @font-face {
   font-family: 'Inter';
   font-style: normal;
-  font-weight: 100 900;
+  font-weight: 400 900;
   font-display: swap;
-  src: url('/fonts/inter-latin.woff2') format('woff2-variations');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  src: url('/fonts/inter-gw.woff2') format('woff2-variations');
+  /* The 19 KB subset: basic Latin and the punctuation the site uses. Preloaded. */
+  unicode-range: U+0020-007E, U+00A0, U+00A9, U+00B7, U+2013, U+2018-2019, U+201C-201D, U+2026, U+2192;
 }
 @font-face {
   font-family: 'Inter';
   font-style: normal;
-  font-weight: 100 900;
+  font-weight: 400 900;
+  font-display: swap;
+  src: url('/fonts/inter-latin.woff2') format('woff2-variations');
+  /* Fetched only if a page uses an accented or rarer character */
+  unicode-range: U+00A1-00A8, U+00AA-00B6, U+00B8-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-2012, U+2014-2017, U+201A-201B, U+201E-2025, U+2027-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215;
+}
+@font-face {
+  font-family: 'Inter';
+  font-style: normal;
+  font-weight: 400 900;
   font-display: swap;
   src: url('/fonts/inter-latin-ext.woff2') format('woff2-variations');
+  /* Fetched only if a page shows a rupee sign or extended Latin */
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 /* A fallback sized to Inter, so text does not move when the font arrives */
@@ -115,12 +126,12 @@ button, input, select, textarea { font: inherit; color: inherit; }
 .on-navy :focus-visible, .on-navy:focus-visible { outline-color: var(--gold); }
 ::selection { background: var(--gold-tint); }
 
-h1, h2, h3 { font-weight: 850; letter-spacing: -0.03em; line-height: 1.08; text-wrap: balance; }
+h1, h2, h3 { font-weight: 850; letter-spacing: -0.03em; line-height: 1.08; }
+h1, h2 { text-wrap: balance; }
 h1 { font-size: var(--step-5); letter-spacing: -0.035em; }
 h2 { font-size: var(--step-4); }
 h3 { font-size: var(--step-2); letter-spacing: -0.02em; line-height: 1.2; }
 h4 { font-size: var(--step-1); font-weight: 750; letter-spacing: -0.01em; line-height: 1.3; }
-p { text-wrap: pretty; }
 .display { font-size: var(--step-6); font-weight: 900; letter-spacing: -0.04em; line-height: 1.02; }
 .lede { font-size: var(--step-1); line-height: 1.55; color: var(--ink-2); max-width: var(--measure); }
 .meta { font-size: var(--step--1); color: var(--ink-3); }
@@ -148,8 +159,9 @@ p { text-wrap: pretty; }
 }
 
 /* ---------- Wordmark ---------- */
-.wordmark { display: inline-block; font-weight: 900; letter-spacing: -0.035em; font-size: 1.375rem; line-height: 1; text-decoration: none; white-space: nowrap; color: var(--ink); }
-.wordmark b { font-weight: 900; color: var(--gold); }
+.wordmark { display: inline-block; font-size: 1.375rem; line-height: 1; color: var(--ink); }
+.wordmark svg { display: block; height: 0.76em; width: auto; }
+.wordmark-link { display: inline-flex; align-items: center; min-height: 2.75rem; text-decoration: none; }
 .on-navy .wordmark { color: var(--on-navy); }
 
 /* ---------- Buttons ---------- */
@@ -196,7 +208,7 @@ a.card:hover { transform: translateY(-3px); box-shadow: var(--sh-2); }
 
 /* ---------- Chips ---------- */
 .chip { display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.25rem 0.625rem; border-radius: var(--r-pill); font-size: var(--step--1); font-weight: 650; line-height: 1.3; background: var(--canvas); color: var(--ink-2); border: 1px solid var(--line); white-space: nowrap; }
-.chip-gold { background: var(--gold-tint); color: var(--gold-ink); border-color: var(--gold-line); }
+.chip-gold { background: #fbf6ea; color: var(--gold-ink); border-color: var(--gold-line); }
 .chip-navy { background: var(--ink); color: var(--on-navy); border-color: var(--ink); }
 .chip svg { width: 0.875rem; height: 0.875rem; flex: none; }
 
@@ -219,8 +231,9 @@ a.card:hover { transform: translateY(-3px); box-shadow: var(--sh-2); }
 .check input { width: 1.25rem; height: 1.25rem; margin: 0.125rem 0 0; flex: none; accent-color: var(--ink); cursor: pointer; }
 
 /* ---------- Header and footer ---------- */
-.site-header { position: sticky; top: 0; z-index: 50; background: rgba(243, 245, 248, 0.92); border-bottom: 1px solid var(--line); }
-@supports (backdrop-filter: blur(8px)) { .site-header { background: rgba(243, 245, 248, 0.78); backdrop-filter: saturate(1.4) blur(10px); } }
+.site-header { position: sticky; top: 0; z-index: 50; background: rgba(243, 245, 248, 0.97); border-bottom: 1px solid var(--line); }
+/* The frosted header is for larger screens. On phones it stays solid, which scrolls more smoothly on mid-range devices. */
+@media (min-width: 48rem) { @supports (backdrop-filter: blur(8px)) { .site-header { background: rgba(243, 245, 248, 0.78); backdrop-filter: saturate(1.4) blur(10px); } } }
 .site-header .bar { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); min-height: 4rem; }
 .site-nav { display: none; gap: var(--s-5); }
 .site-nav a { font-size: var(--step--1); font-weight: 650; text-decoration: none; color: var(--ink-2); padding: 0.5rem 0; }

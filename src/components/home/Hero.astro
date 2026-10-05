@@ -1,0 +1,101 @@
+---
+// The promise, beside one referee's words. The three sample referees take turns, and their words arrive a word at a time.
+import AppLink from '../AppLink.astro';
+import Arrow from '../Arrow.astro';
+import Tick from '../Tick.astro';
+import { sample } from '../../data/sample';
+const r = sample.referees;
+---
+<section class="hero" aria-labelledby="hero-h">
+  <div class="wrap hero-grid">
+    <div class="hero-copy">
+      <p class="eyebrow">Verified references for your job applications</p>
+      <h1 id="hero-h">Let the people you have worked with vouch for you.</h1>
+      <p class="lede">Invite managers, peers and clients to say what you are like to work with. GoodWord turns their words into one verified report you send with every application.</p>
+      <div class="cluster hero-cta">
+        <AppLink to="register" page="home" section="hero" class="btn btn-primary btn-lg">Start my GoodWord <Arrow /></AppLink>
+        <AppLink to="sample" page="home" section="hero" class="btn btn-ghost btn-lg">See a sample report</AppLink>
+      </div>
+      <p class="meta hero-free">Free for the first 1,000 members. No card needed.</p>
+    </div>
+
+    <div class="hv">
+      <div class="hv-deck">
+        <span class="hv-ghost hv-g2" aria-hidden="true"></span>
+        <span class="hv-ghost hv-g1" aria-hidden="true"></span>
+        <ol class="hv-cards" aria-label="What three people said about working with Aarav">
+          {r.map((ref, k) => (
+            <li class="hv-card" style={`--k:${k}`}>
+              <figure class="rp rp-pad quote hv-quote">
+                <svg class="quote-mark" viewBox="0 0 32 24" fill="currentColor" aria-hidden="true"><path d="M0 24V13.5C0 5.6 4.4 1 12.4 0l1.2 3.4C9.4 4.4 7.4 7 7.2 10.4H13V24H0zm18.4 0V13.5C18.4 5.6 22.8 1 30.8 0L32 3.4c-4.2 1-6.2 3.6-6.4 7h5.8V24h-13z" /></svg>
+                <blockquote class="quote-words big">{ref.excelShort.split(' ').map((w, i) => (<><span class="hv-w" style={`--i:${i}`}>{w}</span>{' '}</>))}</blockquote>
+                <figcaption class="cluster" style="--cluster: var(--s-2)">
+                  <span class="chip chip-gold"><Tick small />{ref.role} · Verified</span>
+                  <span class="meta">{ref.named ? ref.label : 'Shown by role'}</span>
+                </figcaption>
+              </figure>
+            </li>
+          ))}
+        </ol>
+      </div>
+      <p class="tally hv-tally"><span class="ticks"><Tick /><Tick /><Tick /></span><span>{sample.tally}</span></p>
+      <p class="meta hv-note">From the sample report. Aarav Mehta and his referees are fictional.</p>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <ul class="hero-facts">
+      <li><strong>3,000+</strong><span>people joined the waitlist before we opened</span></li>
+      <li><strong>100+</strong><span>candidates took part in the early-access pilot</span></li>
+      <li><strong>3 references</strong><span>unlock a report. About 5 minutes for each referee</span></li>
+    </ul>
+  </div>
+</section>
+
+<style is:global>
+  .hero { padding-block: clamp(2rem, 1rem + 4.5vw, 5rem) var(--s-8); overflow: clip; }
+  .hero-grid { display: grid; gap: var(--s-7); align-items: center; }
+  @media (min-width: 62rem) { .hero-grid { grid-template-columns: 1.08fr 0.92fr; gap: var(--s-8); } }
+  .hero-copy > * + * { margin-top: var(--s-4); }
+  .hero-copy h1 { margin-top: var(--s-3); max-width: 13ch; }
+  .hero-copy .lede { max-width: 34rem; }
+  .hero-cta { margin-top: var(--s-5); }
+  .hero-free { margin-top: var(--s-3); text-wrap: balance; }
+  @media (max-width: 30rem) { .hero-cta .btn { width: 100%; } }
+
+  .hv { display: grid; gap: var(--s-4); max-width: 30rem; width: 100%; margin-inline: auto; }
+  .hv-deck { position: relative; padding: 0 1.25rem 1.5rem 0; }
+  .hv-ghost { position: absolute; inset: 0 1.25rem 1.5rem 0; border-radius: var(--r-lg); background: var(--surface); border: 1px solid var(--line); }
+  .hv-g1 { transform: translate(0.625rem, 0.75rem) rotate(1.4deg); opacity: 0.8; }
+  .hv-g2 { transform: translate(1.25rem, 1.5rem) rotate(2.8deg); opacity: 0.5; }
+  .hv-cards { position: relative; display: grid; }
+  .hv-card { grid-area: 1 / 1; opacity: 0; display: grid; }
+  .hv-card:first-child { opacity: 1; }
+  .hv-quote { box-shadow: var(--sh-3); min-height: 15rem; align-content: space-between; }
+  .hv-quote .quote-words.big { font-size: var(--step-2); }
+  .hv-tally { box-shadow: var(--sh-1); }
+  .hv-note { text-align: center; }
+
+  .hero-facts { margin-top: var(--s-8); display: grid; gap: var(--s-4); padding-top: var(--s-5); border-top: 1px solid var(--line); }
+  @media (min-width: 48rem) { .hero-facts { grid-template-columns: repeat(3, 1fr); gap: var(--s-6); } }
+  .hero-facts li { display: grid; gap: 0.125rem; }
+  .hero-facts strong { font-size: var(--step-3); font-weight: 850; letter-spacing: -0.03em; line-height: 1.1; }
+  .hero-facts span { color: var(--ink-2); font-size: var(--step--1); max-width: 26ch; }
+
+  /* The three referees take turns. Each card's words arrive one at a time. Hover to pause and read. */
+  @media (prefers-reduced-motion: no-preference) {
+    .hv-card, .hv-card:first-child { animation: hv-card 15s var(--ease) infinite both; animation-delay: calc(var(--k) * 5s); }
+    @keyframes hv-card {
+      0% { opacity: 0; transform: translateY(16px); }
+      3%, 30% { opacity: 1; transform: none; }
+      33.3%, 100% { opacity: 0; transform: translateY(-12px) scale(0.985); }
+    }
+    .hv-w { display: inline-block; animation: hv-word 15s linear infinite both; animation-delay: calc(var(--k) * 5s + 250ms + var(--i) * 65ms); }
+    @keyframes hv-word { 0% { opacity: 0.14; } 2%, 60% { opacity: 1; } 61%, 100% { opacity: 0.14; } }
+    .hv-deck:hover .hv-card, .hv-deck:hover .hv-w { animation-play-state: paused; }
+    .hv-tally { animation: hv-in 0.7s var(--ease) 0.5s both; }
+    .hv-ghost { animation: hv-in 0.7s var(--ease) 0.15s both; }
+    .hv-g2 { animation-delay: 0.3s; }
+    @keyframes hv-in { from { opacity: 0; } }
+  }
+</style>

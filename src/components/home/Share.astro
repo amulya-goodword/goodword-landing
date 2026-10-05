@@ -1,0 +1,106 @@
+---
+// What you can do with a report. Each claim sits beside the piece of the product that backs it.
+import Piece from '../report/ReportPieces.astro';
+---
+<section class="section share" aria-labelledby="share-h">
+  <div class="wrap">
+    <div class="share-head">
+      <p class="eyebrow">With your report</p>
+      <h2 id="share-h">Send it wherever you apply.</h2>
+      <p class="lede">One report, five ways to put it in front of the person deciding.</p>
+    </div>
+
+    <div class="bento">
+      <article class="tile tile-link reveal">
+        <div class="tile-copy">
+          <h3>A private link, and a list of who opened it</h3>
+          <p>A recruiter confirms a work email with a one-time code before your report opens. You then see who viewed it: a name and a company.</p>
+        </div>
+        <Piece piece="viewers" />
+      </article>
+
+      <article class="tile tile-pdf reveal">
+        <div class="tile-copy">
+          <h3>A PDF with a QR code</h3>
+          <p>The code opens the live report. That is how anyone holding the PDF can check it is real.</p>
+        </div>
+        <div class="tile-center"><Piece piece="pdf" /></div>
+      </article>
+
+      <article class="tile tile-li reveal">
+        <div class="tile-copy">
+          <h3>A card for LinkedIn</h3>
+          <p>An image you post. It says a report exists and opens none of it.</p>
+        </div>
+        <Piece piece="linkedin" />
+      </article>
+
+      <article class="tile tile-rpm reveal">
+        <div class="tile-copy">
+          <h3>Resume Pro Max</h3>
+          <p>Your resume and your report, joined into one file. Your resume is never stored.</p>
+          <p><a class="link" href="/resume-pro-max/">About Resume Pro Max</a></p>
+        </div>
+        <div class="rpm" aria-hidden="true">
+          <span class="rpm-page rpm-resume"><i style="width:60%"></i><i style="width:90%"></i><i style="width:78%"></i><i style="width:84%"></i><i style="width:52%"></i></span>
+          <span class="rpm-page rpm-report"><b></b><i style="width:88%"></i><i style="width:70%"></i><i style="width:80%"></i></span>
+        </div>
+      </article>
+
+      <article class="tile tile-send reveal">
+        <div class="tile-copy">
+          <h3>Send it</h3>
+          <p>Messages drafted for you. You send them from your own mail or WhatsApp.</p>
+        </div>
+        <ul class="cluster send-kinds">
+          <li class="chip chip-gold">To a recruiter</li>
+          <li class="chip chip-gold">A referral ask</li>
+          <li class="chip chip-gold">A follow-up</li>
+        </ul>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .share-head { display: grid; gap: var(--s-3); max-width: 44rem; }
+  .bento { margin-top: var(--s-7); display: grid; gap: var(--s-4); }
+  .tile { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: clamp(1.25rem, 0.9rem + 1.6vw, 2rem); display: grid; gap: var(--s-5); align-content: start; overflow: hidden; }
+  .tile-copy { display: grid; gap: var(--s-2); align-content: start; }
+  .tile h3 { font-size: var(--step-2); }
+  .tile-copy p { color: var(--ink-2); max-width: 44ch; }
+  .tile .rp { box-shadow: none; background: var(--canvas); }
+  .tile-center { display: grid; justify-items: center; }
+  .tile-center .pdf { width: 100%; max-width: 14rem; }
+  .tile-li .li-card { max-width: none; }
+  .send-kinds { align-self: end; flex-direction: column; align-items: flex-start; }
+  .send-kinds .chip { font-size: var(--step-0); padding: 0.5rem 0.875rem; }
+  @media (min-width: 62rem) {
+    .bento { grid-template-columns: repeat(6, 1fr); }
+    .tile-link { grid-column: span 4; grid-template-columns: 0.9fr 1.1fr; align-items: center; gap: var(--s-6); }
+    .tile-pdf { grid-column: span 2; }
+    .tile-li { grid-column: span 2; }
+    .tile-rpm { grid-column: span 2; }
+    .tile-send { grid-column: span 2; }
+  }
+  @media (min-width: 40rem) and (max-width: 61.99rem) {
+    .bento { grid-template-columns: repeat(2, 1fr); }
+    .tile-link { grid-column: span 2; }
+  }
+
+  /* Resume Pro Max: a resume and a report, as one file */
+  .rpm { position: relative; height: 9.5rem; }
+  .rpm-page { position: absolute; top: 0; width: 6.25rem; height: 8.5rem; border-radius: 8px; background: var(--surface); border: 1px solid var(--line-strong); box-shadow: var(--sh-2); padding: 0.75rem 0.625rem; display: grid; gap: 0.375rem; align-content: start; }
+  .rpm-page i { display: block; height: 0.3125rem; border-radius: var(--r-pill); background: var(--line); }
+  .rpm-resume { left: calc(50% - 5.5rem); transform: rotate(-4deg); }
+  .rpm-report { left: calc(50% - 0.75rem); top: 0.75rem; transform: rotate(3deg); border-top: 4px solid var(--gold); }
+  .rpm-report b { display: block; width: 2.5rem; height: 0.5rem; border-radius: 2px; background: var(--ink); margin-bottom: 0.25rem; }
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .rpm-resume { animation: rpm-l linear both; animation-timeline: view(); animation-range: entry 20% cover 45%; }
+      .rpm-report { animation: rpm-r linear both; animation-timeline: view(); animation-range: entry 20% cover 45%; }
+      @keyframes rpm-l { from { transform: translateX(-2.25rem) rotate(-9deg); } to { transform: rotate(-4deg); } }
+      @keyframes rpm-r { from { transform: translateX(2.25rem) rotate(9deg); } to { transform: rotate(3deg); } }
+    }
+  }
+</style>
