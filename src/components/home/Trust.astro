@@ -9,14 +9,12 @@ interface Props { faqs: { q: string; a: string }[] }
 const { faqs } = Astro.props;
 
 const honest = [
-  { t: 'Words only', d: 'No ratings and no scores, anywhere in a report.' },
-  { t: 'You cannot edit it', d: 'You read every word a referee wrote. You cannot change one.' },
-  { t: 'Every reference has an area to grow', d: 'Referees are asked for a real one. It is what makes the praise believable.' },
-  { t: 'Shown by role', d: 'Recruiters see “Direct Manager”, not a name, unless that referee chose to be named. You always know who wrote what.' },
-  { t: 'Checked, within limits', d: 'We check that each reference came from the email address you gave, and we look for signs of misuse.' },
-  { t: 'Not a background check', d: 'We do not verify identity documents or employment records, and we do not claim to.' },
-  { t: 'A referee can withdraw', d: 'One click and a confirm, from a link they get when they submit.' },
-  { t: 'Your data stays yours', d: 'Export or delete all of it at any time, under India’s DPDP Act. A report is valid for 12 months.' },
+  'Words only. No ratings, no scores.',
+  'You cannot edit what a referee wrote.',
+  'Every reference names an area to grow.',
+  'Recruiters see roles, not names. You see both.',
+  'Not a background check. We do not claim to be one.',
+  'Your data is yours. Export or delete it any time.',
 ];
 ---
 <section class="honest on-navy" aria-labelledby="honest-h">
@@ -27,7 +25,7 @@ const honest = [
     </div>
     <ul class="honest-list">
       {honest.map((h) => (
-        <li class="reveal"><Tick /><div><h3>{h.t}</h3><p>{h.d}</p></div></li>
+        <li class="reveal"><Tick /><p>{h}</p></li>
       ))}
     </ul>
   </div>
@@ -51,7 +49,7 @@ const honest = [
         <figcaption class="meta">A hiring manager in our pilot</figcaption>
       </figure>
     </div>
-    <p class="voices-links">Received a report or an invite? Read the page <a class="link" href="/for-recruiters/">for recruiters</a> or <a class="link" href="/for-referees/">for referees</a>.</p>
+    <p class="voices-links">Got a report or an invite? <a class="link" href="/for-recruiters/">For recruiters</a> · <a class="link" href="/for-referees/">For referees</a></p>
   </div>
 </section>
 
@@ -77,7 +75,7 @@ const honest = [
   <div class="wrap closer-grid">
     <div class="closer-copy">
       <h2 id="closer-h" class="display">Apply to jobs with a GoodWord.</h2>
-      <p class="lede">The next time someone asks for your resume, send the people who will vouch for it too.</p>
+      <p class="lede">Send your resume. Send who vouches for it.</p>
       <div class="cluster closer-cta">
         <AppLink to="register" page="home" section="closer" class="btn btn-primary btn-lg">Start my GoodWord <Arrow /></AppLink>
         <AppLink to="sample" page="home" section="closer" class="btn btn-ghost btn-lg">See a sample report</AppLink>
@@ -89,14 +87,13 @@ const honest = [
 </section>
 
 <style is:global>
+  .honest, .voices, .faq-sec, .closer { content-visibility: auto; contain-intrinsic-size: auto 720px; }
   .honest { padding-block: var(--section); }
   .honest-head { display: grid; gap: var(--s-3); max-width: 44rem; }
   .honest-list { margin-top: var(--s-7); display: grid; gap: var(--s-5) var(--s-7); }
   @media (min-width: 48rem) { .honest-list { grid-template-columns: repeat(2, 1fr); } }
-  .honest-list li { display: grid; grid-template-columns: auto 1fr; gap: var(--s-3); align-items: start; padding-bottom: var(--s-5); border-bottom: 1px solid rgba(255, 255, 255, 0.14); }
-  .honest-list .tick { margin-top: 0.25rem; }
-  .honest-list h3 { font-size: var(--step-1); letter-spacing: -0.015em; }
-  .honest-list p { margin-top: 0.25rem; color: var(--on-navy-2); line-height: 1.55; }
+  .honest-list li { display: grid; grid-template-columns: auto 1fr; gap: var(--s-3); align-items: center; padding-bottom: var(--s-5); border-bottom: 1px solid rgba(255, 255, 255, 0.14); }
+  .honest-list p { font-size: var(--step-2); font-weight: 750; letter-spacing: -0.02em; line-height: 1.25; }
 
   .voices-head { display: grid; gap: var(--s-3); max-width: 44rem; }
   .voices-grid { margin-top: var(--s-6); }

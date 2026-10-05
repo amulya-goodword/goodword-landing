@@ -1,0 +1,17 @@
+---
+import Base from '../layouts/Base.astro';
+import AppLink from '../components/AppLink.astro';
+---
+<Base title="Page not found · GoodWord" description="This page does not exist, or is not here yet." page="not_found" noindex>
+  <section class="section">
+    <div class="wrap-narrow stack" style="--stack: var(--s-4)">
+      <p class="eyebrow">404</p>
+      <h1>Nobody can vouch for this page.</h1>
+      <p class="lede">It does not exist, or it is not here yet.</p>
+      <div class="cluster" style="margin-top: var(--s-5)">
+        <a class="btn btn-dark" href="/">Back to the home page</a>
+        <AppLink to="sample" page="not_found" section="body" class="btn btn-ghost">See a sample report</AppLink>
+      </div>
+    </div>
+  </section>
+</Base>

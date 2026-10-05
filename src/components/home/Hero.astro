@@ -11,7 +11,7 @@ const r = sample.referees;
     <div class="hero-copy">
       <p class="eyebrow">Verified references for your job applications</p>
       <h1 id="hero-h">Let the people you have worked with vouch for you.</h1>
-      <p class="lede">Invite managers, peers and clients to say what you are like to work with. GoodWord turns their words into one verified report you send with every application.</p>
+      <p class="lede">Verified references from managers, peers and clients, in one report you send with every job application.</p>
       <div class="cluster hero-cta">
         <AppLink to="register" page="home" section="hero" class="btn btn-primary btn-lg">Start my GoodWord <Arrow /></AppLink>
         <AppLink to="sample" page="home" section="hero" class="btn btn-ghost btn-lg">See a sample report</AppLink>
@@ -39,15 +39,15 @@ const r = sample.referees;
         </ol>
       </div>
       <p class="tally hv-tally"><span class="ticks"><Tick /><Tick /><Tick /></span><span>{sample.tally}</span></p>
-      <p class="meta hv-note">From the sample report. Aarav Mehta and his referees are fictional.</p>
+      <p class="meta hv-note">A sample. Aarav and his referees are fictional.</p>
     </div>
   </div>
 
   <div class="wrap">
     <ul class="hero-facts">
-      <li><strong>3,000+</strong><span>people joined the waitlist before we opened</span></li>
-      <li><strong>100+</strong><span>candidates took part in the early-access pilot</span></li>
-      <li><strong>3 references</strong><span>unlock a report. About 5 minutes for each referee</span></li>
+      <li><strong>3,000+</strong><span>joined the waitlist</span></li>
+      <li><strong>100+</strong><span>in the early-access pilot</span></li>
+      <li><strong>5 minutes</strong><span>is all a referee needs</span></li>
     </ul>
   </div>
 </section>
@@ -90,9 +90,9 @@ const r = sample.referees;
       3%, 30% { opacity: 1; transform: none; }
       33.3%, 100% { opacity: 0; transform: translateY(-12px) scale(0.985); }
     }
-    .hv-w { display: inline-block; animation: hv-word 15s linear infinite both; animation-delay: calc(var(--k) * 5s + 250ms + var(--i) * 65ms); }
-    @keyframes hv-word { 0% { opacity: 0.14; } 2%, 60% { opacity: 1; } 61%, 100% { opacity: 0.14; } }
-    .hv-deck:hover .hv-card, .hv-deck:hover .hv-w { animation-play-state: paused; }
+    .hv-card:first-child .hv-w { display: inline-block; animation: hv-word 0.5s var(--ease) both; animation-delay: calc(350ms + var(--i) * 70ms); }
+    @keyframes hv-word { from { opacity: 0.12; transform: translateY(4px); } }
+    .hv-deck:hover .hv-card { animation-play-state: paused; }
     .hv-tally { animation: hv-in 0.7s var(--ease) 0.5s both; }
     .hv-ghost { animation: hv-in 0.7s var(--ease) 0.15s both; }
     .hv-g2 { animation-delay: 0.3s; }

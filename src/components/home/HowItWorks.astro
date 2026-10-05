@@ -5,10 +5,10 @@ import QuoteCard from '../report/QuoteCard.astro';
 import { sample } from '../../data/sample';
 const r = sample.referees;
 const steps = [
-  { t: 'Invite up to 5 people', d: 'Managers, peers, people who reported to you, clients. You choose who.' },
-  { t: 'They answer in their own words', d: 'Each gets a private link by email and a short questionnaire. It takes about 5 minutes. The link works for 30 days.' },
-  { t: 'Three responses unlock your report', d: 'You read every word and you know who wrote what. You cannot edit any of it.' },
-  { t: 'Send it with every application', d: 'As a link, a PDF, a card for LinkedIn or joined to your resume.' },
+  { k: 'people', t: 'Invite up to 5 people', d: 'Managers, peers, clients.' },
+  { k: 'form', t: 'They answer in 5 minutes', d: 'A private link. Their own words.' },
+  { k: 'meter', t: 'Three responses unlock it', d: 'You read it. You cannot edit it.' },
+  { k: 'send', t: 'Send it with every application', d: 'A link, a PDF or with your resume.' },
 ];
 ---
 <section class="how" id="how-it-works" aria-labelledby="how-h">
@@ -20,8 +20,13 @@ const steps = [
     <ol class="how-steps">
       {steps.map((s, i) => (
         <li class="reveal">
-          <span class="how-n" aria-hidden="true">{i + 1}</span>
-          <h3>{s.t}</h3>
+          <div class:list={['sv', `sv-${s.k}`]} aria-hidden="true">
+            {s.k === 'people' && <><i></i><i></i><i></i><i></i><i></i></>}
+            {s.k === 'form' && <><b></b><b></b><b></b><span class="tick tick-sm"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5l3 3 6-7" /></svg></span></>}
+            {s.k === 'meter' && <><i></i><i></i><i></i></>}
+            {s.k === 'send' && <svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M50 6L24 32" /><path d="M50 6L34 50l-10-18L6 22z" /></svg>}
+          </div>
+          <h3><span class="how-n">{i + 1}</span>{s.t}</h3>
           <p>{s.d}</p>
         </li>
       ))}
@@ -82,11 +87,24 @@ const steps = [
   .how-steps { margin-top: var(--s-7); display: grid; gap: var(--s-5); counter-reset: step; }
   @media (min-width: 40rem) { .how-steps { grid-template-columns: repeat(2, 1fr); gap: var(--s-6); } }
   @media (min-width: 62rem) { .how-steps { grid-template-columns: repeat(4, 1fr); } }
-  .how-steps li { display: grid; gap: var(--s-2); align-content: start; padding-top: var(--s-4); border-top: 3px solid var(--ink); }
-  .how-steps li:nth-child(3) { border-top-color: var(--gold); }
-  .how-n { font-size: var(--step-4); font-weight: 900; letter-spacing: -0.04em; line-height: 1; color: var(--ink); }
-  .how-steps li:nth-child(3) .how-n { color: var(--gold-ink); }
+  .how-steps li { display: grid; gap: var(--s-2); align-content: start; }
+  .how-n { display: inline-grid; place-items: center; width: 1.625rem; height: 1.625rem; margin-right: 0.5rem; border-radius: 50%; background: var(--ink); color: var(--on-navy); font-size: 0.875rem; font-weight: 800; letter-spacing: 0; vertical-align: 0.1em; }
   .how-steps h3 { font-size: var(--step-1); letter-spacing: -0.015em; }
+  /* A small picture for each step, drawn from the same pieces as the product */
+  .sv { height: 5.5rem; border-radius: var(--r-md); background: var(--canvas); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: var(--s-2); color: var(--ink); }
+  .sv-people { gap: 0; }
+  .sv-people i { width: 2.25rem; height: 2.25rem; border-radius: 50%; background: var(--ink); border: 3px solid var(--canvas); margin-left: -0.5rem; }
+  .sv-people i:first-child { margin-left: 0; }
+  .sv-people i:nth-child(2), .sv-people i:nth-child(4) { background: var(--gold); }
+  .sv-people i:nth-child(5) { background: var(--line-strong); }
+  .sv-form { flex-direction: column; align-items: flex-start; gap: 0.4rem; width: 100%; padding: 0 22%; position: relative; }
+  .sv-form b { display: block; height: 0.4rem; border-radius: var(--r-pill); background: var(--line-strong); width: 100%; }
+  .sv-form b:nth-child(2) { width: 78%; }
+  .sv-form b:nth-child(3) { width: 52%; }
+  .sv-form .tick { position: absolute; right: 18%; bottom: -0.5rem; width: 1.5rem; height: 1.5rem; }
+  .sv-meter { gap: 0.375rem; padding: 0 16%; }
+  .sv-meter i { flex: 1; height: 0.625rem; border-radius: var(--r-pill); background: var(--gold); }
+  .sv-send svg { width: 2.75rem; height: 2.75rem; }
   .how-steps p { color: var(--ink-2); font-size: var(--step--1); line-height: 1.55; }
   .how-more { margin-top: var(--s-6); }
 
