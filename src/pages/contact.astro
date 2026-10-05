@@ -1,0 +1,30 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import CtaBand from '../components/CtaBand.astro';
+import AppLink from '../components/AppLink.astro';
+import Arrow from '../components/Arrow.astro';
+import Tick from '../components/Tick.astro';
+import QuoteCard from '../components/report/QuoteCard.astro';
+import Piece from '../components/report/ReportPieces.astro';
+import { sample } from '../data/sample';
+import { SITE } from '../config';
+const r = sample.referees;
+import { appHref } from '../config';
+const title = 'Contact GoodWord';
+const description = 'How to reach GoodWord: general questions, data requests and our Grievance Officer under India’s DPDP Act.';
+---
+<Base title={title} description={description} page="contact" og="default">
+  <PageHead trail={[{ href: '/contact/', label: 'Contact' }]} eyebrow="Contact" title="Talk to us." lede="A person reads every message." />
+  <section class="section" style="padding-top: 0">
+    <div class="wrap">
+      <div class="facts-grid three">
+        <div class="fact-card"><h2 style="font-size: var(--step-1)">Anything at all</h2><p>Questions about your report, an invite you received or the product.</p><p><a class="link" href={`mailto:${SITE.email}`}>{SITE.email}</a></p></div>
+        <div class="fact-card"><h2 style="font-size: var(--step-1)">Your data</h2><p>Requests and complaints about your data go to our Grievance Officer, {SITE.grievanceOfficer}.</p><p><a class="link" href={`mailto:${SITE.grievanceEmail}`}>{SITE.grievanceEmail}</a></p></div>
+        <div class="fact-card"><h2 style="font-size: var(--step-1)">The company</h2><p>{SITE.company}<br />{SITE.address}</p></div>
+      </div>
+      <p style="margin-top: var(--s-6); color: var(--ink-2)">The <a class="link" href={appHref('privacy', 'contact', 'body')} data-app-link>Privacy Policy</a> and <a class="link" href={appHref('terms', 'contact', 'body')} data-app-link>Terms of Use</a> live on the app.</p>
+    </div>
+  </section>
+  <CtaBand page="contact" />
+</Base>

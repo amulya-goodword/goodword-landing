@@ -1,0 +1,53 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import CtaBand from '../components/CtaBand.astro';
+import AppLink from '../components/AppLink.astro';
+import Arrow from '../components/Arrow.astro';
+import Tick from '../components/Tick.astro';
+import QuoteCard from '../components/report/QuoteCard.astro';
+import Piece from '../components/report/ReportPieces.astro';
+import { sample } from '../data/sample';
+import { SITE } from '../config';
+const r = sample.referees;
+
+const title = 'About GoodWord';
+const description = 'Why GoodWord exists, who is behind it and what we promise the people who use it.';
+---
+<Base title={title} description={description} page="about" og="about">
+  <PageHead narrow trail={[{ href: '/about/', label: 'About' }]} eyebrow="About" title="Bringing humans back to job applications." />
+
+  <section class="section" style="padding-top: 0">
+    <div class="wrap-narrow">
+      <div class="prose">
+        <p class="answer">I have watched good people struggle to get noticed. I have been one of them.</p>
+        <p>A resume is the one thing most of us are allowed to send. It is also the one document we write about ourselves. The people who could say what we are really like to work with are asked last, over a phone call, if they are asked at all.</p>
+        <p>GoodWord turns that around. You ask the people you have worked with to vouch for you, in their own words. Then you send what they said with every application, at the start, when it can still change who gets a conversation.</p>
+        <p>That is the whole idea. A job application with people in it.</p>
+        <p><strong>Amulya Nidhi</strong>, founder<br /><a href="https://www.linkedin.com/in/amulyanidhi/" rel="noopener me">Amulya on LinkedIn</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section surface">
+    <div class="wrap">
+      <div class="sec-head"><h2>What we promise</h2></div>
+      <div class="facts-grid">
+        <div class="fact-card"><h3>Words, not numbers</h3><p>A report holds what people said about working with you. No ratings and no scores.</p></div>
+        <div class="fact-card"><h3>Nobody edits a reference</h3><p>Not you and not us. A referee can withdraw their own.</p></div>
+        <div class="fact-card"><h3>We say what we are not</h3><p>GoodWord is not a background check. We do not verify identity documents or employment records.</p></div>
+        <div class="fact-card"><h3>Your data is yours</h3><p>Export or delete all of it at any time, under India’s DPDP Act.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap-narrow stack" style="--stack: var(--s-3)">
+      <h2 style="font-size: var(--step-3)">The company</h2>
+      <p>{SITE.company}<br />{SITE.address}</p>
+      <p><a class="link" href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+      <p><a class="link" href="/contact/">All the ways to reach us</a></p>
+    </div>
+  </section>
+  <CtaBand page="about" />
+</Base>

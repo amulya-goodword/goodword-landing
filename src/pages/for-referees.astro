@@ -1,0 +1,59 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import CtaBand from '../components/CtaBand.astro';
+import AppLink from '../components/AppLink.astro';
+import Arrow from '../components/Arrow.astro';
+import Tick from '../components/Tick.astro';
+import QuoteCard from '../components/report/QuoteCard.astro';
+import Piece from '../components/report/ReportPieces.astro';
+import { sample } from '../data/sample';
+import { SITE } from '../config';
+const r = sample.referees;
+
+const title = 'For referees: what happens when someone asks you for a GoodWord';
+const description = 'You were invited to give a reference on GoodWord. What you will be asked, how long it takes, who will read it and how to withdraw.';
+const qs = [
+  { q: 'Is this real?', a: 'Yes. GoodWord collects references for job seekers. The person named in your email chose you and gave us your email address.' },
+  { q: 'What will I be asked?', a: 'What this person does better than most, where they could grow and whether you would work with them again. You answer in your own words.' },
+  { q: 'How long does it take?', a: 'About 5 minutes. The link in your email is private to you and works for 30 days.' },
+  { q: 'Who will read it?', a: 'The person who invited you and the recruiters they share their report with. Recruiters see your role, such as Direct Manager. They do not see your name unless you choose to be named.' },
+  { q: 'Will they know what I wrote?', a: 'Yes. The person who invited you can read every word and knows who wrote what. They cannot edit any of it.' },
+  { q: 'Can I change my mind?', a: 'Yes. After you submit, the page shows a link to withdraw your reference. The same link is in your confirmation email. It takes one click and a confirm.' },
+];
+const schema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: qs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+---
+<Base title={title} description={description} page="for_referees" og="for-referees">
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(schema)} />
+  <PageHead trail={[{ href: '/for-referees/', label: 'For referees' }]} eyebrow="For referees" title="Someone asked you to vouch for them." lede="What you will be asked, how long it takes and who will read it." />
+
+  <section class="section" style="padding-top: 0">
+    <div class="wrap">
+      <div class="facts-grid three">
+        {qs.map((f) => <div class="fact-card"><h2 style="font-size: var(--step-1); letter-spacing: -0.015em">{f.q}</h2><p>{f.a}</p></div>)}
+      </div>
+    </div>
+  </section>
+
+  <section class="section surface">
+    <div class="wrap">
+      <div class="row">
+        <div class="row-copy">
+          <h2>How your words appear</h2>
+          <p>This is one referee’s response in a sample report. Your answers are shown as you wrote them, under your role.</p>
+          <p>Please be honest about the area to grow. Every reference includes one. It is what makes the rest believable.</p>
+          <p>GoodWord also writes a short summary of all the references, with the help of AI.</p>
+        </div>
+        <div class="row-visual"><QuoteCard referee={r[2]} variant="full" /></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap-narrow stack" style="--stack: var(--s-3)">
+      <h2 style="font-size: var(--step-3)">Something not right?</h2>
+      <p class="lede">If you did not expect the invite or have a concern about how your words are used, write to <a class="link" href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+    </div>
+  </section>
+  <CtaBand page="for_referees" title="Collect your own GoodWord." />
+</Base>

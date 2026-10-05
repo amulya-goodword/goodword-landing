@@ -1,0 +1,68 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import CtaBand from '../components/CtaBand.astro';
+import AppLink from '../components/AppLink.astro';
+import Arrow from '../components/Arrow.astro';
+import Tick from '../components/Tick.astro';
+import QuoteCard from '../components/report/QuoteCard.astro';
+import Piece from '../components/report/ReportPieces.astro';
+import { sample } from '../data/sample';
+import { SITE } from '../config';
+const r = sample.referees;
+import { appHref } from '../config';
+const title = 'Questions about GoodWord, answered';
+const description = 'Plain answers for candidates, referees and recruiters: how many references you need, who sees what and what happens to your data.';
+const groups = [
+  { name: 'For candidates', items: [
+    { q: 'What is GoodWord?', a: 'GoodWord lets you collect verified references from people you have worked with and share them as one report, as a link and as a PDF, with every job application.' },
+    { q: 'How many references do I need?', a: 'Three references unlock your report. You can include up to 5. A report is valid for 12 months.' },
+    { q: 'Who should I invite?', a: 'People you have worked with who saw your work up close: managers, peers, people who reported to you and clients.' },
+    { q: 'Can I edit what my referees wrote?', a: 'No. You read every word and you know who wrote what. You cannot change any of it. That is why a recruiter can rely on it.' },
+    { q: 'How do I share my report?', a: 'As a private link, as a PDF with a QR code, as a card for LinkedIn or with Resume Pro Max, which joins your resume and your report into one file. Send it also drafts the message for you.' },
+    { q: 'Can I see who viewed my report?', a: 'Yes. You see the name and company of each person who opened it. You never see their email address.' },
+    { q: 'Is my resume stored when I use Resume Pro Max?', a: 'No. The file is held in memory for the one request and then discarded.' },
+  ] },
+  { name: 'For referees', items: [
+    { q: 'What will I be asked as a referee?', a: 'What the person does better than most, where they could grow and whether you would work with them again. It takes about 5 minutes, in your own words.' },
+    { q: 'How long does my invite link work?', a: 'For 30 days.' },
+    { q: 'Will the person see what I wrote?', a: 'Yes. They can read every word and they know who wrote what. They cannot edit any of it.' },
+    { q: 'Can I withdraw my reference?', a: 'Yes. A link to withdraw is shown on the page after you submit and in your confirmation email. It takes one click and a confirm.' },
+  ] },
+  { name: 'For recruiters', items: [
+    { q: 'Is a GoodWord report a background check?', a: 'No. GoodWord checks that each reference came from the email address the candidate gave and looks for signs of misuse. It does not verify identity documents or employment records.' },
+    { q: 'How do I know a report is real?', a: 'The PDF carries a QR code and a link to the live report. The live report is the proof.' },
+    { q: 'Why does it ask for my work email?', a: 'To open a shared report you confirm a work email with a one-time code. The candidate then sees your name and company in their list of viewers. They never see your email address.' },
+    { q: 'Will I see who the referees are?', a: 'You see each referee by role, for example Direct Manager. A name appears only where that referee chose to be named.' },
+    { q: 'What is Response Integrity?', a: 'A level in words: Basic, Moderate, Good or Strong. It reflects how confident we are that the references are real and independent. It never reflects how positive they are.' },
+  ] },
+  { name: 'Your data', items: [
+    { q: 'Does GoodWord use AI?', a: 'Yes, in one place. The short summary in a report is written with the help of AI, from the referees’ own words. Nobody can edit what referees wrote.' },
+    { q: 'Can I delete my data?', a: 'Yes. You can export or delete all your data at any time, under India’s DPDP Act.' },
+  ] },
+];
+const schema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntity: groups.flatMap((g) => g.items).map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })) };
+---
+<Base title={title} description={description} page="questions" og="questions">
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(schema)} />
+  <PageHead narrow trail={[{ href: '/questions/', label: 'Questions' }]} eyebrow="Questions" title="The short answers." />
+  <section class="section" style="padding-top: 0">
+    <div class="wrap-narrow stack" style="--stack: var(--s-7)">
+      {groups.map((g) => (
+        <div>
+          <h2 style="font-size: var(--step-3); margin-bottom: var(--s-4)">{g.name}</h2>
+          <div class="faq">
+            {g.items.map((f) => (
+              <details>
+                <summary><span>{f.q}</span><span class="faq-x" aria-hidden="true"></span></summary>
+                <p>{f.a}</p>
+              </details>
+            ))}
+          </div>
+        </div>
+      ))}
+      <p style="color: var(--ink-2)">Not answered here? Write to <a class="link" href={`mailto:${SITE.email}`}>{SITE.email}</a>. The <a class="link" href={appHref('privacy', 'questions', 'body')} data-app-link>Privacy Policy</a> and <a class="link" href={appHref('terms', 'questions', 'body')} data-app-link>Terms of Use</a> live on the app.</p>
+    </div>
+  </section>
+  <CtaBand page="questions" />
+</Base>

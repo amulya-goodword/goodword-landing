@@ -1,0 +1,17 @@
+---
+// The closing ask on every page: the brand line and the two places the site sends people.
+import AppLink from './AppLink.astro';
+import Arrow from './Arrow.astro';
+interface Props { page: string; title?: string; line?: string }
+const { page, title = 'Apply to jobs with a GoodWord.', line } = Astro.props;
+---
+<section class="cta-band on-navy" aria-labelledby="cta-h">
+  <div class="wrap cta-band-in">
+    <h2 id="cta-h">{title}</h2>
+    {line && <p class="lede">{line}</p>}
+    <div class="cluster">
+      <AppLink to="register" page={page} section="closer" class="btn btn-primary btn-lg">Start my GoodWord <Arrow /></AppLink>
+      <AppLink to="sample" page={page} section="closer" class="btn btn-ghost btn-lg">See a sample report</AppLink>
+    </div>
+  </div>
+</section>

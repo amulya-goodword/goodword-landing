@@ -87,19 +87,4 @@ import Piece from '../report/ReportPieces.astro';
     .tile-link { grid-column: span 2; }
   }
 
-  /* Resume Pro Max: a resume and a report, as one file */
-  .rpm { position: relative; height: 9.5rem; }
-  .rpm-page { position: absolute; top: 0; width: 6.25rem; height: 8.5rem; border-radius: 8px; background: var(--surface); border: 1px solid var(--line-strong); box-shadow: var(--sh-2); padding: 0.75rem 0.625rem; display: grid; gap: 0.375rem; align-content: start; }
-  .rpm-page i { display: block; height: 0.3125rem; border-radius: var(--r-pill); background: var(--line); }
-  .rpm-resume { left: calc(50% - 5.5rem); transform: rotate(-4deg); }
-  .rpm-report { left: calc(50% - 0.75rem); top: 0.75rem; transform: rotate(3deg); border-top: 4px solid var(--gold); }
-  .rpm-report b { display: block; width: 2.5rem; height: 0.5rem; border-radius: 2px; background: var(--ink); margin-bottom: 0.25rem; }
-  @media (prefers-reduced-motion: no-preference) {
-    @supports (animation-timeline: view()) {
-      .rpm-resume { animation: rpm-l linear both; animation-timeline: view(); animation-range: entry 20% cover 45%; }
-      .rpm-report { animation: rpm-r linear both; animation-timeline: view(); animation-range: entry 20% cover 45%; }
-      @keyframes rpm-l { from { transform: translateX(-2.25rem) rotate(-9deg); } to { transform: rotate(-4deg); } }
-      @keyframes rpm-r { from { transform: translateX(2.25rem) rotate(9deg); } to { transform: rotate(3deg); } }
-    }
-  }
 </style>

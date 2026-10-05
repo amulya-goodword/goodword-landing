@@ -13,6 +13,9 @@ export const SITE = {
   grievanceOfficer: 'Amulya Nidhi',
 };
 
+// Paste the codes Google Search Console and Bing Webmaster Tools give you. Empty means no tag is added.
+export const VERIFY = { google: '', bing: '' };
+
 // Google Analytics. The site and the app will move onto one property; only this value changes.
 export const GA_ID = 'G-2BYBGC5751';
 

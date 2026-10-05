@@ -1,0 +1,51 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import CtaBand from '../components/CtaBand.astro';
+import AppLink from '../components/AppLink.astro';
+import Arrow from '../components/Arrow.astro';
+import Tick from '../components/Tick.astro';
+import QuoteCard from '../components/report/QuoteCard.astro';
+import Piece from '../components/report/ReportPieces.astro';
+import { sample } from '../data/sample';
+import { SITE } from '../config';
+const r = sample.referees;
+
+const title = 'Sample report: what a GoodWord report looks like';
+const description = 'See each part of a GoodWord report, from validated strengths and areas to grow to each referee’s response, using a sample for a fictional candidate.';
+---
+<Base title={title} description={description} page="sample_report" og="sample-report">
+  <PageHead trail={[{ href: '/sample-report/', label: 'Sample report' }]} eyebrow="Sample report" title="What a GoodWord report looks like." lede="A sample for Aarav Mehta, a fictional product manager. Every part of a real report is here.">
+    <p style="margin-top: var(--s-5)"><AppLink to="sample" page="sample_report" section="top" class="btn btn-primary btn-lg">Open the full sample report <Arrow /></AppLink></p>
+  </PageHead>
+
+  <section class="section" style="padding-top: 0">
+    <div class="wrap rows">
+      <div class="row">
+        <div class="row-copy"><h2>Who it is about and how current it is</h2><p>The top of every report shows the candidate, the date it was generated and how long it is valid. A report is valid for 12 months.</p></div>
+        <div class="row-visual"><Piece piece="header" /></div>
+      </div>
+      <div class="row">
+        <div class="row-copy"><h2>Would they work with you again</h2><p>Each referee is asked this privately. The report shows the answer.</p></div>
+        <div class="row-visual"><div class="rp rp-pad"><Piece piece="tally" /></div></div>
+      </div>
+      <div class="row">
+        <div class="row-copy"><h2>Validated strengths and areas to grow</h2><p>What the people you worked with say you do better than most and where you could grow. Every reference includes an area to grow. It is what makes the rest believable.</p></div>
+        <div class="row-visual"><Piece piece="strengths" /><Piece piece="growth" /></div>
+      </div>
+      <div class="row">
+        <div class="row-copy"><h2>A written summary</h2><p>A short summary of what your referees said, written with the help of AI. Like the rest of the report, you cannot edit it.</p></div>
+        <div class="row-visual"><Piece piece="summary" /></div>
+      </div>
+      <div class="row">
+        <div class="row-copy"><h2>Response Integrity</h2><p>One of four levels: Basic, Moderate, Good or Strong. It reflects how confident we are that the references are real and independent. It never reflects how positive they are.</p></div>
+        <div class="row-visual"><Piece piece="integrity" /></div>
+      </div>
+      <div class="row">
+        <div class="row-copy"><h2>Each referee’s response</h2><p>Recruiters see each referee by role, such as Direct Manager. A name appears only where that referee chose to be named. You always know who wrote what.</p></div>
+        <div class="row-visual"><QuoteCard referee={r[0]} variant="full" /></div>
+      </div>
+    </div>
+  </section>
+  <CtaBand page="sample_report" title="Yours could look like this." />
+</Base>

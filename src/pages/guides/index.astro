@@ -1,0 +1,33 @@
+---
+import Base from '../../layouts/Base.astro';
+import PageHead from '../../components/PageHead.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { getCollection } from 'astro:content';
+const guides = (await getCollection('guides')).sort((a, b) => b.data.published.getTime() - a.data.published.getTime());
+const title = 'Guides: references, resumes and job applications in India';
+const description = 'Practical guides for job seekers in India: how to ask for a reference, which letter is which and what recruiters really check.';
+---
+<Base title={title} description={description} page="guides" og="guides">
+  <PageHead trail={[{ href: '/guides/', label: 'Guides' }]} eyebrow="Guides" title="Straight answers for your job search." lede="Each guide answers one question, in its first paragraph. Useful whether or not you ever use GoodWord." />
+  <section class="section" style="padding-top: 0">
+    <div class="wrap">
+      <div class="facts-grid three">
+        {guides.map((g) => (
+          <a class="card card-raised guide-card" href={`/guides/${g.id}/`}>
+            <h2>{g.data.title}</h2>
+            <p>{g.data.description}</p>
+            <span class="link">Read the guide</span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+  <CtaBand page="guides" />
+</Base>
+
+<style is:global>
+  .guide-card { display: grid; gap: var(--s-3); align-content: start; }
+  .guide-card h2 { font-size: var(--step-2); letter-spacing: -0.02em; line-height: 1.2; }
+  .guide-card p { color: var(--ink-2); font-size: var(--step--1); line-height: 1.55; }
+  .guide-card .link { justify-self: start; font-size: var(--step--1); }
+</style>

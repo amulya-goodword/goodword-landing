@@ -1,0 +1,20 @@
+---
+// The trail at the top of an inner page, and the same trail as data for search engines.
+import { SITE } from '../config';
+interface Props { trail: { href: string; label: string }[] }
+const { trail } = Astro.props;
+const all = [{ href: '/', label: 'Home' }, ...trail];
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: all.map((t, i) => ({ '@type': 'ListItem', position: i + 1, name: t.label, item: new URL(t.href, SITE.url).toString() })),
+};
+---
+<nav class="crumbs" aria-label="Breadcrumb">
+  <ol>
+    {all.map((t, i) => (
+      <li>{i < all.length - 1 ? <a href={t.href}>{t.label}</a> : <span aria-current="page">{t.label}</span>}</li>
+    ))}
+  </ol>
+</nav>
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />

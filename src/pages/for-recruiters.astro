@@ -1,0 +1,84 @@
+---
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import CtaBand from '../components/CtaBand.astro';
+import AppLink from '../components/AppLink.astro';
+import Arrow from '../components/Arrow.astro';
+import Tick from '../components/Tick.astro';
+import QuoteCard from '../components/report/QuoteCard.astro';
+import Piece from '../components/report/ReportPieces.astro';
+import { sample } from '../data/sample';
+import { SITE } from '../config';
+const r = sample.referees;
+
+const title = 'For recruiters: how to read a GoodWord report';
+const description = 'A candidate sent you a GoodWord report. What it contains, why you can rely on it, where its limits are and why it asks for your work email.';
+---
+<Base title={title} description={description} page="for_recruiters" og="for-recruiters">
+  <PageHead trail={[{ href: '/for-recruiters/', label: 'For recruiters' }]} eyebrow="For recruiters" title="A candidate sent you a GoodWord report." lede="What you are looking at, why you can rely on it and where its limits are." />
+
+  <section class="section" style="padding-top: 0">
+    <div class="wrap rows">
+      <div class="row">
+        <div class="row-copy">
+          <h2>What it is</h2>
+          <p>References the candidate collected from people they have worked with: managers, peers, people who reported to them and clients. Each referee answered a short questionnaire in their own words.</p>
+          <p>A report contains words only. No ratings and no scores.</p>
+        </div>
+        <div class="row-visual"><Piece piece="header" /><div class="rp rp-pad"><Piece piece="tally" /></div></div>
+      </div>
+
+      <div class="row">
+        <div class="row-copy">
+          <h2>Why you can rely on it</h2>
+          <ul class="ticks-list">
+            <li><Tick small /><span>The candidate cannot edit what a referee wrote.</span></li>
+            <li><Tick small /><span>Every reference includes an area to grow.</span></li>
+            <li><Tick small /><span>We check that each reference came from the email address the candidate gave and look for signs of misuse.</span></li>
+            <li><Tick small /><span>Response Integrity tells you how confident we are that the references are real and independent.</span></li>
+          </ul>
+        </div>
+        <div class="row-visual"><Piece piece="integrity" /></div>
+      </div>
+
+      <div class="row">
+        <div class="row-copy">
+          <h2>Why it asks for your work email</h2>
+          <p>To open a shared report you confirm a work email with a one-time code. The candidate then sees that you viewed it: your name and your company. They never see your email address.</p>
+        </div>
+        <div class="row-visual"><Piece piece="viewers" /></div>
+      </div>
+
+      <div class="row">
+        <div class="row-copy">
+          <h2>The PDF and the live report</h2>
+          <p>A PDF carries a QR code and a link to the live report. The live report is how you check that a PDF is real. A report is valid for 12 months.</p>
+        </div>
+        <div class="row-visual" style="justify-items: center"><Piece piece="pdf" /></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section surface">
+    <div class="wrap">
+      <div class="sec-head"><h2>Where its limits are</h2></div>
+      <div class="facts-grid three">
+        <div class="fact-card"><h3>It is not a background check</h3><p>We do not verify identity documents or employment records. Run those checks as you normally would.</p></div>
+        <div class="fact-card"><h3>References are views</h3><p>A reference is one person’s account of working with another. Read it as that, alongside your own interview.</p></div>
+        <div class="fact-card"><h3>You see roles, not names</h3><p>Each referee appears by role, such as Direct Manager. A name appears only where that referee chose to be named.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="sec-head"><p class="eyebrow">From the pilot</p><h2>What hiring managers told us.</h2></div>
+      <div class="grid grid-2">
+        <figure class="card card-raised stack"><blockquote style="font-size: var(--step-2); font-weight: 650; letter-spacing: -0.02em; line-height: 1.3">It's easier for us to identify the real potential candidates, quicker.</blockquote><figcaption class="meta">A hiring manager in our pilot</figcaption></figure>
+        <figure class="card card-raised stack"><blockquote style="font-size: var(--step-2); font-weight: 650; letter-spacing: -0.02em; line-height: 1.3">Since we already know a person's strengths and improvement areas, it's easy to have a real conversation with them and gauge how they think.</blockquote><figcaption class="meta">A hiring manager in our pilot</figcaption></figure>
+      </div>
+      <p style="margin-top: var(--s-6)"><AppLink to="sample" page="for_recruiters" section="body" class="btn btn-dark btn-lg">Read a full sample report <Arrow /></AppLink></p>
+    </div>
+  </section>
+  <CtaBand page="for_recruiters" title="Looking for a job yourself?" line="Collect your own references and send them with every application." />
+</Base>

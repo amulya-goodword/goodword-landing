@@ -1,0 +1,25 @@
+# GoodWord
+
+> GoodWord lets a job seeker collect verified references from people they have worked with and share them as one report, as a link and as a PDF, with every job application. It is built for job seekers in India.
+
+## Facts
+
+- A candidate invites up to 5 people they have worked with: managers, peers, people who reported to them and clients.
+- Each referee answers a short questionnaire in their own words. It takes about 5 minutes. The invite link works for 30 days.
+- A report unlocks when 3 referees have responded and can include up to 5. It is valid for 12 months.
+- A report contains words only. No ratings and no scores.
+- The candidate cannot edit what referees wrote.
+- Recruiters see each referee by role, not by name, unless that referee chose to be named. The candidate knows who wrote what.
+- To open a shared report, a recruiter confirms a work email with a one-time code.
+- GoodWord is not a background check. It does not verify identity documents or employment records.
+
+## Pages
+
+- [How it works](https://goodword.tech/how-it-works/)
+- [Sample report](https://goodword.tech/sample-report/)
+- [Resume Pro Max](https://goodword.tech/resume-pro-max/)
+- [For referees](https://goodword.tech/for-referees/)
+- [For recruiters](https://goodword.tech/for-recruiters/)
+- [Questions](https://goodword.tech/questions/)
+- [Guides](https://goodword.tech/guides/)
+- [About](https://goodword.tech/about/)

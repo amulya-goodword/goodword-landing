@@ -1,0 +1,72 @@
+---
+import Base from '../../layouts/Base.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import CtaBand from '../../components/CtaBand.astro';
+import { getCollection, render } from 'astro:content';
+import { SITE } from '../../config';
+
+export async function getStaticPaths() {
+  const guides = await getCollection('guides');
+  return guides.map((guide) => ({ params: { slug: guide.id }, props: { guide } }));
+}
+const { guide } = Astro.props;
+const { Content } = await render(guide);
+const all = await getCollection('guides');
+const related = guide.data.related.map((id: string) => all.find((g) => g.id === id)).filter(Boolean);
+const d = guide.data;
+const url = new URL(`/guides/${guide.id}/`, SITE.url).toString();
+const fmt = (date: Date) => date.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+const minutes = Math.max(2, Math.round((guide.body ?? '').split(/\s+/).length / 220));
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: d.title,
+  description: d.description,
+  datePublished: d.published.toISOString(),
+  dateModified: d.updated.toISOString(),
+  inLanguage: 'en-IN',
+  mainEntityOfPage: url,
+  image: new URL(`/og/guide-${guide.id}.png`, SITE.url).toString(),
+  author: { '@type': 'Organization', name: d.author, url: `${SITE.url}/about/` },
+  publisher: { '@type': 'Organization', name: SITE.name, url: `${SITE.url}/` },
+};
+---
+<Base title={d.title} description={d.description} page={`guide_${guide.id.replace(/-/g, '_')}`} og={`guide-${guide.id}`}>
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(schema)} />
+  <article class="guide">
+    <header class="page-head">
+      <div class="wrap-narrow">
+        <Breadcrumbs trail={[{ href: '/guides/', label: 'Guides' }, { href: `/guides/${guide.id}/`, label: d.title }]} />
+        <h1 style="max-width: none; font-size: var(--step-4)">{d.title}</h1>
+        <p class="byline">
+          <span>By {d.author}</span>
+          <span>Published <time datetime={d.published.toISOString().slice(0, 10)}>{fmt(d.published)}</time></span>
+          {d.updated.getTime() !== d.published.getTime() && <span>Updated <time datetime={d.updated.toISOString().slice(0, 10)}>{fmt(d.updated)}</time></span>}
+          <span>{minutes} minute read</span>
+        </p>
+      </div>
+    </header>
+    <div class="wrap-narrow guide-body">
+      <p class="answer"><strong>The short answer.</strong> {d.answer}</p>
+      <div class="prose"><Content /></div>
+      {related.length > 0 && (
+        <aside class="guide-related" aria-labelledby="related-h">
+          <h2 id="related-h">Read next</h2>
+          <ul>
+            {related.map((g: any) => <li><a class="link" href={`/guides/${g.id}/`}>{g.data.title}</a></li>)}
+          </ul>
+        </aside>
+      )}
+    </div>
+  </article>
+  <CtaBand page="guides" title="Let the people you have worked with vouch for you." />
+</Base>
+
+<style is:global>
+  .guide .page-head { padding-bottom: var(--s-5); }
+  .guide-body { padding-bottom: var(--section); }
+  .guide-body .prose { margin-top: var(--s-6); }
+  .guide-related { margin-top: var(--s-8); padding-top: var(--s-5); border-top: 1px solid var(--line); display: grid; gap: var(--s-3); max-width: 42rem; }
+  .guide-related h2 { font-size: var(--step-2); }
+  .guide-related ul { display: grid; gap: var(--s-2); }
+</style>
