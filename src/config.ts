@@ -16,8 +16,8 @@ export const SITE = {
 // Paste the codes Google Search Console and Bing Webmaster Tools give you. Empty means no tag is added.
 export const VERIFY = { google: '', bing: '' };
 
-// Google Analytics. The site and the app will move onto one property; only this value changes.
-export const GA_ID = 'G-2BYBGC5751';
+// Google Analytics. The site and the app share one property, so the path from site to signup reads as one journey.
+export const GA_ID = 'G-7T4GMFPM53';
 
 export const APP = {
   base: 'https://app.goodword.tech',
