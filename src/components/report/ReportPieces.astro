@@ -1,0 +1,162 @@
+---
+// The smaller pieces of a report. One component, one piece at a time, chosen with the "piece" prop.
+import { sample, viewers } from '../../data/sample';
+import Tick from '../Tick.astro';
+
+interface Props {
+  piece: 'header' | 'summary' | 'tally' | 'strengths' | 'growth' | 'integrity' | 'viewers' | 'unlock' | 'pdf' | 'linkedin' | 'message';
+  /** For "unlock": how many referees have responded. */
+  responded?: number;
+  class?: string;
+}
+const { piece, responded = 2, class: className } = Astro.props;
+const c = sample.candidate;
+const initials = (n: string) => n.split(' ').map((w) => w[0]).join('');
+
+// A decorative stand-in for the QR code. It is a fixed pattern and encodes nothing.
+const QR = [
+  '111111101001101111111', '100000101110001000001', '101110100101101011101', '101110101011001011101',
+  '101110100110101011101', '100000101001001000001', '111111101010101111111', '000000001101100000000',
+  '110101110010011010110', '011010001101100101001', '101101110110011011010', '010010001001110100101',
+  '110111111010001110110', '000000001011010001001', '111111101100111010110', '100000100111001101001',
+  '101110101010110010110', '101110100101001101101', '101110101110110110010', '100000100011011001101',
+  '111111101101100110110',
+];
+---
+{piece === 'header' && (
+  <div class:list={['rp', 'rp-pad', className]}>
+    <div class="rp-head">
+      <div>
+        <span class="wordmark" aria-label="GoodWord">Good<b>Word</b></span>
+        <p class="rp-label" style="margin-top: var(--s-2)">Credibility report</p>
+      </div>
+      <p class="doc"><strong>{sample.id}</strong><br />{sample.generated}<br />{sample.valid}</p>
+    </div>
+    <div class="rp-who">
+      <div>
+        <p class="name">{c.name}</p>
+        <p class="meta">{c.role} · {c.city}</p>
+      </div>
+      <span class="chip chip-navy">Response Integrity: {sample.integrity.level}</span>
+    </div>
+  </div>
+)}
+
+{piece === 'summary' && (
+  <div class:list={['rp', 'rp-pad', 'stack', className]} style="--stack: var(--s-3)">
+    <p class="rp-label">Summary</p>
+    <p>{sample.summary}</p>
+    <p class="meta">Written with the help of AI from the words of 3 referees. {sample.collected}</p>
+  </div>
+)}
+
+{piece === 'tally' && (
+  <div class:list={['stack', className]} style="--stack: var(--s-2)">
+    <p class="tally"><span class="ticks"><Tick /><Tick /><Tick /></span><span>{sample.tally}</span></p>
+    <p class="meta">{sample.tallyNote}</p>
+  </div>
+)}
+
+{piece === 'strengths' && (
+  <div class:list={['rp', 'rp-pad', 'stack', className]} style="--stack: var(--s-3)">
+    <p class="rp-label">Validated strengths</p>
+    <ul class="points">
+      {sample.strengths.map((s) => <li><Tick small /><span>{s}</span></li>)}
+    </ul>
+  </div>
+)}
+
+{piece === 'growth' && (
+  <div class:list={['rp', 'rp-pad', 'stack', className]} style="--stack: var(--s-3)">
+    <p class="rp-label rp-label-quiet">Areas to grow</p>
+    <ul class="points">
+      {sample.growth.map((s) => <li><span class="dot" aria-hidden="true"></span><span>{s}</span></li>)}
+    </ul>
+    <p class="meta">{sample.growthNote}</p>
+  </div>
+)}
+
+{piece === 'integrity' && (
+  <div class:list={['rp', 'rp-pad', 'integrity', className]}>
+    <p class="rp-label">Response Integrity</p>
+    <ol class="integrity-scale" aria-label="Response Integrity levels, lowest to highest">
+      {sample.integrity.levels.map((l) => <li aria-current={l === sample.integrity.level ? 'true' : undefined}>{l}</li>)}
+    </ol>
+    <p class="meta">{sample.integrity.note}</p>
+  </div>
+)}
+
+{piece === 'viewers' && (
+  <div class:list={['rp', 'rp-pad', className]}>
+    <p class="rp-label">Who viewed your report</p>
+    <ul class="viewers">
+      {viewers.map((v) => (
+        <li>
+          <span class="avatar" aria-hidden="true">{initials(v.name)}</span>
+          <span><span class="who">{v.name}</span><br /><span class="meta">{v.company}</span></span>
+          <span class="meta">{v.when}</span>
+        </li>
+      ))}
+    </ul>
+    <p class="meta" style="margin-top: var(--s-2)">You see a name and a company. Never an email address.</p>
+  </div>
+)}
+
+{piece === 'unlock' && (
+  <div class:list={['rp', 'rp-pad', 'unlock', className]}>
+    <p class="rp-label">Your report</p>
+    <p style="font-weight:750; line-height:1.3">{responded >= 3 ? 'Your report is unlocked.' : `${responded} of 3 responses in. ${3 - responded === 1 ? 'One more unlocks' : `${3 - responded} more unlock`} your report.`}</p>
+    <ol class="unlock-steps" aria-hidden="true">
+      {[1, 2, 3].map((n) => <li class:list={{ 'is-in': n <= responded }}></li>)}
+    </ol>
+    <p class="meta">A report needs 3 references. You can include up to 5.</p>
+  </div>
+)}
+
+{piece === 'pdf' && (
+  <div class:list={['pdf', className]}>
+    <span class="wordmark" style="font-size:1rem" aria-label="GoodWord">Good<b>Word</b></span>
+    <p style="font-weight:800; letter-spacing:-0.02em; line-height:1.15">{c.name}</p>
+    <div class="bars" aria-hidden="true"><i style="width:92%"></i><i style="width:78%"></i><i style="width:85%"></i><i style="width:60%"></i></div>
+    <div class="bars" aria-hidden="true"><i style="width:70%"></i><i style="width:88%"></i></div>
+    <p class="foot">Scan to open the live report</p>
+    <div class="qr">
+      <svg viewBox="0 0 21 21" shape-rendering="crispEdges" role="img" aria-label="QR code that opens the live report">
+        <rect width="21" height="21" fill="#fff" />
+        {QR.map((row, y) => row.split('').map((v, x) => v === '1' && <rect x={x} y={y} width="1" height="1" fill="#0f1b2d" />))}
+      </svg>
+    </div>
+  </div>
+)}
+
+{piece === 'linkedin' && (
+  <div class:list={['li-card', className]}>
+    <span class="wordmark" style="color:#fff" aria-label="GoodWord">Good<b>Word</b></span>
+    <div>
+      <p class="name">{c.name}</p>
+      <p style="color: var(--on-navy-2)">{c.role}</p>
+    </div>
+    <div class="facts">
+      <span class="chip"><Tick small />3 verified references</span>
+      <span class="chip">Response Integrity: {sample.integrity.level}</span>
+    </div>
+  </div>
+)}
+
+{piece === 'message' && (
+  <div class:list={['msg', className]}>
+    <div class="msg-head">
+      <span><b>To</b> Ritika Sen, Kestrel Pay</span>
+      <span><b>Subject</b> Senior Product Manager, {c.name}</span>
+    </div>
+    <div class="msg-body">
+      <p>Hi Ritika, thank you for reaching out about the role. My resume is attached.</p>
+      <p>I have also added my GoodWord. Three people I have worked with, including my last manager, describe what I am like to work with, in their own words.</p>
+      <div class="attach">
+        <span class="file" aria-hidden="true"></span>
+        <span><span class="t">{c.name}'s GoodWord</span><br /><span class="meta">3 verified references · Opens the live report</span></span>
+      </div>
+      <p>Aarav</p>
+    </div>
+  </div>
+)}

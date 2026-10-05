@@ -1,0 +1,47 @@
+---
+// A referee's words, shown the way a recruiter sees them: by role, named only where the referee chose.
+import type { Referee } from '../../data/sample';
+import Tick from '../Tick.astro';
+
+interface Props {
+  referee: Referee;
+  /** "hero" is one large line. "short" is the opening line. "full" is both answers. */
+  variant?: 'hero' | 'short' | 'full';
+  class?: string;
+}
+const { referee, variant = 'full', class: className } = Astro.props;
+const who = referee.named ? referee.label : `${referee.label}: ${referee.role}`;
+---
+<figure class:list={['rp', 'rp-pad', 'quote', className]}>
+  {variant !== 'full' && (
+    <svg class="quote-mark" viewBox="0 0 32 24" fill="currentColor" aria-hidden="true"><path d="M0 24V13.5C0 5.6 4.4 1 12.4 0l1.2 3.4C9.4 4.4 7.4 7 7.2 10.4H13V24H0zm18.4 0V13.5C18.4 5.6 22.8 1 30.8 0L32 3.4c-4.2 1-6.2 3.6-6.4 7h5.8V24h-13z" /></svg>
+  )}
+  {variant === 'full' ? (
+    <>
+      <figcaption class="quote-top">
+        <span class="quote-who">{who}</span>
+        <span class="meta">{referee.given}</span>
+      </figcaption>
+      <div class="cluster" style="--cluster: var(--s-2)">
+        <span class="chip chip-gold"><Tick small />{referee.role} · Verified</span>
+        <span class="meta">{referee.worked} · {referee.context}</span>
+      </div>
+      <div class="quote-part">
+        <span class="rp-label">Where they excel</span>
+        <blockquote class="quote-words">{referee.excel}</blockquote>
+      </div>
+      <div class="quote-part">
+        <span class="rp-label rp-label-quiet">Where they could grow</span>
+        <blockquote class="quote-words">{referee.grow}</blockquote>
+      </div>
+    </>
+  ) : (
+    <>
+      <blockquote class:list={['quote-words', { big: variant === 'hero' }]}>{referee.excelShort}</blockquote>
+      <figcaption class="cluster" style="--cluster: var(--s-2)">
+        <span class="chip chip-gold"><Tick small />{referee.role} · Verified</span>
+        <span class="meta">{referee.named ? referee.label : 'Shown by role'} · {referee.given}</span>
+      </figcaption>
+    </>
+  )}
+</figure>

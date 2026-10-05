@@ -1,0 +1,49 @@
+---
+import AppLink from './AppLink.astro';
+import { SITE } from '../config';
+interface Props { page: string }
+const { page } = Astro.props;
+---
+<footer class="site-footer on-navy">
+  <div class="wrap">
+    <div class="footer-grid">
+      <div class="stack" style="--stack: var(--s-3)">
+        <a class="wordmark" href="/" aria-label="GoodWord home">Good<b>Word</b></a>
+        <p class="gold-text" style="font-weight:700">{SITE.signature}</p>
+        <p class="meta">{SITE.company}<br />{SITE.address}</p>
+        <p class="meta"><a href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
+      </div>
+      <nav aria-label="Product">
+        <h2>Product</h2>
+        <ul>
+          <li><a href="/how-it-works/">How it works</a></li>
+          <li><a href="/sample-report/">Sample report</a></li>
+          <li><a href="/resume-pro-max/">Resume Pro Max</a></li>
+          <li><a href="/questions/">Questions</a></li>
+        </ul>
+      </nav>
+      <nav aria-label="For you">
+        <h2>For you</h2>
+        <ul>
+          <li><a href="/for-referees/">For referees</a></li>
+          <li><a href="/for-recruiters/">For recruiters</a></li>
+          <li><a href="/guides/">Guides</a></li>
+          <li><AppLink to="login" page={page} section="footer">Sign in</AppLink></li>
+        </ul>
+      </nav>
+      <nav aria-label="Company">
+        <h2>Company</h2>
+        <ul>
+          <li><a href="/about/">About</a></li>
+          <li><a href="/contact/">Contact</a></li>
+          <li><AppLink to="privacy" page={page} section="footer">Privacy</AppLink></li>
+          <li><AppLink to="terms" page={page} section="footer">Terms</AppLink></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer-legal">
+      <span>© 2026 {SITE.company}</span>
+      <span>Made in Mumbai</span>
+    </div>
+  </div>
+</footer>

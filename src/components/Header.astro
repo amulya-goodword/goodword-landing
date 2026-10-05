@@ -1,0 +1,20 @@
+---
+import AppLink from './AppLink.astro';
+interface Props { page: string }
+const { page } = Astro.props;
+---
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="wordmark" href="/" aria-label="GoodWord home">Good<b>Word</b></a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="/how-it-works/">How it works</a>
+      <a href="/sample-report/">Sample report</a>
+      <a href="/resume-pro-max/">Resume Pro Max</a>
+      <a href="/guides/">Guides</a>
+    </nav>
+    <div class="header-actions">
+      <AppLink to="login" page={page} section="header" class="signin">Sign in</AppLink>
+      <AppLink to="register" page={page} section="header" class="btn btn-primary btn-sm">Start free</AppLink>
+    </div>
+  </div>
+</header>

@@ -1,0 +1,5 @@
+---
+interface Props { small?: boolean }
+const { small = false } = Astro.props;
+---
+<span class:list={['tick', { 'tick-sm': small }]} aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5l3 3 6-7" /></svg></span>

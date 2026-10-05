@@ -1,0 +1,24 @@
+---
+// A holding page while the design system and the home page are being approved.
+// It is not the home page and it is kept out of search.
+import Base from '../layouts/Base.astro';
+---
+<Base title="GoodWord site, in review" description="Internal review pages for the new goodword.tech." page="review" noindex>
+  <section class="section">
+    <div class="wrap-narrow stack" style="--stack: var(--s-5)">
+      <p class="eyebrow">In review</p>
+      <h1>The new goodword.tech, before any page is built</h1>
+      <p class="lede">Two things to approve first. The home page starts only after both.</p>
+      <div class="grid grid-2">
+        <a class="card card-raised" href="/styleguide/">
+          <h2 style="font-size: var(--step-2)">Style page</h2>
+          <p class="meta" style="margin-top: var(--s-2)">Colour, type, spacing, buttons, cards, form controls and the report pieces.</p>
+        </a>
+        <a class="card card-raised" href="/concepts/">
+          <h2 style="font-size: var(--step-2)">Signature concepts</h2>
+          <p class="meta" style="margin-top: var(--s-2)">Two working ideas for the one moment on the home page people remember.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+</Base>

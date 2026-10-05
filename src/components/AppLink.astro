@@ -1,0 +1,16 @@
+---
+// Every link to the app goes through here, so each one is a plain anchor that carries where it was clicked.
+import { appHref, type AppTarget } from '../config';
+
+interface Props {
+  to: AppTarget;
+  page: string;
+  section: string;
+  class?: string;
+  [key: string]: unknown;
+}
+const { to, page, section, class: className, ...rest } = Astro.props;
+// "signup" and "sample" clicks are counted in analytics, by page.
+const cta = to === 'register' ? 'signup' : to === 'sample' ? 'sample' : to;
+---
+<a href={appHref(to, page, section)} class={className} data-app-link data-cta={cta} data-page={page} data-section={section} {...rest}><slot /></a>

@@ -1,0 +1,271 @@
+---
+import Base from '../layouts/Base.astro';
+import AppLink from '../components/AppLink.astro';
+import Tick from '../components/Tick.astro';
+import QuoteCard from '../components/report/QuoteCard.astro';
+import Piece from '../components/report/ReportPieces.astro';
+import { sample } from '../data/sample';
+
+const colours = [
+  { name: 'Ink', token: '--ink', hex: '#0f1b2d', use: 'Text, dark panels', dark: true },
+  { name: 'Gold', token: '--gold', hex: '#d4a442', use: 'Fills, rules, icons, text on navy' },
+  { name: 'Dark gold', token: '--gold-ink', hex: '#8a6410', use: 'Gold-coloured text on light. 5.4 to 1 on white', dark: true },
+  { name: 'Canvas', token: '--canvas', hex: '#f3f5f8', use: 'Page background' },
+  { name: 'Surface', token: '--surface', hex: '#ffffff', use: 'Cards' },
+  { name: 'Gold tint', token: '--gold-tint', hex: 'rgba(212,164,66,.16)', use: 'Soft highlight' },
+  { name: 'Ink 2', token: '--ink-2', hex: '#3d4a5f', use: 'Secondary text. 8.9 to 1 on white', dark: true },
+  { name: 'Ink 3', token: '--ink-3', hex: '#55627a', use: 'Meta text. 6.1 to 1 on white', dark: true },
+  { name: 'Line', token: '--line', hex: '#dfe4ec', use: 'Borders and dividers' },
+  { name: 'Error', token: '--error', hex: '#b42318', use: 'Form errors only', dark: true },
+];
+const steps = [
+  { token: '--step-6', label: 'Display', px: '40 to 76', sample: 'Vouched for.' },
+  { token: '--step-5', label: 'Heading 1', px: '36 to 62', sample: 'Let the people you have worked with vouch for you.' },
+  { token: '--step-4', label: 'Heading 2', px: '30 to 46', sample: 'What is inside a report' },
+  { token: '--step-3', label: 'Large', px: '25 to 34', sample: 'The part of your application you cannot write yourself.' },
+  { token: '--step-2', label: 'Heading 3', px: '21 to 26', sample: 'Three references unlock your report' },
+  { token: '--step-1', label: 'Lead', px: '18 to 21', sample: 'Invite up to 5 people you have worked with. Each answers in their own words.' },
+  { token: '--step-0', label: 'Body', px: '16 to 18', sample: 'A report needs 3 references to unlock and stays valid for 12 months. It holds words only. No ratings and no scores.' },
+  { token: '--step--1', label: 'Small', px: '14 to 15', sample: 'Direct Manager · Verified · Given July 2026. Nothing on the site is set smaller than this.' },
+];
+const spaces = ['--s-1', '--s-2', '--s-3', '--s-4', '--s-5', '--s-6', '--s-7', '--s-8', '--s-9'];
+const r = sample.referees;
+---
+<Base title="Style page · GoodWord" description="The GoodWord design system: colour, type, spacing, components and the report pieces." page="styleguide" noindex>
+  <section class="section sg-top">
+    <div class="wrap stack" style="--stack: var(--s-4)">
+      <p class="eyebrow">Design system</p>
+      <h1>One style page. Every page is built from it.</h1>
+      <p class="lede">Colour, type, spacing, controls and the pieces of a report, all in real text. Approve this and nothing outside it gets used.</p>
+      <nav class="cluster sg-jump" aria-label="On this page">
+        <a class="chip" href="#colour">Colour</a><a class="chip" href="#type">Type</a><a class="chip" href="#space">Space and shape</a><a class="chip" href="#buttons">Buttons</a><a class="chip" href="#cards">Cards</a><a class="chip" href="#forms">Form controls</a><a class="chip" href="#report">Report pieces</a>
+      </nav>
+    </div>
+  </section>
+
+  <section class="section sg-sec" id="colour" aria-labelledby="colour-h">
+    <div class="wrap stack" style="--stack: var(--s-5)">
+      <h2 id="colour-h">Colour</h2>
+      <p class="lede">Navy and gold, matched to the app. Gold never carries small text on a light background. Dark gold does that job.</p>
+      <ul class="sg-swatches">
+        {colours.map((c) => (
+          <li>
+            <span class="sw" style={`background:${c.hex}; color:${c.dark ? '#fff' : '#0f1b2d'}`}>Aa</span>
+            <span class="stack" style="--stack: 0.125rem">
+              <strong>{c.name}</strong>
+              <code>{c.hex}</code>
+              <span class="meta">{c.use}</span>
+            </span>
+          </li>
+        ))}
+      </ul>
+      <div class="grid grid-3 sg-pairs">
+        <p class="sg-pair" style="background:#fff"><span class="gold-text" style="font-weight:700">Dark gold on white</span><span class="meta">5.4 to 1, passes AA</span></p>
+        <p class="sg-pair on-navy"><span class="gold-text" style="font-weight:700">Gold on navy</span><span class="meta">7.5 to 1, passes AAA</span></p>
+        <p class="sg-pair" style="background:var(--gold)"><span style="font-weight:700">Ink on gold</span><span style="font-size:var(--step--1)">7.5 to 1, passes AAA</span></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section sg-sec" id="type" aria-labelledby="type-h">
+    <div class="wrap stack" style="--stack: var(--s-5)">
+      <h2 id="type-h">Type</h2>
+      <p class="lede">Inter, self-hosted. Every size is fluid between a 360px phone and a 1280px screen, so there are no jumps at breakpoints. Nothing drops below 14px.</p>
+      <div class="sg-type">
+        {steps.map((s) => (
+          <div class="sg-type-row">
+            <p class="meta"><strong>{s.label}</strong><br /><code>{s.token}</code><br />{s.px}px</p>
+            <p style={`font-size:var(${s.token}); ${['--step-6', '--step-5', '--step-4', '--step-3', '--step-2'].includes(s.token) ? 'font-weight:850; letter-spacing:-0.03em; line-height:1.08; text-wrap:balance' : 'line-height:1.6; max-width:var(--measure)'}`}>{s.sample}</p>
+          </div>
+        ))}
+      </div>
+      <div class="card stack" style="--stack: var(--s-3)">
+        <p class="eyebrow">Eyebrow label</p>
+        <h3>Headings are heavy, tight and in sentence case</h3>
+        <p>Body text is comfortably large and capped at about 62 characters a line. Links look like <a class="link" href="#type">this link</a>, with a gold underline that turns navy on hover.</p>
+        <p class="meta">Meta text is for dates, roles and small print.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section sg-sec" id="space" aria-labelledby="space-h">
+    <div class="wrap stack" style="--stack: var(--s-5)">
+      <h2 id="space-h">Space and shape</h2>
+      <div class="grid grid-2">
+        <div class="card stack" style="--stack: var(--s-3)">
+          <h3>Spacing scale</h3>
+          <ul class="sg-space">
+            {spaces.map((t) => <li><code>{t}</code><span style={`width:var(${t})`}></span></li>)}
+          </ul>
+          <p class="meta">Sections breathe with one fluid value, from 56px on a phone to 96px on a desktop.</p>
+        </div>
+        <div class="stack" style="--stack: var(--s-5)">
+          <div class="card stack" style="--stack: var(--s-3)">
+            <h3>Corners</h3>
+            <div class="cluster">
+              <span class="sg-corner" style="border-radius:var(--r-sm)">10</span>
+              <span class="sg-corner" style="border-radius:12px">12</span>
+              <span class="sg-corner" style="border-radius:var(--r-md)">14</span>
+              <span class="sg-corner" style="border-radius:var(--r-lg)">16</span>
+            </div>
+          </div>
+          <div class="card stack" style="--stack: var(--s-4)">
+            <h3>Shadows</h3>
+            <div class="cluster" style="--cluster: var(--s-5)">
+              <span class="sg-shadow" style="box-shadow:var(--sh-1)">Rest</span>
+              <span class="sg-shadow" style="box-shadow:var(--sh-2)">Raised</span>
+              <span class="sg-shadow" style="box-shadow:var(--sh-3)">Lifted</span>
+            </div>
+            <p class="meta">Soft and low. No glows, no blobs, no gradient meshes.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section sg-sec" id="buttons" aria-labelledby="buttons-h">
+    <div class="wrap stack" style="--stack: var(--s-5)">
+      <h2 id="buttons-h">Buttons and links</h2>
+      <p class="lede">One gold button per screen. It always goes to signup. Everything else is quieter.</p>
+      <div class="card stack" style="--stack: var(--s-5)">
+        <div class="cluster">
+          <AppLink to="register" page="styleguide" section="buttons" class="btn btn-primary btn-lg">Start my GoodWord <svg class="arrow" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h10M10 5l4 4-4 4" /></svg></AppLink>
+          <AppLink to="sample" page="styleguide" section="buttons" class="btn btn-ghost btn-lg">See a sample report</AppLink>
+        </div>
+        <div class="cluster">
+          <a class="btn btn-primary" href="#buttons">Primary</a>
+          <a class="btn btn-dark" href="#buttons">Dark</a>
+          <a class="btn btn-ghost" href="#buttons">Ghost</a>
+          <a class="btn btn-primary btn-sm" href="#buttons">Small</a>
+          <button class="btn btn-primary" disabled>Disabled</button>
+          <a class="link" href="#buttons">A text link</a>
+        </div>
+        <p class="meta">Tab through these to see the focus ring. Buttons are at least 48px tall so a thumb can find them.</p>
+      </div>
+      <div class="card card-navy on-navy stack" style="--stack: var(--s-4)">
+        <p class="eyebrow">On navy</p>
+        <div class="cluster">
+          <a class="btn btn-primary" href="#buttons">Start free</a>
+          <a class="btn btn-ghost" href="#buttons">See a sample report</a>
+          <a class="link" href="#buttons">A text link</a>
+        </div>
+        <p class="meta">Free for the first 1,000 members. No card needed.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section sg-sec" id="cards" aria-labelledby="cards-h">
+    <div class="wrap stack" style="--stack: var(--s-5)">
+      <h2 id="cards-h">Cards and chips</h2>
+      <div class="grid grid-2">
+        <div class="card stack"><h3>Plain card</h3><p class="meta">A hairline border on white. The default.</p></div>
+        <div class="card card-raised stack"><h3>Raised card</h3><p class="meta">For the things a visitor should pick up.</p></div>
+        <div class="card card-tint stack"><h3>Gold tint</h3><p>For one thing worth noticing on a screen.</p></div>
+        <div class="card card-navy on-navy stack"><h3>Navy panel</h3><p class="meta">For the closing ask and the footer.</p></div>
+      </div>
+      <div class="cluster">
+        <span class="chip">Peer</span>
+        <span class="chip chip-gold"><Tick small />Direct Manager · Verified</span>
+        <span class="chip chip-navy">Response Integrity: Strong</span>
+        <span class="chip">Given July 2026</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="section sg-sec" id="forms" aria-labelledby="forms-h">
+    <div class="wrap stack" style="--stack: var(--s-5)">
+      <h2 id="forms-h">Form controls</h2>
+      <p class="lede">Signup happens on the app, so the site needs very few of these. They are here so the two feel like one product.</p>
+      <div class="card grid grid-2">
+        <div class="field">
+          <label for="sg-name">Your name</label>
+          <input class="input" id="sg-name" type="text" autocomplete="name" placeholder="Aarav Mehta" />
+          <p class="help">As you would like a referee to see it.</p>
+        </div>
+        <div class="field is-error">
+          <label for="sg-email">Work email</label>
+          <input class="input" id="sg-email" type="email" value="aarav@" aria-invalid="true" aria-describedby="sg-email-err" />
+          <p class="error" id="sg-email-err">That email does not look complete.</p>
+        </div>
+        <div class="field">
+          <label for="sg-role">How do you know them?</label>
+          <select class="select" id="sg-role">
+            <option>Direct Manager</option><option>Peer</option><option>Direct Report</option><option>Client</option>
+          </select>
+        </div>
+        <label class="check"><input type="checkbox" checked /> <span>Show my name on the report. Leave this off and recruiters see my role only.</span></label>
+      </div>
+    </div>
+  </section>
+
+  <section class="section sg-sec" id="report" aria-labelledby="report-h">
+    <div class="wrap stack" style="--stack: var(--s-5)">
+      <h2 id="report-h">Report pieces</h2>
+      <p class="lede">The product, drawn in HTML and CSS. Every word is real, selectable text taken from the sample report on the app. Aarav Mehta and his referees are fictional.</p>
+
+      <h3 class="sg-h3">A referee's words</h3>
+      <div class="grid grid-2">
+        <QuoteCard referee={r[0]} variant="hero" />
+        <div class="stack" style="--stack: var(--s-4)">
+          <QuoteCard referee={r[1]} variant="short" />
+          <QuoteCard referee={r[2]} variant="short" />
+        </div>
+      </div>
+      <QuoteCard referee={r[0]} variant="full" />
+
+      <h3 class="sg-h3">The top of a report</h3>
+      <Piece piece="header" />
+      <div class="grid grid-2">
+        <Piece piece="summary" />
+        <div class="rp rp-pad stack" style="--stack: var(--s-3)">
+          <p class="rp-label">Would they work with him again?</p>
+          <Piece piece="tally" />
+        </div>
+      </div>
+
+      <h3 class="sg-h3">Strengths, growth and integrity</h3>
+      <div class="grid grid-2">
+        <Piece piece="strengths" />
+        <Piece piece="growth" />
+      </div>
+      <div class="grid grid-2">
+        <Piece piece="integrity" />
+        <Piece piece="unlock" responded={2} />
+      </div>
+
+      <h3 class="sg-h3">What you can do with it</h3>
+      <div class="grid grid-2 sg-share">
+        <Piece piece="message" />
+        <Piece piece="viewers" />
+        <div class="sg-center"><Piece piece="pdf" /></div>
+        <div class="sg-center"><Piece piece="linkedin" /></div>
+      </div>
+      <p class="meta">The "who viewed" list, the LinkedIn card and the message are drawn from your description, since those screens are signed-in. Tell me where they differ from the app.</p>
+    </div>
+  </section>
+</Base>
+
+<style is:global>
+  .sg-top { padding-bottom: var(--s-6); }
+  .sg-sec { padding-top: var(--s-7); padding-bottom: var(--s-7); border-top: 1px solid var(--line); }
+  .sg-jump .chip { text-decoration: none; }
+  .sg-jump .chip:hover { border-color: var(--ink); color: var(--ink); }
+  .sg-h3 { margin-top: var(--s-6); }
+  code { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 0.875rem; color: var(--ink-2); }
+  .sg-swatches { display: grid; gap: var(--s-4); grid-template-columns: repeat(auto-fill, minmax(15rem, 1fr)); }
+  .sg-swatches li { display: grid; grid-template-columns: 4rem 1fr; gap: var(--s-3); align-items: center; }
+  .sg-swatches .stack > * { display: block; }
+  .sg-swatches .sw { width: 4rem; height: 4rem; border-radius: var(--r-md); border: 1px solid var(--line); display: grid; place-items: center; font-weight: 800; }
+  .sg-pair { display: grid; gap: 0.25rem; padding: var(--s-4); border-radius: var(--r-md); border: 1px solid var(--line); }
+  .sg-type { display: grid; }
+  .sg-type-row { display: grid; gap: var(--s-2) var(--s-5); padding-block: var(--s-4); border-top: 1px solid var(--line); align-items: baseline; }
+  @media (min-width: 48rem) { .sg-type-row { grid-template-columns: 9rem 1fr; } }
+  .sg-space { display: grid; gap: var(--s-2); }
+  .sg-space li { display: grid; grid-template-columns: 4rem 1fr; align-items: center; gap: var(--s-3); }
+  .sg-space span { display: block; height: 0.75rem; background: var(--gold); border-radius: 3px; }
+  .sg-corner { width: 4.5rem; height: 4.5rem; background: var(--canvas); border: 1.5px solid var(--line-strong); display: grid; place-items: center; font-weight: 700; font-size: var(--step--1); }
+  .sg-shadow { width: 6rem; height: 4.5rem; border-radius: var(--r-md); background: var(--surface); display: grid; place-items: center; font-weight: 700; font-size: var(--step--1); }
+  .sg-share { align-items: start; }
+  .sg-center { display: grid; justify-items: center; }
+  .sg-center > * { width: 100%; }
+</style>
