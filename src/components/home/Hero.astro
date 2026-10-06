@@ -1,10 +1,18 @@
 ---
-// The promise, beside one referee's words. The three sample referees take turns, and their words arrive a word at a time.
+// The promise, beside the product at work: a line from a resume, then what someone who was there says about it.
+// The three sample referees take turns.
 import AppLink from '../AppLink.astro';
 import Arrow from '../Arrow.astro';
 import Tick from '../Tick.astro';
 import { sample } from '../../data/sample';
 const r = sample.referees;
+// One resume line for each referee, written to sit beside their own words.
+const claims = [
+  'Turned around merchant onboarding in one quarter.',
+  'Trusted partner to engineering on scope and dates.',
+  'Coached associate product managers to own their launches.',
+];
+const says = ['His manager says', 'A peer says', 'Someone on his team says'];
 ---
 <section class="hero" aria-labelledby="hero-h">
   <div class="wrap hero-grid">
@@ -27,18 +35,22 @@ const r = sample.referees;
       <div class="hv-deck">
         <span class="hv-ghost hv-g2" aria-hidden="true"></span>
         <span class="hv-ghost hv-g1" aria-hidden="true"></span>
-        <ol class="hv-cards" aria-label="What three people said about working with Aarav">
+        <ol class="hv-cards" aria-label="Three lines from Aarav’s resume, each with what someone he worked with says">
           {r.map((ref, k) => (
             <li class="hv-card" style={`--k:${k}`}>
               <figure class="rp rp-pad quote hv-quote">
-                <svg class="quote-mark" viewBox="0 0 32 24" fill="currentColor" aria-hidden="true"><path d="M0 24V13.5C0 5.6 4.4 1 12.4 0l1.2 3.4C9.4 4.4 7.4 7 7.2 10.4H13V24H0zm18.4 0V13.5C18.4 5.6 22.8 1 30.8 0L32 3.4c-4.2 1-6.2 3.6-6.4 7h5.8V24h-13z" /></svg>
+                <p class="hv-claim"><span class="rp-label rp-label-quiet">His resume says</span><span class="hv-claim-t">{claims[k]}</span></p>
+                <p class="hv-says hv-ans">
+                  <svg class="quote-mark" viewBox="0 0 32 24" fill="currentColor" aria-hidden="true"><path d="M0 24V13.5C0 5.6 4.4 1 12.4 0l1.2 3.4C9.4 4.4 7.4 7 7.2 10.4H13V24H0zm18.4 0V13.5C18.4 5.6 22.8 1 30.8 0L32 3.4c-4.2 1-6.2 3.6-6.4 7h5.8V24h-13z" /></svg>
+                  <span class="rp-label">{says[k]}</span>
+                </p>
                 {k === 0 ? (
                   /* The first quote arrives a word at a time. A screen reader gets it as one plain sentence. */
-                  <blockquote class="quote-words big"><span class="sr-only">{ref.excelShort}</span><span aria-hidden="true">{ref.excelShort.split(' ').map((w, i) => (<><span class="hv-w" style={`--i:${i}`}>{w}</span>{' '}</>))}</span></blockquote>
+                  <blockquote class="quote-words big hv-ans"><span class="sr-only">{ref.excelShort}</span><span aria-hidden="true">{ref.excelShort.split(' ').map((w, i) => (<><span class="hv-w" style={`--i:${i}`}>{w}</span>{' '}</>))}</span></blockquote>
                 ) : (
-                  <blockquote class="quote-words big">{ref.excelShort}</blockquote>
+                  <blockquote class="quote-words big hv-ans">{ref.excelShort}</blockquote>
                 )}
-                <figcaption class="cluster" style="--cluster: var(--s-2)">
+                <figcaption class="cluster hv-ans" style="--cluster: var(--s-2)">
                   <span class="chip chip-gold"><Tick small />{ref.role} · Verified</span>
                   <span class="meta">{ref.named ? ref.label : 'Shown by role'}</span>
                 </figcaption>
@@ -93,8 +105,15 @@ const r = sample.referees;
   .hv-cards { position: relative; display: grid; }
   .hv-card { grid-area: 1 / 1; opacity: 0; display: grid; }
   .hv-card:first-child { opacity: 1; }
-  .hv-quote { box-shadow: var(--sh-3); min-height: 15rem; align-content: space-between; }
+  .hv-quote { box-shadow: var(--sh-3); min-height: 19rem; align-content: start; }
+  .hv-quote figcaption { align-self: end; margin-top: auto; }
   .hv-quote .quote-words.big { font-size: var(--step-2); }
+  /* The line from the resume: a clipping, set apart from the answer below it */
+  .hv-claim { display: grid; gap: 0.25rem; padding: var(--s-3) var(--s-4); border-radius: var(--r-md); background: var(--canvas); border: 1.5px dashed var(--line-strong); }
+  .hv-claim-t { font-weight: 650; line-height: 1.4; color: var(--ink-2); }
+  .hv-says { display: flex; align-items: center; gap: var(--s-2); margin-top: var(--s-2); }
+  .hv-says .quote-mark { width: 1.375rem; height: 1.03rem; }
+  @media (max-width: 30rem) { .hv-quote .quote-words.big { font-size: var(--step-1); } }
   .hv-tally { box-shadow: var(--sh-1); }
   .hv-foot { display: flex; align-items: center; justify-content: space-between; gap: var(--s-3); }
   /* Anything that moves by itself for more than a few seconds needs a way to stop it, by keyboard and touch as well as mouse. */
@@ -128,12 +147,18 @@ const r = sample.referees;
       3%, 30% { opacity: 1; transform: none; }
       33.3%, 100% { opacity: 0; transform: translateY(-12px) scale(0.985); }
     }
-    .hv-card:first-child .hv-w { display: inline-block; animation: hv-word 0.5s var(--ease) both; animation-delay: calc(850ms + var(--i) * 60ms); }
+    /* On each turn the resume line is there first. The answer follows a moment later. */
+    .hv-ans { animation: hv-ans 15s var(--ease) infinite both; animation-delay: calc(var(--k) * 5s); }
+    @keyframes hv-ans {
+      0%, 6% { opacity: 0; transform: translateY(10px); }
+      10%, 100% { opacity: 1; transform: none; }
+    }
+    .hv-card:first-child .hv-w { display: inline-block; animation: hv-word 0.5s var(--ease) both; animation-delay: calc(1250ms + var(--i) * 60ms); }
     @keyframes hv-word { from { opacity: 0.12; transform: translateY(4px); } }
-    .hv-deck:hover .hv-card { animation-play-state: paused; }
+    .hv-deck:hover .hv-card, .hv-deck:hover .hv-ans { animation-play-state: paused; }
     @supports selector(:has(*)) {
       .hv-pause { display: block; }
-      .hv:has(.hv-pause-input:checked) .hv-card { animation-play-state: paused; }
+      .hv:has(.hv-pause-input:checked) .hv-card, .hv:has(.hv-pause-input:checked) .hv-ans { animation-play-state: paused; }
     }
     /* The entrance, once, as the page opens: the headline rises a line at a time from behind an edge,
        the words under it follow, the first reference lands, and the tally settles on it. */
