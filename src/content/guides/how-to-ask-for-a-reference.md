@@ -5,7 +5,7 @@ answer: Ask someone who has seen your work up close, ask before you need it and 
 published: 2026-10-06
 updated: 2026-10-06
 author: GoodWord Team
-related: [best-way-to-get-a-job, reference-when-your-manager-has-left, references-on-a-resume]
+related: [best-way-to-get-a-job, reference-when-your-manager-has-left, how-to-write-a-reference-for-a-colleague]
 ---
 
 ## Who to ask
@@ -62,7 +62,7 @@ Once someone says yes, send them three things.
 2. The kind of role you are applying for.
 3. Two or three things you hope they can speak about, with the project each one comes from.
 
-Do not write their answer for them. A reference that sounds like you wrote it helps nobody.
+Do not write their answer for them. A reference that sounds like you wrote it helps nobody. If they ask what to say, send them our guide on [how to write a reference for a colleague](/guides/how-to-write-a-reference-for-a-colleague/).
 
 Tell them when a call is likely, so it does not land in the middle of a meeting. Recruiters in India often call without warning.
 

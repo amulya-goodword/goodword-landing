@@ -5,7 +5,7 @@ answer: An experience letter confirms where you worked, for how long and in what
 published: 2026-10-06
 updated: 2026-10-06
 author: GoodWord Team
-related: [reference-check-vs-background-verification, how-to-ask-for-a-reference, references-on-a-resume]
+related: [relieving-letter-not-given, reference-letter-format, reference-check-vs-background-verification]
 ---
 
 ## The three, side by side
@@ -39,7 +39,7 @@ Most private-sector hiring in India does not ask for a written reference letter.
 
 ## If your employer will not give you a letter
 
-It happens, most often after a difficult exit or when a small company has no HR process.
+It happens, most often after a difficult exit or when a small company has no HR process. The short version is below. Our guide on [what to do when a company will not give a relieving letter](/guides/relieving-letter-not-given/) has every step and the messages to send.
 
 1. **Ask in writing.** Email HR and your manager, state your last working day and ask for the relieving and experience letters. Keep the email trail.
 2. **Tell your new employer early.** Hiring teams deal with this often. It is far better heard from you than found during verification.
