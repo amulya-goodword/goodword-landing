@@ -11,8 +11,8 @@ const { faqs } = Astro.props;
 const honest = [
   'Words only. No ratings, no scores.',
   'You cannot edit what a referee wrote.',
-  'Every reference names an area to grow.',
-  'Recruiters see roles, not names. You see both.',
+  'Every reference names areas to grow.',
+  'Recruiters see roles. A name shows only if the referee chose it. You see every name.',
   'Not a background check. We do not claim to be one.',
   'Your data is yours. Export or delete it any time.',
 ];
@@ -25,7 +25,7 @@ const honest = [
     </div>
     <ul class="honest-list">
       {honest.map((h) => (
-        <li class="reveal"><Tick /><p>{h}</p></li>
+        <li class="reveal"><Tick small /><p>{h}</p></li>
       ))}
     </ul>
   </div>
@@ -100,12 +100,15 @@ const honest = [
 
 <style is:global>
   .honest, .voices, .faq-sec, .note, .closer { content-visibility: auto; contain-intrinsic-size: auto 720px; }
-  .honest { padding-block: var(--section); }
-  .honest-head { display: grid; gap: var(--s-3); max-width: 44rem; }
-  .honest-list { margin-top: var(--s-7); display: grid; gap: var(--s-5) var(--s-7); }
-  @media (min-width: 48rem) { .honest-list { grid-template-columns: repeat(2, 1fr); } }
-  .honest-list li { display: grid; grid-template-columns: auto 1fr; gap: var(--s-3); align-items: center; padding-bottom: var(--s-5); border-bottom: 1px solid rgba(255, 255, 255, 0.14); }
-  .honest-list p { font-size: var(--step-2); font-weight: 750; letter-spacing: -0.02em; line-height: 1.25; }
+  .honest { padding-block: clamp(2.5rem, 1.9rem + 2.6vw, 4rem); }
+  .honest-head { display: grid; gap: var(--s-2); max-width: 44rem; }
+  .honest-head h2 { font-size: var(--step-3); }
+  .honest-list { margin-top: var(--s-5); display: grid; column-gap: var(--s-6); }
+  @media (min-width: 40rem) { .honest-list { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 62rem) { .honest-list { grid-template-columns: repeat(3, 1fr); } }
+  .honest-list li { display: grid; grid-template-columns: auto 1fr; gap: var(--s-3); align-items: start; padding-block: var(--s-4); border-top: 1px solid rgba(255, 255, 255, 0.14); }
+  .honest-list .tick { margin-top: 0.1875rem; }
+  .honest-list p { font-size: var(--step-0); font-weight: 650; letter-spacing: -0.005em; line-height: 1.4; }
 
   .voices-head { display: grid; gap: var(--s-3); max-width: 44rem; }
   .voices-grid { margin-top: var(--s-6); }
