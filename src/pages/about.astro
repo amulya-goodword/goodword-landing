@@ -15,17 +15,31 @@ const title = 'About GoodWord';
 const description = 'Why GoodWord exists, who is behind it and what we promise the people who use it.';
 ---
 <Base title={title} description={description} page="about" og="about">
-  <PageHead narrow trail={[{ href: '/about/', label: 'About' }]} eyebrow="About" title="Bringing humans back to job applications." />
+  <PageHead trail={[{ href: '/about/', label: 'About' }]} eyebrow="About" title="Bringing humans back to job applications." />
 
   <section class="section" style="padding-top: 0">
-    <div class="wrap-narrow">
+    <div class="wrap about-grid">
       <div class="prose">
         <p class="answer">I have watched good people struggle to get noticed. I have been one of them.</p>
         <p>A resume is the one thing most of us are allowed to send. It is also the one document we write about ourselves. The people who could say what we are really like to work with are asked last, over a phone call, if they are asked at all.</p>
         <p>GoodWord turns that around. You ask the people you have worked with to vouch for you, in their own words. Then you send what they said with every application, at the start, when it can still change who gets a conversation.</p>
         <p>That is the whole idea. A job application with people in it.</p>
-        <p><strong>Amulya Nidhi</strong>, founder<br /><a href="https://www.linkedin.com/in/amulyanidhi/" rel="noopener me">Amulya on LinkedIn</a></p>
+        <p><strong>Amulya Nidhi</strong>, Founder<br /><a href="https://www.linkedin.com/in/amulyanidhi/" rel="noopener me">Amulya on LinkedIn</a></p>
       </div>
+
+      <figure class="pile-wrap">
+        <div class="pile" role="img" aria-label="Five job applications in a row. Four are a resume alone. One has three people vouching for it, and it stands out.">
+          {[0, 1, 2, 3, 4].map((i) => (
+            <span class:list={['pile-card', { 'is-vouched': i === 2 }]} style={`--n:${i}`}>
+              <i style="width:62%"></i><i style="width:90%"></i><i style="width:76%"></i><i style="width:84%"></i><i style="width:54%"></i>
+              {i === 2 && (
+                <span class="pile-people"><b></b><b></b><b></b></span>
+              )}
+            </span>
+          ))}
+        </div>
+        <figcaption>Same pile of applications. One has people in it.</figcaption>
+      </figure>
     </div>
   </section>
 
@@ -33,21 +47,53 @@ const description = 'Why GoodWord exists, who is behind it and what we promise t
     <div class="wrap">
       <div class="sec-head"><h2>What we promise</h2></div>
       <div class="facts-grid">
-        <div class="fact-card"><h3>Words, not numbers</h3><p>A report holds what people said about working with you. No ratings and no scores.</p></div>
-        <div class="fact-card"><h3>Nobody edits a reference</h3><p>Not you and not us. A referee can withdraw their own.</p></div>
-        <div class="fact-card"><h3>We say what we are not</h3><p>GoodWord is not a background check. We do not verify identity documents or employment records.</p></div>
-        <div class="fact-card"><h3>Your data is yours</h3><p>Export or delete all of it at any time, under India’s DPDP Act.</p></div>
+        <div class="fact-card reveal"><h3>Words, not numbers</h3><p>A report holds what people said about working with you. No ratings and no scores.</p></div>
+        <div class="fact-card reveal"><h3>Nobody edits a reference</h3><p>Not you and not us. A referee can withdraw their own.</p></div>
+        <div class="fact-card reveal"><h3>We say what we are not</h3><p>GoodWord is not a background check. We do not verify identity documents or employment records.</p></div>
+        <div class="fact-card reveal"><h3>Your data is yours</h3><p>Export or delete all of it at any time, under India’s DPDP Act.</p></div>
       </div>
-    </div>
-  </section>
-
-  <section class="section">
-    <div class="wrap-narrow stack" style="--stack: var(--s-3)">
-      <h2 style="font-size: var(--step-3)">The company</h2>
-      <p>{SITE.company}<br />{SITE.address}</p>
-      <p><a class="link" href={`mailto:${SITE.email}`}>{SITE.email}</a></p>
-      <p><a class="link" href="/contact/">All the ways to reach us</a></p>
+      <p style="margin-top: var(--s-6)"><a class="link" href="/contact/">Talk to us</a></p>
     </div>
   </section>
   <CtaBand page="about" />
 </Base>
+
+<style is:global>
+  .about-grid { display: grid; gap: var(--s-7); align-items: center; }
+  @media (min-width: 56rem) { .about-grid { grid-template-columns: 1.05fr 0.95fr; gap: var(--s-8); } }
+  .pile-wrap { display: grid; gap: var(--s-4); justify-items: center; }
+  .pile-wrap figcaption { font-size: var(--step-1); }
+  @media (max-width: 55.99rem) { .pile-wrap { order: -1; } }
+  .pile-wrap figcaption { font-weight: 750; letter-spacing: -0.01em; text-align: center; color: var(--ink); }
+
+  /* Five applications. One has people in it. This is the finished state, shown when motion is off.
+     Sizes follow the width of the picture, so it fills its column on a laptop and still fits a phone. */
+  .pile-wrap { width: 100%; }
+  .pile { container-type: inline-size; width: min(100%, 34rem); display: flex; justify-content: center; align-items: flex-end; padding: 14% 0 3%; }
+  .pile-card { position: relative; flex: none; width: 21%; aspect-ratio: 1 / 1.36; margin-left: -2.5%; border-radius: 8px; background: var(--surface); border: 1px solid var(--line-strong); box-shadow: var(--sh-1); padding: 2.6cqw 2.2cqw; display: grid; gap: 1.4cqw; align-content: start; opacity: 0.55; transform: rotate(calc((var(--n) - 2) * 3deg)); }
+  .pile-card:first-child { margin-left: 0; }
+  .pile-card i { display: block; height: 1.1cqw; min-height: 3px; border-radius: var(--r-pill); background: var(--bar-strong); }
+  .pile-card.is-vouched { z-index: 2; opacity: 1; border-color: var(--gold); border-top: 4px solid var(--gold); box-shadow: var(--sh-3); transform: translateY(-14%) scale(1.2); }
+  .pile-card.is-vouched i { background: var(--bar); }
+  .pile-people { position: absolute; left: 0; right: 0; bottom: 9%; display: flex; justify-content: center; }
+  .pile-people b { width: 5cqw; height: 5cqw; min-width: 14px; min-height: 14px; border-radius: 50%; background: var(--ink); border: 2px solid var(--surface); margin-left: -1.2cqw; }
+  .pile-people b:first-child { margin-left: 0; }
+  .pile-people b:nth-child(2) { background: var(--gold); }
+
+  /* As it scrolls into view: the pile sits flat, three people arrive, and their application rises. */
+  @media (prefers-reduced-motion: no-preference) {
+    @supports (animation-timeline: view()) {
+      .pile { view-timeline-name: --pile; view-timeline-axis: block; }
+      .pile-card, .pile-people b { animation-timeline: --pile; animation-timing-function: linear; animation-fill-mode: both; }
+      .pile-card:not(.is-vouched) { animation-name: pile-fade; animation-range: entry 60% cover 42%; }
+      .pile-card.is-vouched { animation-name: pile-rise; animation-range: entry 60% cover 42%; }
+      .pile-people b { animation-name: pile-pop; }
+      .pile-people b:nth-child(1) { animation-range: entry 20% entry 55%; }
+      .pile-people b:nth-child(2) { animation-range: entry 40% entry 75%; }
+      .pile-people b:nth-child(3) { animation-range: entry 60% entry 95%; }
+      @keyframes pile-fade { from { opacity: 1; } to { opacity: 0.55; } }
+      @keyframes pile-rise { from { transform: none; } to { transform: translateY(-14%) scale(1.2); } }
+      @keyframes pile-pop { from { opacity: 0; transform: translateY(6px) scale(0.4); } to { opacity: 1; transform: none; } }
+    }
+  }
+</style>

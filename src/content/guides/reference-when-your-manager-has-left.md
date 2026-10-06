@@ -4,7 +4,7 @@ description: Your manager moved on, the company shut down or you cannot tell you
 answer: Ask the same manager. Leaving the company does not stop them being your manager for the time you worked together. Someone who has moved on is often freer to speak about you than someone still bound by company policy. If you cannot reach them, the next best choice is another person who saw your work closely, such as a skip-level manager, a senior peer or a client.
 published: 2026-10-06
 updated: 2026-10-06
-author: GoodWord team
+author: GoodWord Team
 related: [how-to-ask-for-a-reference, reference-check-vs-background-verification]
 ---
 

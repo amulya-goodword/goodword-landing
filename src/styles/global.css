@@ -412,12 +412,29 @@ a.card:hover { transform: translateY(-3px); box-shadow: var(--sh-2); }
 .integrity-scale li { text-align: center; font-size: var(--step--1); font-weight: 650; color: var(--ink-3); padding: 0.375rem 0.25rem; border-radius: 8px; background: var(--canvas); border: 1px solid var(--line); }
 .integrity-scale li[aria-current='true'] { background: var(--ink); color: var(--on-navy); border-color: var(--ink); font-weight: 750; }
 
-/* Who viewed your report */
-.viewers li { display: grid; grid-template-columns: auto 1fr auto; gap: var(--s-3); align-items: center; padding: var(--s-3) 0; }
-.viewers li + li { border-top: 1px solid var(--line); }
-.avatar { width: 2.5rem; height: 2.5rem; border-radius: 50%; background: var(--ink); color: var(--gold); display: grid; place-items: center; font-weight: 800; font-size: var(--step--1); letter-spacing: 0.02em; }
+/* Who viewed your report: grouped by company, as in the app */
+.viewed { display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-4); }
+.viewed-stats { display: flex; flex-wrap: wrap; gap: var(--s-3) var(--s-5); }
+.viewed-stats li { display: grid; gap: 0.125rem; }
+.viewed-stats span { font-size: var(--step--1); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--ink-3); }
+.viewed-stats strong { font-size: var(--step-1); font-weight: 850; letter-spacing: -0.02em; line-height: 1.15; white-space: nowrap; }
+.viewed-group { border-top: 1px solid var(--line); padding-top: var(--s-3); }
+.viewed-co { display: flex; align-items: center; gap: var(--s-2); }
+.viewed-co svg { width: 1.125rem; height: 1.125rem; color: var(--gold-ink); flex: none; }
+.viewed-co strong { font-weight: 800; letter-spacing: -0.01em; overflow-wrap: anywhere; min-width: 0; }
+.viewed-co .meta { margin-left: auto; white-space: nowrap; }
+.viewers li { display: grid; grid-template-columns: auto 1fr; gap: 0.125rem var(--s-3); align-items: center; padding: var(--s-3) 0 0; }
+.viewers li + li { margin-top: var(--s-3); border-top: 1px solid var(--line); }
+.avatar { grid-row: span 2; align-self: start; width: 2.5rem; height: 2.5rem; border-radius: 50%; background: var(--ink); color: var(--on-navy); display: grid; place-items: center; font-weight: 800; font-size: var(--step--1); letter-spacing: 0.02em; }
+.viewer-main, .viewer-side { display: grid; }
+.viewer-side { grid-column: 2; }
 .viewers .who { font-weight: 700; line-height: 1.3; }
-@media (max-width: 30rem) { .viewers li { grid-template-columns: auto 1fr; } .viewers li > :last-child { grid-column: 2; margin-top: -0.5rem; } }
+/* Where the list has room, on the inner pages at laptop width, it takes the app's layout: dates on the right. */
+@media (min-width: 62rem) {
+  .row-visual .viewers li { grid-template-columns: auto 1fr auto; }
+  .row-visual .avatar { grid-row: auto; align-self: center; }
+  .row-visual .viewer-side { grid-column: auto; text-align: right; }
+}
 
 /* Progress to unlock */
 .unlock { display: grid; gap: var(--s-3); }
@@ -433,20 +450,30 @@ a.card:hover { transform: translateY(-3px); box-shadow: var(--sh-2); }
 .pdf .qr svg { width: 100%; height: auto; }
 .pdf .foot { position: absolute; left: var(--s-4); bottom: var(--s-4); right: 6.25rem; font-size: 0.875rem; font-weight: 650; color: var(--ink-2); line-height: 1.3; }
 
-/* The LinkedIn card */
-.li-card { background: var(--ink); color: var(--on-navy); border-radius: var(--r-md); padding: var(--s-5); display: grid; gap: var(--s-5); min-height: 13rem; align-content: space-between; max-width: 26rem; box-shadow: var(--sh-2); }
-.li-card .name { font-size: var(--step-2); font-weight: 850; letter-spacing: -0.025em; line-height: 1.1; }
-.li-card .facts { display: flex; flex-wrap: wrap; gap: var(--s-2); }
-.li-card .chip { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.2); color: var(--on-navy); }
+/* The LinkedIn card, as the app draws it */
+.li-card { background: var(--ink); color: var(--on-navy); border-radius: var(--r-md); padding: clamp(1.125rem, 0.8rem + 1.4vw, 1.75rem); display: grid; gap: var(--s-5); align-content: space-between; max-width: 32rem; box-shadow: var(--sh-2); }
+.li-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-2) var(--s-3); }
+.li-pill { font-size: 0.875rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gold); border: 1.5px solid var(--gold); border-radius: var(--r-pill); padding: 0.25rem 0.75rem; white-space: nowrap; }
+.li-card .name { font-size: var(--step-3); font-weight: 850; letter-spacing: -0.03em; line-height: 1.05; }
+.li-role { margin-top: 0.25rem; color: var(--on-navy-2); font-weight: 600; }
+.li-facts { display: grid; gap: 0.25rem; font-weight: 750; line-height: 1.35; }
+.li-gold { color: var(--gold); }
+.li-facts .nw { white-space: nowrap; }
+.li-foot { display: grid; gap: 0.375rem; font-size: 0.875rem; color: var(--on-navy-2); line-height: 1.4; }
+.li-foot .rule { height: 2px; width: 2.5rem; margin-bottom: 0.25rem; }
+.li-foot b { color: var(--on-navy); font-weight: 700; overflow-wrap: anywhere; }
 
-/* A message with a GoodWord attached */
-.msg { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: var(--sh-2); overflow: hidden; max-width: 30rem; }
-.msg-head { padding: var(--s-3) var(--s-4); border-bottom: 1px solid var(--line); display: grid; gap: 0.25rem; font-size: var(--step--1); }
-.msg-head b { font-weight: 700; }
+/* A message drafted by Send it */
+.msg { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); box-shadow: var(--sh-2); overflow: hidden; max-width: 32rem; }
+.msg-head { padding: var(--s-3) var(--s-4); border-bottom: 1px solid var(--line); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-2) var(--s-3); }
+.msg-channels { display: flex; flex-wrap: wrap; gap: 0.375rem; }
+.msg-channels span { font-size: 0.875rem; font-weight: 700; padding: 0.3125rem 0.75rem; border-radius: var(--r-pill); border: 1px solid var(--line); color: var(--ink-2); white-space: nowrap; }
+.msg-channels .is-on { background: var(--ink); border-color: var(--ink); color: var(--on-navy); }
 .msg-body { padding: var(--s-4); display: grid; gap: var(--s-3); }
-.attach { display: flex; align-items: center; gap: var(--s-3); padding: var(--s-3); border-radius: var(--r-sm); background: var(--gold-tint); border: 1px solid var(--gold-line); text-decoration: none; }
-.attach .file { width: 2.25rem; height: 2.75rem; border-radius: 6px; background: var(--surface); border: 1px solid var(--gold-line); border-left: 4px solid var(--gold); flex: none; }
-.attach .t { font-weight: 750; line-height: 1.3; }
+.msg-subject { display: grid; gap: 0.125rem; font-weight: 700; padding-bottom: var(--s-3); border-bottom: 1px solid var(--line); }
+.msg-subject .meta { font-weight: 500; }
+.msg-text { display: grid; gap: var(--s-3); line-height: 1.55; }
+.msg-link { color: var(--gold-ink); font-weight: 650; overflow-wrap: anywhere; }
 
 /* Resume Pro Max: a resume and a report, as one file */
 .rpm { position: relative; height: 9.5rem; }

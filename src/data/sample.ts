@@ -76,11 +76,25 @@ export const sample = {
   ],
 };
 
-// Not on the public sample page. These two are reconstructions from the product description,
-// with fictional people and companies, until real screens are confirmed.
-export const viewers = [
-  { name: 'Ritika Sen', company: 'Kestrel Pay', when: 'Viewed 12 September' },
-  { name: 'Arjun Nair', company: 'Northline Logistics', when: 'Viewed 9 September' },
-];
+// The "Who viewed" screen, laid out as the app shows it: grouped by the company in each viewer's work email,
+// with first opened, last opened and how many times. The people and the companies are fictional.
+export const viewed = {
+  people: 3,
+  companies: 2,
+  lastOpened: '12 Sep 2026',
+  groups: [
+    {
+      domain: 'kestrelpay.in',
+      people: [
+        { name: 'Ritika Sen', first: '8 Sep 2026', last: '12 Sep 2026', times: 4 },
+        { name: 'Dev Malhotra', first: '9 Sep 2026', last: '10 Sep 2026', times: 2 },
+      ],
+    },
+    {
+      domain: 'northlinefreight.in',
+      people: [{ name: 'Arjun Nair', first: '9 Sep 2026', last: '11 Sep 2026', times: 3 }],
+    },
+  ],
+};
 
 export type Referee = (typeof sample.referees)[number];

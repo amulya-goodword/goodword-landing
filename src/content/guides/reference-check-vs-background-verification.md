@@ -4,7 +4,7 @@ description: One checks facts, the other asks people. What each covers in India,
 answer: A background verification checks facts. It confirms your identity, where you worked, your dates, your degree and sometimes your address and court records. A reference check asks people who worked with you what you were like to work with. One confirms what is on your resume. The other tells an employer what a resume cannot. Many employers in India do both, usually at different stages.
 published: 2026-10-06
 updated: 2026-10-06
-author: GoodWord team
+author: GoodWord Team
 related: [reference-when-your-manager-has-left, reference-letter-vs-experience-letter-vs-relieving-letter]
 ---
 

@@ -4,7 +4,7 @@ description: Why Indian recruiters do not expect references on a resume, when th
 answer: No. Do not list referees on your resume. Leave out the line "References available on request". Recruiters already assume you can provide references. That space is worth more when it shows your work. Keep your references ready as a separate thing you can send the moment someone asks.
 published: 2026-10-06
 updated: 2026-10-06
-author: GoodWord team
+author: GoodWord Team
 related: [best-way-to-get-a-job, how-to-ask-for-a-reference, reference-check-vs-background-verification]
 ---
 

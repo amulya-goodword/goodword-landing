@@ -4,7 +4,7 @@ description: The three documents job seekers in India mix up most. Who issues ea
 answer: An experience letter confirms where you worked, for how long and in what role. A relieving letter confirms that you have left and that nothing is pending between you and the employer. A reference letter is one person's own account of what you were like to work with. The first two come from the company, usually HR. The third comes from an individual. Most private employers in India never ask for it in writing.
 published: 2026-10-06
 updated: 2026-10-06
-author: GoodWord team
+author: GoodWord Team
 related: [reference-check-vs-background-verification, how-to-ask-for-a-reference, references-on-a-resume]
 ---
 

@@ -4,7 +4,7 @@ description: Referrals, direct messages, job portals and campus hiring, ranked b
 answer: The best way to get a job is to arrive with someone else's word behind you. A referral from inside the company is the strongest form of that. Where you cannot get one, send proof with your application, in the words of people who have worked with you. Job portals still matter. But an application that only you vouch for is the weakest one in the pile.
 published: 2026-10-06
 updated: 2026-10-06
-author: GoodWord team
+author: GoodWord Team
 related: [how-to-ask-for-a-reference, references-on-a-resume, reference-when-your-manager-has-left]
 ---
 

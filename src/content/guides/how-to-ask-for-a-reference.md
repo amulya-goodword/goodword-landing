@@ -4,7 +4,7 @@ description: Who to ask, when to ask and the exact words to use on WhatsApp, ema
 answer: Ask someone who has seen your work up close, ask before you need it and make it easy for them to say yes or no. Tell them the role you are going for, what you would like them to speak about and how much of their time it will take. A short, specific message on the channel you normally use with them works better than a formal letter.
 published: 2026-10-06
 updated: 2026-10-06
-author: GoodWord team
+author: GoodWord Team
 related: [best-way-to-get-a-job, reference-when-your-manager-has-left, references-on-a-resume]
 ---
 
