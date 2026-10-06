@@ -4,7 +4,7 @@ export const SITE = {
   name: 'GoodWord',
   url: 'https://goodword.tech',
   lang: 'en-IN',
-  tagline: 'Let the people you have worked with vouch for you.',
+  tagline: 'Your good work deserves a GoodWord.',
   signature: 'Apply to jobs with a GoodWord.',
   company: 'GoodWord Technologies Private Limited',
   address: 'Tower 4, NESCO, Goregaon East, Mumbai',

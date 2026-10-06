@@ -11,7 +11,7 @@ const semi = fs.readFileSync('node_modules/@fontsource/inter/files/inter-latin-6
 
 const PAGES: Record<string, [string, string]> = {
   default: ['Your resume says it.', 'They back it up.'],
-  home: ['Let the people you have worked with', 'vouch for you.'],
+  home: ['Your good work', 'deserves a GoodWord.'],
   'how-it-works': ['Three people who know your work.', 'One report.'],
   'sample-report': ['What a GoodWord report', 'looks like.'],
   'resume-pro-max': ['Your resume and your references,', 'in one file.'],
