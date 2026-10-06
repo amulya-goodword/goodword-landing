@@ -26,7 +26,7 @@ const description = 'Why GoodWord exists, who is behind it and what we promise t
         <p>A resume is the one thing most of us are allowed to send. It is also the one document we write about ourselves. The people who could say what we are really like to work with are asked last, over a phone call, if they are asked at all.</p>
         <p>GoodWord turns that around. You ask the people you have worked with to vouch for you, in their own words. Then you send what they said with every application, at the start, when it can still change who gets a conversation.</p>
         <p>That is the differentiator I wished I had. I think it is the best one there is.</p>
-        <p><strong>Amulya Nidhi</strong>, Founder<br /><a href="https://www.linkedin.com/in/amulyanidhi/" rel="noopener me">Amulya on LinkedIn</a></p>
+        <p class="about-sign"><img class="about-photo" src="/img/amulya-nidhi-256.webp" srcset="/img/amulya-nidhi-128.webp 128w, /img/amulya-nidhi-256.webp 256w, /img/amulya-nidhi-512.webp 512w" sizes="88px" width="256" height="256" alt="" loading="lazy" decoding="async" /><span><strong>Amulya Nidhi</strong>, Founder<br /><a href="https://www.linkedin.com/in/amulyanidhi/" rel="noopener me">Amulya on LinkedIn</a></span></p>
       </div>
 
       <figure class="pile-wrap">
@@ -63,6 +63,8 @@ const description = 'Why GoodWord exists, who is behind it and what we promise t
 <style is:global>
   .about-grid { display: grid; gap: var(--s-7); align-items: center; }
   .prose .eyebrow { color: var(--gold-ink); line-height: 1.4; }
+  .about-sign { display: flex; align-items: center; gap: var(--s-4); }
+  .about-photo { flex: none; width: 5.5rem; height: 5.5rem; border-radius: 50%; object-fit: cover; background: var(--bar); }
   @media (min-width: 56rem) { .about-grid { grid-template-columns: 1.05fr 0.95fr; gap: var(--s-8); } }
   .pile-wrap { display: grid; gap: var(--s-4); justify-items: center; }
   .pile-wrap figcaption { font-size: var(--step-1); }
