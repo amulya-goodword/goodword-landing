@@ -5,7 +5,7 @@ answer: Ask someone who has seen your work up close, ask before you need it and 
 published: 2026-10-06
 updated: 2026-10-06
 author: GoodWord team
-related: [references-on-a-resume, reference-letter-vs-experience-letter-vs-relieving-letter]
+related: [reference-when-your-manager-has-left, references-on-a-resume, reference-letter-vs-experience-letter-vs-relieving-letter]
 ---
 
 ## Who to ask
@@ -25,7 +25,7 @@ Aim for three people. That is the number most recruiters ask for.
 
 Ask while the work is fresh. The end of a project, the week after an appraisal and the day either of you moves on are all good moments.
 
-In India most people cannot ask their current manager without giving away a job search. That is normal and recruiters know it. Ask a former manager, a peer you trust or a manager who has already left the company. A manager who has moved on is still your manager for that period. Only their email address has changed.
+In India most people cannot ask their current manager without giving away a job search. That is normal and recruiters know it. Ask a former manager, a peer you trust or a manager who has already left the company. A manager who has moved on is still your manager for that period. Only their email address has changed. We have a separate guide on [who to ask when your manager has left](/guides/reference-when-your-manager-has-left/).
 
 ## What to say
 

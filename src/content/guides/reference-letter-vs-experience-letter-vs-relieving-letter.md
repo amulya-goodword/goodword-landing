@@ -5,7 +5,7 @@ answer: An experience letter confirms where you worked, for how long and in what
 published: 2026-10-06
 updated: 2026-10-06
 author: GoodWord team
-related: [how-to-ask-for-a-reference, references-on-a-resume]
+related: [reference-check-vs-background-verification, how-to-ask-for-a-reference, references-on-a-resume]
 ---
 
 ## The three, side by side
@@ -70,4 +70,4 @@ This is general guidance and not legal advice. If an employer is withholding doc
 
 A GoodWord report is closest to a reference letter. It holds what people you worked with say about you, in their own words. Our guide on [how to ask for a reference](/guides/how-to-ask-for-a-reference/) covers the asking.
 
-It is not an experience letter or a relieving letter. It does not confirm your employment dates and it is not a background check. You still need those documents from your employer. Nothing here replaces them.
+It is not an experience letter or a relieving letter. It does not confirm your employment dates and it is not a background check. Our guide on [reference checks and background verification](/guides/reference-check-vs-background-verification/) explains how the two differ. You still need those documents from your employer. Nothing here replaces them.

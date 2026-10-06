@@ -338,9 +338,26 @@ a.card:hover { transform: translateY(-3px); box-shadow: var(--sh-2); }
 .prose a:hover { text-decoration-color: var(--ink); }
 .prose blockquote { margin: var(--s-5) 0; padding: var(--s-4) var(--s-5); background: var(--surface); border: 1px solid var(--line); border-left: 4px solid var(--gold); border-radius: var(--r-sm); white-space: pre-line; color: var(--ink); line-height: 1.6; }
 .prose blockquote p { color: var(--ink); }
-.prose table { width: 100%; border-collapse: collapse; font-size: var(--step--1); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-sm); overflow: hidden; display: block; overflow-x: auto; }
-.prose th, .prose td { text-align: left; padding: 0.75rem 0.875rem; border-bottom: 1px solid var(--line); vertical-align: top; min-width: 9rem; }
-.prose th { background: var(--canvas); color: var(--ink); font-weight: 700; }
+/* Tables in guides. Each sits in a region that scrolls sideways on its own when it is wider than the screen,
+   with a soft shadow at the edge to show there is more. The first column holds the row labels. */
+.table-wrap {
+  overflow-x: auto; border: 1px solid var(--line); border-radius: var(--r-sm);
+  background:
+    linear-gradient(to right, var(--surface) 40%, rgba(255, 255, 255, 0)) left center / 2.5rem 100% no-repeat local,
+    linear-gradient(to left, var(--surface) 40%, rgba(255, 255, 255, 0)) right center / 2.5rem 100% no-repeat local,
+    radial-gradient(farthest-side at 0 50%, rgba(15, 27, 45, 0.2), transparent) left center / 0.875rem 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(15, 27, 45, 0.2), transparent) right center / 0.875rem 100% no-repeat scroll,
+    var(--surface);
+}
+.prose table { width: 100%; border-collapse: collapse; font-size: var(--step--1); }
+.prose th, .prose td { text-align: left; padding: 0.75rem 0.875rem; border-bottom: 1px solid var(--line); vertical-align: top; min-width: 9rem; color: var(--ink-2); line-height: 1.5; }
+.prose tr:last-child > * { border-bottom: 0; }
+.prose thead th, .prose thead td { background: rgba(243, 245, 248, 0.85); color: var(--ink); font-weight: 700; }
+.prose tbody th { color: var(--ink); font-weight: 650; }
+@media (max-width: 30rem) {
+  .prose th, .prose td { min-width: 6.25rem; padding: 0.625rem 0.625rem; }
+  .prose tr > :first-child { min-width: 5.25rem; }
+}
 .prose hr { border: 0; border-top: 1px solid var(--line); margin-block: var(--s-6); }
 .prose .answer, .prose .answer strong { color: var(--ink); }
 .answer { background: var(--gold-tint); border: 1px solid var(--gold-line); border-radius: var(--r-md); padding: var(--s-4) var(--s-5); font-size: var(--step-1); line-height: 1.5; color: var(--ink); }
