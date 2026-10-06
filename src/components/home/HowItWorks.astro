@@ -1,14 +1,22 @@
 ---
-// Four steps, then the moment a report comes together: three voices arrive and the report unlocks.
+// Four steps as a deck of cards. Each card holds a piece of the product, and as you scroll the next one
+// slides up over the last. A small rail at the foot of the screen shows which step you are on.
 import Tick from '../Tick.astro';
-import QuoteCard from '../report/QuoteCard.astro';
 import { sample } from '../../data/sample';
+const c = sample.candidate;
 const r = sample.referees;
+const initials = (n: string) => n.split(' ').map((w) => w[0]).join('');
+// The candidate always knows who they invited. Recruiters see a name only where the referee chose to be named.
+const invited = [
+  { name: r[0].label, role: r[0].role },
+  { name: 'Rohan Iyer', role: r[1].role },
+  { name: 'Sana Qureshi', role: r[2].role },
+];
 const steps = [
-  { k: 'people', t: 'Invite up to 5 people', d: 'Managers, peers, clients.' },
-  { k: 'form', t: 'They answer in 5 minutes', d: 'A private link. Their own words.' },
-  { k: 'meter', t: 'Three responses unlock it', d: 'You read it. You cannot edit it.' },
-  { k: 'send', t: 'Send it with every application', d: 'A link, a PDF or with your resume.' },
+  { k: 'invite', tone: 'canvas', rail: 'Invite', t: 'Invite up to 5 people', d: 'Managers, peers, people who reported to you, clients. You choose who.' },
+  { k: 'answer', tone: 'navy', rail: 'Answer', t: 'They answer in 5 minutes', d: 'A private link in their email. A short questionnaire. Their own words.' },
+  { k: 'unlock', tone: 'gold', rail: 'Unlock', t: 'Three responses unlock it', d: 'You read every word. You cannot edit any of it.' },
+  { k: 'send', tone: 'navy', rail: 'Send', t: 'Send it with every application', d: 'A private link, a PDF or joined to your resume.' },
 ];
 ---
 <section class="how" id="how-it-works" aria-labelledby="how-h">
@@ -17,163 +25,181 @@ const steps = [
       <p class="eyebrow">How it works</p>
       <h2 id="how-h">Three people who know your work. One report.</h2>
     </div>
-    <ol class="how-steps">
-      {steps.map((s, i) => (
-        <li class="reveal">
-          <div class:list={['sv', `sv-${s.k}`]} aria-hidden="true">
-            {s.k === 'people' && <><i></i><i></i><i></i><i></i><i></i></>}
-            {s.k === 'form' && <><b></b><b></b><b></b><span class="tick tick-sm"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M2.5 7.5l3 3 6-7" /></svg></span></>}
-            {s.k === 'meter' && <><i></i><i></i><i></i></>}
-            {s.k === 'send' && <svg viewBox="0 0 56 56" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M50 6L24 32" /><path d="M50 6L34 50l-10-18L6 22z" /></svg>}
-          </div>
-          <h3><span class="how-n" aria-hidden="true">{i + 1}</span>{s.t}</h3>
-          <p>{s.d}</p>
-        </li>
-      ))}
-    </ol>
-  </div>
 
-  <div class="c1" aria-label="A report coming together as three referees respond">
-    <div class="c1-stage">
-      <div class="wrap c1-grid">
-        <div class="c1-left">
-          <h3 class="c1-kicker">Their words arrive. At three, your report unlocks.</h3>
-          <ol class="c1-voices">
-            <li class="c1-voice v1 anim"><QuoteCard referee={r[0]} variant="short" /></li>
-            <li class="c1-voice v2 anim"><QuoteCard referee={r[1]} variant="short" /></li>
-            <li class="c1-voice v3 anim"><QuoteCard referee={r[2]} variant="short" /></li>
-          </ol>
-        </div>
-        <div class="c1-right">
-          <div class="rp rp-pad c1-report">
-            <div class="c1-status">
-              <p class="rp-label">Your report</p>
-              <div class="c1-counts">
-                <p class="c1-count c0 anim" aria-hidden="true">Invites sent. Waiting for the first response.</p>
-                <p class="c1-count ca anim" aria-hidden="true">1 of 3 responses in.</p>
-                <p class="c1-count cb anim" aria-hidden="true">2 of 3 responses in. One more unlocks it.</p>
-                <p class="c1-count cc anim">3 of 3 responses in. Your report is unlocked.</p>
-              </div>
-              <ol class="c1-meter" aria-hidden="true"><li class="b1"></li><li class="b2"></li><li class="b3"></li></ol>
+    <div class="deck">
+      <ol class="deck-cards">
+        {steps.map((s, i) => (
+          <li class:list={['deck-card', `is-${s.tone}`]} style={`--i:${i}`}>
+            <div class="deck-copy">
+              <span class="deck-n" aria-hidden="true">{i + 1}</span>
+              <h3>{s.t}</h3>
+              <p>{s.d}</p>
             </div>
-            <div class="c1-body">
-              <div class="c1-locked anim" aria-hidden="true">
-                <span class="c1-lock"><svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="9" width="12" height="8" rx="2" /><path d="M7 9V6.5a3 3 0 016 0V9" /></svg></span>
-                <p>Unlocks at 3 references</p>
-                <div class="c1-skeleton"><i style="width:88%"></i><i style="width:72%"></i><i style="width:80%"></i><i style="width:56%"></i></div>
-              </div>
-              <div class="c1-open anim stack" style="--stack: var(--s-3)">
-                <p class="tally"><span class="ticks"><Tick /><Tick /><Tick /></span><span>{sample.tally}</span></p>
-                <p class="rp-label">Validated strengths</p>
-                <ul class="points">
-                  <li><Tick small /><span>{sample.strengths[0]}</span></li>
-                  <li><Tick small /><span>{sample.strengths[1]}</span></li>
-                </ul>
-                <p><span class="chip chip-navy">Response Integrity: {sample.integrity.level}</span></p>
-              </div>
+            <div class="deck-visual">
+              {s.k === 'invite' && (
+                <div class="rp rp-pad dk" role="img" aria-label={`${c.first}’s list of referees. 3 of 5 invited: a direct manager, a peer and a direct report.`}>
+                  <div class="dk-top"><p class="rp-label">Your referees</p><p class="meta">3 of 5</p></div>
+                  <ul class="dk-people">
+                    {invited.map((p) => (
+                      <li>
+                        <span class="dk-av">{initials(p.name)}</span>
+                        <span class="dk-who"><b>{p.name}</b><span class="meta">{p.role}</span></span>
+                        <span class="chip">Invite sent</span>
+                      </li>
+                    ))}
+                    <li class="dk-empty"><span class="dk-av">+</span><span class="meta">Add a person</span></li>
+                    <li class="dk-empty"><span class="dk-av">+</span><span class="meta">Add a person</span></li>
+                  </ul>
+                </div>
+              )}
+              {s.k === 'answer' && (
+                <div class="rp rp-pad dk" role="img" aria-label={`The questionnaire a referee fills in for ${c.first}. It asks where he excels, where he could grow and whether they would want him on their team again.`}>
+                  <div class="dk-top"><p class="rp-label">Questionnaire</p><p class="meta">About 5 minutes</p></div>
+                  <p class="dk-q">Where does {c.first} excel?</p>
+                  <p class="dk-a">{r[0].excelShort}<span class="dk-more"> When our merchant onboarding numbers dropped, three teams had three different explanations.</span><i></i></p>
+                  <p class="dk-q dk-later">Where could {c.first} grow?</p>
+                  <p class="dk-q dk-later">Would you want {c.first} on your team again?</p>
+                </div>
+              )}
+              {s.k === 'unlock' && (
+                <div class="rp rp-pad dk" role="img" aria-label={`${c.first}’s report, unlocked. 3 of 3 responses in. ${sample.tally} Response Integrity: ${sample.integrity.level}.`}>
+                  <div class="dk-top"><p class="rp-label">Your report</p><p class="meta">Unlocked</p></div>
+                  <p class="dk-status">3 of 3 responses in.</p>
+                  <ol class="dk-meter"><li style="--b:0"></li><li style="--b:1"></li><li style="--b:2"></li></ol>
+                  <p class="tally"><span class="ticks"><Tick /><Tick /><Tick /></span><span>{sample.tally}</span></p>
+                  <p class="rp-label">Validated strengths</p>
+                  <ul class="points">
+                    <li><Tick small /><span>{sample.strengths[0]}</span></li>
+                    <li><Tick small /><span>{sample.strengths[1]}</span></li>
+                  </ul>
+                </div>
+              )}
+              {s.k === 'send' && (
+                <div class="rp rp-pad dk" role="img" aria-label={`A job application from ${c.name}. It carries his resume and his GoodWord report with 3 verified references.`}>
+                  <div class="dk-mail">
+                    <span class="dk-av">{initials(c.name)}</span>
+                    <span class="dk-who"><b>{c.name}</b><span class="meta">Application: {c.role}</span></span>
+                  </div>
+                  <p class="dk-text">My resume is attached. I have also added verified references from 3 people I have worked with.</p>
+                  <ul class="dk-files">
+                    <li>
+                      <span class="dk-file">PDF</span>
+                      <span class="dk-who"><b>{c.name}, resume.pdf</b><span class="meta">Attachment</span></span>
+                    </li>
+                    <li class="is-gw">
+                      <Tick />
+                      <span class="dk-who"><b>GoodWord report</b><span class="meta">3 verified references · Response Integrity: {sample.integrity.level}</span></span>
+                    </li>
+                  </ul>
+                </div>
+              )}
             </div>
-          </div>
+          </li>
+        ))}
+      </ol>
+      <div class="deck-rail" aria-hidden="true">
+        <div class="deck-rail-in">
+          <i class="deck-rail-on"></i>
+          {steps.map((s) => <span>{s.rail}</span>)}
         </div>
       </div>
     </div>
-  </div>
 
-  <p class="wrap how-more"><a class="link" href="/how-it-works/">How it works, step by step</a></p>
+    <p class="how-more"><a class="link" href="/how-it-works/">How it works, step by step</a></p>
+  </div>
 </section>
 
 <style is:global>
   .how { padding-block: var(--section); background: var(--surface); border-block: 1px solid var(--line); }
   .how-head { display: grid; gap: var(--s-3); max-width: 44rem; }
-  .how-steps { margin-top: var(--s-7); display: grid; gap: var(--s-5); counter-reset: step; }
-  @media (min-width: 40rem) { .how-steps { grid-template-columns: repeat(2, 1fr); gap: var(--s-6); } }
-  @media (min-width: 62rem) { .how-steps { grid-template-columns: repeat(4, 1fr); } }
-  .how-steps li { display: grid; gap: var(--s-2); align-content: start; }
-  .how-n { display: inline-grid; place-items: center; width: 1.625rem; height: 1.625rem; margin-right: 0.5rem; border-radius: 50%; background: var(--ink); color: var(--on-navy); font-size: 0.875rem; font-weight: 800; letter-spacing: 0; vertical-align: 0.1em; }
-  .how-steps h3 { font-size: var(--step-1); letter-spacing: -0.015em; }
-  /* A small picture for each step, drawn from the same pieces as the product */
-  .sv { height: 5.5rem; border-radius: var(--r-md); background: var(--canvas); border: 1px solid var(--line); display: flex; align-items: center; justify-content: center; gap: 0.5rem; margin-bottom: var(--s-2); color: var(--ink); }
-  .sv-people { gap: 0; }
-  .sv-people i { width: 2.25rem; height: 2.25rem; border-radius: 50%; background: var(--ink); border: 3px solid var(--canvas); margin-left: -0.5rem; }
-  .sv-people i:first-child { margin-left: 0; }
-  .sv-people i:nth-child(2), .sv-people i:nth-child(4) { background: var(--gold); }
-  .sv-people i:nth-child(5) { background: var(--bar-strong); }
-  .sv-form { flex-direction: column; align-items: flex-start; gap: 0.4rem; width: 100%; padding: 0 22%; position: relative; }
-  .sv-form b { display: block; height: 0.4rem; border-radius: var(--r-pill); background: var(--bar-strong); width: 100%; }
-  .sv-form b:nth-child(2) { width: 78%; }
-  .sv-form b:nth-child(3) { width: 52%; }
-  .sv-form .tick { position: absolute; right: 18%; bottom: -0.5rem; width: 1.5rem; height: 1.5rem; }
-  .sv-meter { gap: 0.375rem; padding: 0 16%; }
-  .sv-meter i { flex: 1; height: 0.625rem; border-radius: var(--r-pill); background: var(--gold); }
-  .sv-send svg { width: 2.75rem; height: 2.75rem; }
-  .how-steps p { color: var(--ink-2); font-size: var(--step--1); line-height: 1.55; }
   .how-more { margin-top: var(--s-6); }
 
-  /* The finished state of the scene */
-  .c1 { padding-block: var(--s-7) 0; }
-  .c1-grid { display: grid; gap: var(--s-5); align-items: center; }
-  @media (min-width: 62rem) { .c1-grid { grid-template-columns: 1fr 1fr; gap: var(--s-8); } }
-  .c1-kicker { font-size: var(--step-3); font-weight: 850; letter-spacing: -0.03em; line-height: 1.1; margin-bottom: var(--s-5); max-width: 18ch; }
-  .c1-voices { display: grid; gap: var(--s-3); }
-  .c1-report { display: grid; gap: var(--s-4); box-shadow: var(--sh-3); }
-  .c1-status { display: grid; gap: var(--s-2); }
-  .c1-count { font-weight: 750; line-height: 1.3; }
-  .c1-count.c0, .c1-count.ca, .c1-count.cb { display: none; }
-  .c1-meter { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.375rem; }
-  .c1-meter li { height: 0.5rem; border-radius: var(--r-pill); background: var(--bar); position: relative; overflow: hidden; }
-  .c1-meter li::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: var(--gold); }
-  .c1-body { display: grid; }
-  .c1-locked { display: none; }
-  .c1-locked, .c1-open { grid-area: 1 / 1; }
-  .c1-lock { width: 2.75rem; height: 2.75rem; border-radius: 50%; background: var(--canvas); border: 1px solid var(--line); display: grid; place-items: center; color: var(--ink-2); }
-  .c1-lock svg { width: 1.25rem; height: 1.25rem; }
-  .c1-skeleton { display: grid; gap: 0.5rem; width: 100%; margin-top: var(--s-2); }
-  .c1-skeleton i { display: block; height: 0.625rem; border-radius: var(--r-pill); background: var(--bar); }
+  /* The plain layout: four cards, one after another. This is what shows without motion or on a short screen. */
+  .deck { margin-top: var(--s-7); }
+  .deck-cards { display: grid; gap: var(--s-5); }
+  .deck-card { display: grid; gap: var(--s-5); align-content: start; padding: clamp(1.25rem, 0.5rem + 3.4vw, 3.5rem); border-radius: clamp(1.25rem, 1rem + 1vw, 1.75rem); overflow: clip; }
+  .deck-card.is-canvas { background: var(--canvas); box-shadow: inset 0 0 0 1px var(--line); }
+  .deck-card.is-navy { background: var(--ink); color: var(--on-navy); }
+  .deck-card.is-gold { background: var(--gold-wash); box-shadow: inset 0 0 0 1px var(--gold-line); }
+  @media (min-width: 62rem) { .deck-card { grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr); gap: var(--s-8); align-items: center; align-content: center; } }
+  .deck-copy { display: grid; gap: var(--s-3); justify-items: start; }
+  .deck-n { display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 50%; background: var(--ink); color: var(--on-navy); font-weight: 850; line-height: 1; }
+  .is-navy .deck-n { background: var(--gold); color: var(--ink); }
+  .deck-copy h3 { font-size: var(--step-4); font-weight: 850; letter-spacing: -0.035em; line-height: 1.06; max-width: 14ch; }
+  .deck-copy p { font-size: var(--step-1); line-height: 1.5; color: var(--ink-2); max-width: 30ch; }
+  .is-navy .deck-copy p { color: var(--on-navy-2); }
+  .deck-visual { display: grid; color: var(--ink); }
+  .deck-rail { display: none; }
 
-  /* The scroll-driven version. Transform and opacity only. */
-  @media (prefers-reduced-motion: no-preference) and (min-width: 62rem) and (min-height: 600px), (prefers-reduced-motion: no-preference) and (max-width: 61.99rem) and (min-height: 740px) {
+  /* The pieces of the product inside the cards */
+  .dk { display: grid; gap: var(--s-3); align-content: start; width: 100%; max-width: 30rem; justify-self: center; box-shadow: var(--sh-3); }
+  .dk-top { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-3); }
+  .dk-av { flex: none; display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 50%; background: var(--ink); color: var(--on-navy); font-size: 0.8125rem; font-weight: 800; letter-spacing: 0.02em; }
+  .dk-who { display: grid; min-width: 0; line-height: 1.3; }
+  .dk-who b { font-weight: 750; }
+  .dk-people { display: grid; }
+  .dk-people li { display: flex; align-items: center; gap: var(--s-3); padding-block: 0.625rem; border-top: 1px solid var(--line); }
+  .dk-people .dk-who { flex: 1; }
+  .dk-people .chip { flex: none; }
+  .dk-empty .dk-av { background: none; color: var(--ink-3); border: 1.5px dashed var(--line-strong); font-size: 1.125rem; font-weight: 500; }
+  .dk-q { font-weight: 750; line-height: 1.35; }
+  .dk-a { position: relative; padding: var(--s-3) var(--s-4); border-radius: var(--r-md); border: 1.5px solid var(--ink); line-height: 1.55; }
+  .dk-a i { display: inline-block; width: 2px; height: 1.1em; margin-left: 2px; background: var(--gold); vertical-align: -0.2em; }
+  .dk-later { padding: var(--s-3) var(--s-4); border-radius: var(--r-md); background: var(--canvas); color: var(--ink-2); font-weight: 650; }
+  .dk-status { font-weight: 750; line-height: 1.3; }
+  .dk-meter { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.375rem; }
+  .dk-meter li { height: 0.5rem; border-radius: var(--r-pill); background: var(--bar); overflow: hidden; position: relative; }
+  .dk-meter li::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: var(--gold); transform-origin: 0 50%; }
+  .dk-mail { display: flex; align-items: center; gap: var(--s-3); padding-bottom: var(--s-3); border-bottom: 1px solid var(--line); }
+  .dk-text { line-height: 1.55; }
+  .dk-files { display: grid; gap: var(--s-2); }
+  .dk-files li { display: flex; align-items: center; gap: var(--s-3); padding: 0.625rem var(--s-3); border-radius: var(--r-md); border: 1px solid var(--line); }
+  .dk-files .is-gw { background: var(--gold-wash); border-color: var(--gold-line); }
+  .dk-files .tick { width: 2.25rem; height: 2.25rem; }
+  .dk-files .tick svg { width: 1rem; height: 1rem; }
+  .dk-file { flex: none; display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: var(--r-sm); background: var(--canvas); border: 1px solid var(--line); font-size: 0.6875rem; font-weight: 800; letter-spacing: 0.04em; color: var(--ink-2); }
+  @media (max-width: 26rem) { .dk-people .chip { display: none; } }
+
+  /* The deck. Each card sticks a little lower than the one before, so the next one slides up and covers it.
+     This part needs no script and no animation support, only a screen tall enough to hold a card. */
+  @media (prefers-reduced-motion: no-preference) and (min-width: 62rem) and (min-height: 600px), (prefers-reduced-motion: no-preference) and (max-width: 61.99rem) and (min-height: 620px) {
+    .deck { --top: 5.5rem; --step: 0.75rem; --h: clamp(24rem, 100svh - 12.5rem, 36rem); --g: 26svh; --d: calc(var(--h) + var(--g) - var(--step)); }
+    .deck-cards { gap: var(--g); }
+    /* An empty last row, so the fourth card rests for a moment before the deck moves on. */
+    .deck-cards::after { content: ''; }
+    .deck-card { position: sticky; top: calc(var(--top) + var(--i) * var(--step)); z-index: calc(var(--i) + 1); height: var(--h); transform-origin: 50% 0; }
+    .deck-card:not(:first-child) { box-shadow: 0 -1.25rem 2.5rem -1.5rem rgba(15, 27, 45, 0.4); }
+    .deck-card.is-canvas:not(:first-child) { box-shadow: inset 0 0 0 1px var(--line), 0 -1.25rem 2.5rem -1.5rem rgba(15, 27, 45, 0.4); }
+    .deck-card.is-gold:not(:first-child) { box-shadow: inset 0 0 0 1px var(--gold-line), 0 -1.25rem 2.5rem -1.5rem rgba(15, 27, 45, 0.4); }
+
+    /* Where the browser can tie motion to the scroll position: a covered card steps back a little,
+       the three bars fill as the third card arrives and the rail follows along. Transform and opacity only. */
     @supports (animation-timeline: view()) {
-      .c1 { padding-block: 0; height: 300vh; view-timeline-name: --c1; view-timeline-axis: block; }
-      .c1-stage { position: sticky; top: 4rem; height: calc(100svh - 4rem); display: grid; align-items: center; overflow: clip; }
-      .c1 .anim { animation-timeline: --c1; animation-range: contain 0% contain 100%; animation-timing-function: linear; animation-fill-mode: both; animation-duration: auto; }
-      .c1-voices { gap: 0; padding-top: 2.25rem; }
-      .c1-voice { grid-area: 1 / 1; transform-origin: 50% 0; }
-      .v1 { animation-name: c1-v1; z-index: 1; }
-      .v2 { animation-name: c1-v2; z-index: 2; }
-      .v3 { animation-name: c1-v3; z-index: 3; }
-      @keyframes c1-v1 { 0%, 2% { opacity: 0; transform: translateY(28px); } 4.5% { opacity: 1; } 10%, 30% { opacity: 1; transform: none; } 38%, 58% { opacity: 0.6; transform: translateY(-17px) scale(0.955); } 66%, 100% { opacity: 0.32; transform: translateY(-32px) scale(0.91); } }
-      @keyframes c1-v2 { 0%, 30% { opacity: 0; transform: translateY(28px); } 32.5% { opacity: 1; } 38%, 58% { opacity: 1; transform: none; } 66%, 100% { opacity: 0.6; transform: translateY(-17px) scale(0.955); } }
-      @keyframes c1-v3 { 0%, 58% { opacity: 0; transform: translateY(28px); } 60.5% { opacity: 1; } 66%, 100% { opacity: 1; transform: none; } }
-      .c1-counts { display: grid; }
-      .c1-count { grid-area: 1 / 1; }
-      .c1-count.c0, .c1-count.ca, .c1-count.cb { display: block; }
-      .c0 { animation-name: c1-c0; } .ca { animation-name: c1-ca; } .cb { animation-name: c1-cb; } .cc { animation-name: c1-cc; }
-      @keyframes c1-c0 { 0%, 6% { opacity: 1; } 9%, 100% { opacity: 0; } }
-      @keyframes c1-ca { 0%, 7% { opacity: 0; } 10%, 34% { opacity: 1; } 37%, 100% { opacity: 0; } }
-      @keyframes c1-cb { 0%, 35% { opacity: 0; } 38%, 62% { opacity: 1; } 65%, 100% { opacity: 0; } }
-      @keyframes c1-cc { 0%, 63% { opacity: 0; } 66%, 100% { opacity: 1; } }
-      .c1-meter li::after { transform-origin: 0 50%; animation-timing-function: linear; animation-fill-mode: both; animation-timeline: --c1; animation-range: contain 0% contain 100%; }
-      .c1-meter .b1::after { animation-name: c1-b1; }
-      .c1-meter .b2::after { animation-name: c1-b2; }
-      .c1-meter .b3::after { animation-name: c1-b3; }
-      @keyframes c1-b1 { 0%, 4% { transform: scaleX(0); } 10%, 100% { transform: none; } }
-      @keyframes c1-b2 { 0%, 32% { transform: scaleX(0); } 38%, 100% { transform: none; } }
-      @keyframes c1-b3 { 0%, 60% { transform: scaleX(0); } 66%, 100% { transform: none; } }
-      .c1-locked { display: grid; justify-items: center; align-content: center; gap: var(--s-2); text-align: center; font-weight: 700; color: var(--ink-2); animation-name: c1-locked; }
-      .c1-open { animation-name: c1-open; }
-      @keyframes c1-locked { 0%, 66% { opacity: 1; transform: none; } 73%, 100% { opacity: 0; transform: scale(0.97); } }
-      @keyframes c1-open { 0%, 68% { opacity: 0; transform: translateY(14px); } 78%, 100% { opacity: 1; transform: none; } }
+      .deck { view-timeline-name: --deck; view-timeline-axis: block; view-timeline-inset: var(--top) 0px; }
+      .deck-card:not(:last-child) { animation: deck-under linear both; animation-timeline: --deck; animation-range: contain calc((var(--i) + 1) * var(--d) - var(--h) + var(--step)) contain calc((var(--i) + 1) * var(--d)); }
+      @keyframes deck-under { to { transform: scale(0.94); } }
+      .dk-meter li::after { animation: deck-fill linear both; animation-timeline: --deck; animation-range: contain calc(2 * var(--d) - var(--h) * (0.62 - var(--b) * 0.16)) contain calc(2 * var(--d) - var(--h) * (0.46 - var(--b) * 0.16)); }
+      @keyframes deck-fill { from { transform: scaleX(0); } }
+
+      .deck-rail { display: block; position: sticky; bottom: 1rem; z-index: 10; width: min(100%, 23rem); margin: var(--s-5) auto 0; pointer-events: none; animation: deck-rail-in linear both; animation-timeline: --deck; animation-range: entry 78% entry 100%; }
+      @keyframes deck-rail-in { from { opacity: 0; transform: translateY(0.75rem); } }
+      .deck-rail-in { position: relative; display: grid; grid-template-columns: repeat(4, 1fr); padding: 0.25rem; border-radius: var(--r-pill); background: var(--surface); border: 1px solid var(--line); box-shadow: var(--sh-2); }
+      .deck-rail-in span { position: relative; padding: 0.4375rem 0; text-align: center; font-size: 0.875rem; font-weight: 750; line-height: 1.3; }
+      .deck-rail-on { position: absolute; top: 0.25rem; bottom: 0.25rem; left: 0.25rem; width: calc((100% - 0.5rem) / 4); border-radius: var(--r-pill); background: var(--gold); animation: deck-rail-move linear both; animation-timeline: --deck; animation-range: contain calc(var(--d) * 0.45) contain calc(var(--d) * 2.65); }
+      /* Three moves, each as the next card passes the middle of the screen. */
+      @keyframes deck-rail-move { 0% { transform: none; } 9.09%, 45.45% { transform: translateX(100%); } 54.55%, 90.91% { transform: translateX(200%); } 100% { transform: translateX(300%); } }
     }
   }
-  @media (prefers-reduced-motion: no-preference) and (max-width: 61.99rem) and (min-height: 740px) {
-    @supports (animation-timeline: view()) {
-      .c1-kicker { font-size: var(--step-1); margin-bottom: var(--s-2); max-width: none; }
-      .c1-grid { gap: var(--s-3); }
-      .c1-voices { padding-top: 1.75rem; }
-      .c1-voice .rp-pad, .c1-report.rp-pad { padding: var(--s-3) var(--s-4); }
-      .c1-voice .quote { gap: var(--s-2); }
-      .c1-voice .quote-mark { width: 1.5rem; height: 1.125rem; }
-      .c1-report { gap: var(--s-3); }
-      .c1-open .points li:nth-child(2) { display: none; }
-    }
+  @media (prefers-reduced-motion: no-preference) and (max-width: 61.99rem) and (min-height: 620px) {
+    .deck { --top: 4.75rem; --step: 0.5rem; --h: clamp(26rem, 100svh - 10.5rem, 38rem); --g: 20svh; }
+    /* On a phone the piece of the product is a sheet that runs off the foot of the card, whatever the height of the screen. */
+    .deck-card { gap: var(--s-4); padding-bottom: 0; grid-template-rows: auto minmax(0, 1fr); }
+    .deck-visual { min-height: 0; }
+    .dk { border-bottom: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+    .dk-more, .dk-text, .dk .points li + li { display: none; }
+    .deck-copy { gap: var(--s-2); }
+    .deck-copy h3 { font-size: var(--step-3); max-width: none; }
+    .deck-copy p { font-size: var(--step-0); max-width: none; }
+    .deck-n { width: 1.875rem; height: 1.875rem; font-size: 0.9375rem; }
   }
 </style>
