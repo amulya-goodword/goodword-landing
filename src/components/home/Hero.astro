@@ -105,9 +105,14 @@ const r = sample.referees;
   .hv-pause-input:focus-visible + .hv-pause-ui { outline: 3px solid var(--ink); outline-offset: 3px; }
   .hv-pause:hover .hv-pause-ui { border-color: var(--ink); }
 
-  .hero-facts { margin-top: var(--s-8); display: grid; gap: var(--s-4); padding-top: var(--s-5); border-top: 1px solid var(--line); }
-  @media (min-width: 48rem) { .hero-facts { grid-template-columns: repeat(3, 1fr); gap: var(--s-6); } }
-  .hero-facts li { display: grid; gap: 0.125rem; }
+  .hero-facts { margin-top: var(--s-8); display: grid; padding-top: var(--s-5); border-top: 1px solid var(--line); }
+  .hero-facts li { display: grid; gap: 0.125rem; justify-items: center; text-align: center; padding-block: var(--s-3); }
+  .hero-facts li + li { border-top: 1px solid var(--line); }
+  @media (min-width: 48rem) {
+    .hero-facts { grid-template-columns: repeat(3, 1fr); }
+    .hero-facts li { padding: 0 var(--s-5); }
+    .hero-facts li + li { border-top: 0; border-left: 1px solid var(--line); }
+  }
   .hero-facts strong { font-size: var(--step-3); font-weight: 850; letter-spacing: -0.03em; line-height: 1.1; }
   .hero-facts span { color: var(--ink-2); font-size: var(--step--1); max-width: 26ch; }
 

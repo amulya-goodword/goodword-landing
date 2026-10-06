@@ -65,7 +65,9 @@ import Piece from '../report/ReportPieces.astro';
 <style is:global>
   .share-head { display: grid; gap: var(--s-3); max-width: 44rem; }
   .bento { margin-top: var(--s-7); display: grid; gap: var(--s-4); }
-  .tile { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: clamp(1.25rem, 0.9rem + 1.6vw, 2rem); display: grid; gap: var(--s-5); align-content: start; overflow: hidden; }
+  /* Each tile is its words, then its picture. The picture sits in the middle of whatever room is left. */
+  .tile { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: clamp(1.25rem, 0.9rem + 1.6vw, 2rem); display: grid; grid-template-rows: auto 1fr; gap: var(--s-5); overflow: hidden; }
+  .tile > :last-child { align-self: center; }
   .tile-copy { display: grid; gap: var(--s-2); align-content: start; }
   .tile h3 { font-size: var(--step-2); }
   .tile-copy p { color: var(--ink-2); max-width: 44ch; }
@@ -73,15 +75,22 @@ import Piece from '../report/ReportPieces.astro';
   .tile-center { display: grid; justify-items: center; }
   .tile-center .pdf { width: 100%; max-width: 14rem; }
   .tile-li .li-card { max-width: none; }
-  .send-kinds { align-self: end; flex-direction: column; align-items: flex-start; }
   .send-kinds .chip { font-size: var(--step-0); padding: 0.5rem 0.875rem; }
+  /* With room, the list of viewers takes the app's layout, dates on the right, so the card is wide and short. */
+  @media (min-width: 40rem) {
+    .tile-link .viewers li { grid-template-columns: auto 1fr auto; }
+    .tile-link .avatar { grid-row: auto; align-self: center; }
+    .tile-link .viewer-side { grid-column: auto; text-align: right; }
+  }
   @media (min-width: 62rem) {
     .bento { grid-template-columns: repeat(6, 1fr); }
-    .tile-link { grid-column: span 4; grid-template-columns: 0.9fr 1.1fr; align-items: center; gap: var(--s-6); }
+    .tile-link { grid-column: span 4; grid-template-columns: 0.56fr 1.44fr; grid-template-rows: auto; align-items: center; gap: var(--s-6); }
     .tile-pdf { grid-column: span 2; }
-    .tile-li { grid-column: span 2; }
-    .tile-rpm { grid-column: span 2; }
-    .tile-send { grid-column: span 2; }
+    .tile-li { grid-column: span 3; }
+    .tile-rpm { grid-column: span 3; }
+    .tile-rpm .rpm { transform: scale(1.35); }
+    .tile-send { grid-column: span 6; grid-template-columns: minmax(14rem, 1fr) auto; grid-template-rows: auto; align-items: center; gap: var(--s-6); }
+    .tile-send .send-kinds { justify-content: flex-end; }
   }
   @media (min-width: 40rem) and (max-width: 61.99rem) {
     .bento { grid-template-columns: repeat(2, 1fr); }
