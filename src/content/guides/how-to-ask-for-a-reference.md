@@ -5,7 +5,7 @@ answer: Ask someone who has seen your work up close, ask before you need it and 
 published: 2026-10-06
 updated: 2026-10-06
 author: GoodWord team
-related: [reference-when-your-manager-has-left, references-on-a-resume, reference-letter-vs-experience-letter-vs-relieving-letter]
+related: [best-way-to-get-a-job, reference-when-your-manager-has-left, references-on-a-resume]
 ---
 
 ## Who to ask

@@ -5,7 +5,7 @@ answer: No. Do not list referees on your resume. Leave out the line "References 
 published: 2026-10-06
 updated: 2026-10-06
 author: GoodWord team
-related: [how-to-ask-for-a-reference, reference-when-your-manager-has-left, reference-check-vs-background-verification]
+related: [best-way-to-get-a-job, how-to-ask-for-a-reference, reference-check-vs-background-verification]
 ---
 
 ## Why they do not belong on a resume

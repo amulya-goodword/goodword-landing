@@ -114,7 +114,7 @@ const QR = [
 )}
 
 {piece === 'pdf' && (
-  <div class:list={['pdf', className]}>
+  <div class:list={['pdf', className]} role="img" aria-label={`A PDF of ${c.name}'s report, with a QR code that opens the live report`}>
     <Wordmark style="font-size:1rem" />
     <p style="font-weight:800; letter-spacing:-0.02em; line-height:1.15">{c.name}</p>
     <div class="bars" aria-hidden="true"><i style="width:92%"></i><i style="width:78%"></i><i style="width:85%"></i><i style="width:60%"></i></div>
@@ -130,7 +130,7 @@ const QR = [
 )}
 
 {piece === 'linkedin' && (
-  <div class:list={['li-card', className]}>
+  <div class:list={['li-card', className]} role="img" aria-label={`A LinkedIn card for ${c.name}, ${c.role}. 3 verified references. Response Integrity: ${sample.integrity.level}.`}>
     <Wordmark style="color:#fff" />
     <div>
       <p class="name">{c.name}</p>
@@ -144,7 +144,7 @@ const QR = [
 )}
 
 {piece === 'message' && (
-  <div class:list={['msg', className]}>
+  <div class:list={['msg', className]} role="group" aria-label="A sample message to a recruiter, with a GoodWord attached">
     <div class="msg-head">
       <span><b>To</b> Ritika Sen, Kestrel Pay</span>
       <span><b>Subject</b> Senior Product Manager, {c.name}</span>
