@@ -1,0 +1,40 @@
+---
+// Four places a job seeker may be in, and the people who can speak for them in each.
+// The sample report is a senior manager's. This is here so nobody reads that and thinks it is not for them.
+import Tick from '../Tick.astro';
+const who = [
+  { t: 'Looking for your first job', people: ['Internship manager', 'Project teammate'], d: 'You have more people to ask than you think.' },
+  { t: 'Changing fields', people: ['Former manager', 'Client'], d: 'How you work travels with you, whatever the field.' },
+  { t: 'Back after a break', people: ['Former manager', 'Old colleague'], d: 'What they saw of your work still counts.' },
+  { t: 'Laid off', people: ['Manager', 'Peer', 'Direct report'], d: 'The people who saw your work can speak for it.' },
+];
+---
+<section class="section surface who" aria-labelledby="who-h">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Who it is for</p>
+      <h2 id="who-h">Wherever you are in your career.</h2>
+    </div>
+    <ul class="who-grid">
+      {who.map((w) => (
+        <li class="who-card reveal">
+          <h3>{w.t}</h3>
+          <ul class="cluster who-people" aria-label="People you could ask">
+            {w.people.map((p) => <li class="chip chip-gold"><Tick small />{p}</li>)}
+          </ul>
+          <p>{w.d}</p>
+        </li>
+      ))}
+    </ul>
+  </div>
+</section>
+
+<style is:global>
+  .who-grid { display: grid; gap: var(--s-4); }
+  @media (min-width: 40rem) { .who-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (min-width: 62rem) { .who-grid { grid-template-columns: repeat(4, 1fr); } }
+  .who-card { display: grid; grid-template-rows: auto 1fr auto; gap: var(--s-4); padding: var(--s-5); border-radius: var(--r-lg); background: var(--canvas); border: 1px solid var(--line); }
+  .who-card h3 { font-size: var(--step-2); letter-spacing: -0.025em; line-height: 1.12; }
+  .who-people { --cluster: var(--s-2); align-content: start; }
+  .who-card p { color: var(--ink-2); line-height: 1.5; }
+</style>
