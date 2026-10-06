@@ -92,6 +92,7 @@ const honest = [
         <AppLink to="register" page="home" section="closer" class="btn btn-primary btn-lg">Start my GoodWord <Arrow /></AppLink>
         <AppLink to="sample" page="home" section="closer" class="btn btn-ghost btn-lg">See a sample report</AppLink>
       </div>
+      <p class="closer-free">Free to sign up.</p>
     </div>
     <div class="closer-msg reveal"><Piece piece="message" /></div>
   </div>
@@ -133,6 +134,7 @@ const honest = [
   .closer-copy > * + * { margin-top: var(--s-4); }
   .closer-copy .display { max-width: 11ch; }
   .closer-cta { margin-top: var(--s-5); }
+  .closer-copy .closer-free { margin-top: var(--s-3); font-size: var(--step--1); color: var(--on-navy-2); }
   @media (max-width: 30rem) { .closer-cta .btn { width: 100%; } }
   .closer-msg { color: var(--ink); justify-self: center; width: 100%; max-width: 30rem; }
   .closer-msg .meta { color: var(--ink-3); }

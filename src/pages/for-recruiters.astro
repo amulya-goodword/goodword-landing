@@ -80,5 +80,24 @@ const description = 'A candidate sent you a GoodWord report. What it contains, w
       <p style="margin-top: var(--s-6)"><AppLink to="sample" page="for_recruiters" section="body" class="btn btn-dark btn-lg">Read a full sample report <Arrow /></AppLink></p>
     </div>
   </section>
+  <section class="section surface">
+    <div class="wrap-narrow stack" style="--stack: var(--s-4)">
+      <h2>Ask for it in your job post</h2>
+      <p class="lede">If a report saved you time, tell candidates you welcome them. Copy this line into your next job post.</p>
+      <p class="answer" id="jd-line">We welcome applications with a GoodWord report: verified references from people you have worked with. goodword.tech</p>
+      <p><button type="button" class="btn btn-dark" id="jd-copy" hidden>Copy the line</button> <span class="meta" id="jd-done" role="status"></span></p>
+    </div>
+  </section>
+  <script is:inline>
+    // The line can always be selected by hand. The button appears only where the browser can copy for you.
+    (function () {
+      var b = document.getElementById('jd-copy'), t = document.getElementById('jd-line'), d = document.getElementById('jd-done');
+      if (!b || !navigator.clipboard) return;
+      b.hidden = false;
+      b.addEventListener('click', function () {
+        navigator.clipboard.writeText(t.textContent.trim()).then(function () { d.textContent = 'Copied.'; }, function () { d.textContent = 'Could not copy. Select the line and copy it by hand.'; });
+      });
+    })();
+  </script>
   <CtaBand page="for_recruiters" title="Looking for a job yourself?" line="Collect your own references and send them with every application." />
 </Base>

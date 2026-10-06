@@ -20,6 +20,7 @@ const r = sample.referees;
         <AppLink to="register" page="home" section="hero" class="btn btn-primary btn-lg">Start my GoodWord <Arrow /></AppLink>
         <AppLink to="sample" page="home" section="hero" class="btn btn-ghost btn-lg">See a sample report</AppLink>
       </div>
+      <p class="hero-free enter" style="--at: 480ms">Free to sign up. Each referee needs about 5 minutes.</p>
     </div>
 
     <div class="hv">
@@ -81,6 +82,7 @@ const r = sample.referees;
   .hl::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0.04em; height: 0.085em; border-radius: var(--r-pill); background: var(--gold); transform-origin: 0 50%; }
   .hero-copy .lede { max-width: 34rem; }
   .hero-cta { margin-top: var(--s-5); }
+  .hero-copy .hero-free { margin-top: var(--s-3); font-size: var(--step--1); color: var(--ink-3); }
   @media (max-width: 30rem) { .hero-cta .btn { width: 100%; } }
 
   .hv { display: grid; gap: var(--s-4); max-width: 30rem; width: 100%; margin-inline: auto; }

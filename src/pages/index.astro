@@ -2,7 +2,6 @@
 import Base from '../layouts/Base.astro';
 import Hero from '../components/home/Hero.astro';
 import ReportSheet from '../components/home/ReportSheet.astro';
-import SaysWho from '../components/home/SaysWho.astro';
 import HowItWorks from '../components/home/HowItWorks.astro';
 import Share from '../components/home/Share.astro';
 import Trust from '../components/home/Trust.astro';
@@ -15,6 +14,7 @@ const description =
 // The questions on the page and the FAQ data search engines read come from this one list.
 const faqs = [
   { q: 'How many references do I need?', a: 'Three references unlock your report. You can include up to 5. A report is valid for 12 months.' },
+  { q: 'Will my current employer find out?', a: 'Only if you invite someone who works there. You choose every referee and nobody else is contacted. Former managers, old colleagues and clients all count.' },
   { q: 'What does a referee have to do?', a: 'They open a private link from their email and answer a short questionnaire in their own words. It takes about 5 minutes. The link works for 30 days.' },
   { q: 'Can I edit what my referees wrote?', a: 'No. You read every word and you know who wrote what. You cannot change any of it. That is why a recruiter can rely on it.' },
   { q: 'Will recruiters see my referees’ names?', a: 'Recruiters see each referee by role, for example Direct Manager. A name appears only where that referee chose to be named.' },
@@ -55,9 +55,8 @@ const schema = {
 <Base title={title} description={description} page="home" og="home">
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(schema)} />
   <Hero />
-  <ReportSheet />
-  <SaysWho />
   <HowItWorks />
+  <ReportSheet />
   <Share />
   <Trust faqs={faqs} />
 </Base>

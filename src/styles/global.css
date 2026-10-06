@@ -315,6 +315,7 @@ a.card:hover { transform: translateY(-3px); box-shadow: var(--sh-2); }
 .cta-band-in { display: grid; gap: var(--s-5); justify-items: start; }
 .cta-band h2 { font-size: var(--step-5); letter-spacing: -0.035em; max-width: 14ch; }
 @media (max-width: 30rem) { .cta-band .btn { width: 100%; } }
+.cta-free { margin-top: calc(var(--s-2) * -1); font-size: var(--step--1); color: var(--on-navy-2); }
 
 /* Questions as an accordion */
 .faq { border-top: 1px solid var(--line); }

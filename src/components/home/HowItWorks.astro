@@ -2,6 +2,8 @@
 // Four steps as a deck of cards. Each card holds a piece of the product, and as you scroll the next one
 // slides up over the last. A small rail at the foot of the screen shows which step you are on.
 import Tick from '../Tick.astro';
+import AppLink from '../AppLink.astro';
+import Arrow from '../Arrow.astro';
 import { sample } from '../../data/sample';
 const c = sample.candidate;
 const r = sample.referees;
@@ -13,7 +15,7 @@ const invited = [
   { name: 'Nikita Verma', role: r[2].role },
 ];
 const steps = [
-  { k: 'invite', tone: 'canvas', rail: 'Invite', t: 'Invite up to 5 people', d: 'Managers, peers, people who reported to you, clients. You choose who.' },
+  { k: 'invite', tone: 'canvas', rail: 'Invite', t: 'Invite up to 5 people', d: 'Managers, peers, people who reported to you, clients. You choose who. Nobody else is contacted.' },
   { k: 'answer', tone: 'navy', rail: 'Answer', t: 'They answer in 5 minutes', d: 'A private link in their email. A short questionnaire. Their own words.' },
   { k: 'unlock', tone: 'gold', rail: 'Unlock', t: 'Three responses unlock it', d: 'You read every word. You cannot edit any of it.' },
   { k: 'send', tone: 'navy', rail: 'Send', t: 'Send it with every application', d: 'A private link, a PDF or joined to your resume.' },
@@ -34,6 +36,12 @@ const steps = [
               <span class="deck-n" aria-hidden="true">{i + 1}</span>
               <h3>{s.t}</h3>
               <p>{s.d}</p>
+              {s.k === 'send' && (
+                <div class="deck-cta">
+                  <AppLink to="register" page="home" section="how" class="btn btn-primary btn-lg">Start my GoodWord <Arrow /></AppLink>
+                  <span>Free to sign up.</span>
+                </div>
+              )}
             </div>
             <div class="deck-visual">
               {s.k === 'invite' && (
@@ -105,14 +113,27 @@ const steps = [
       </div>
     </div>
 
-    <p class="how-more"><a class="link" href="/how-it-works/">How it works, step by step</a></p>
+    <div class="how-more">
+      <AppLink to="register" page="home" section="how" class="btn btn-primary btn-lg how-more-btn">Start my GoodWord <Arrow /></AppLink>
+      <span class="how-more-free">Free to sign up.</span>
+      <a class="link" href="/how-it-works/">How it works, step by step</a>
+    </div>
   </div>
 </section>
 
 <style is:global>
   .how { padding-block: var(--section); background: var(--surface); border-block: 1px solid var(--line); }
   .how-head { display: grid; gap: var(--s-3); max-width: 44rem; }
-  .how-more { margin-top: var(--s-6); }
+  /* The ask, at the moment the four steps have been read. On a laptop it sits on the fourth card. On a phone it follows the deck. */
+  .how-more { margin-top: var(--s-6); display: grid; gap: var(--s-3); justify-items: start; }
+  .how-more-free { font-size: var(--step--1); color: var(--ink-3); }
+  .deck-cta { display: none; }
+  @media (max-width: 30rem) { .how-more-btn { width: 100%; } }
+  @media (min-width: 62rem) {
+    .deck-cta { display: grid; gap: var(--s-2); justify-items: start; margin-top: var(--s-3); }
+    .deck-cta span { font-size: var(--step--1); color: var(--on-navy-2); }
+    .how-more-btn, .how-more-free { display: none; }
+  }
 
   /* The plain layout: four cards, one after another. This is what shows without motion or on a short screen. */
   .deck { margin-top: var(--s-7); }
