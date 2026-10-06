@@ -7,15 +7,15 @@ import Piece from '../components/report/ReportPieces.astro';
 import { sample } from '../data/sample';
 
 const colours = [
-  { name: 'Ink', token: '--ink', hex: '#0f1b2d', use: 'Text, dark panels', dark: true },
+  { name: 'Navy', token: '--ink', hex: '#0f1b2d', use: 'Text, dark panels', dark: true },
   { name: 'Gold', token: '--gold', hex: '#d4a442', use: 'Fills, rules, icons, text on navy' },
   { name: 'Dark gold', token: '--gold-ink', hex: '#8a6410', use: 'Gold-coloured text on light. 5.4 to 1 on white', dark: true },
   { name: 'Canvas', token: '--canvas', hex: '#f3f5f8', use: 'Page background' },
   { name: 'Surface', token: '--surface', hex: '#ffffff', use: 'Cards' },
   { name: 'Gold tint', token: '--gold-tint', hex: 'rgba(212,164,66,.16)', use: 'Soft highlight' },
-  { name: 'Ink 2', token: '--ink-2', hex: '#3d4a5f', use: 'Secondary text. 8.9 to 1 on white', dark: true },
-  { name: 'Ink 3', token: '--ink-3', hex: '#55627a', use: 'Meta text. 6.1 to 1 on white', dark: true },
-  { name: 'Line', token: '--line', hex: '#dfe4ec', use: 'Borders and dividers' },
+  { name: 'Navy at 80%', token: '--ink-2', hex: 'rgba(15,27,45,.8)', use: 'Secondary text. 9.1 to 1 on white', dark: true },
+  { name: 'Navy at 68%', token: '--ink-3', hex: 'rgba(15,27,45,.68)', use: 'Meta text. 6.0 to 1 on white', dark: true },
+  { name: 'Navy at 10%', token: '--line', hex: 'rgba(15,27,45,.1)', use: 'Borders and dividers' },
   { name: 'Error', token: '--error', hex: '#b42318', use: 'Form errors only', dark: true },
 ];
 const steps = [
@@ -46,7 +46,7 @@ const r = sample.referees;
   <section class="section sg-sec" id="colour" aria-labelledby="colour-h">
     <div class="wrap stack" style="--stack: var(--s-5)">
       <h2 id="colour-h">Colour</h2>
-      <p class="lede">Navy and gold, matched to the app. Gold never carries small text on a light background. Dark gold does that job.</p>
+      <p class="lede">Navy, gold and the canvas. Every grey is the navy at an opacity, as in the app. No purple, no gradients and no second grey palette.</p>
       <ul class="sg-swatches">
         {colours.map((c) => (
           <li>

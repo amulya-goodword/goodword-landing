@@ -44,7 +44,7 @@ export const GET: APIRoute = async ({ props }) => {
         el('span', { color: '#d4a442' }, gold),
       ]),
     ]),
-    el('div', { display: 'flex', justifyContent: 'space-between', fontSize: 26, fontWeight: 600, color: '#b8c2d1' }, [el('span', {}, kicker), el('span', {}, 'goodword.tech')]),
+    el('div', { display: 'flex', justifyContent: 'space-between', fontSize: 26, fontWeight: 600, color: '#c1c4c9' }, [el('span', {}, kicker), el('span', {}, 'goodword.tech')]),
   ]);
   const svg = await satori(tree as any, {
     width: 1200,
