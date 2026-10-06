@@ -16,10 +16,13 @@ What settles it is other people. When someone the recruiter has reason to believ
 
 The research points the same way.
 
+- A field experiment in South Africa, published in the [American Economic Journal: Applied Economics in 2020](https://www.povertyactionlab.org/evaluation/role-reference-letters-and-skill-accreditation-south-african-labour-market), sent the same job applications with and without a reference letter from a former employer. Replies from employers rose from 4.2% to 6.7%, which is 60% more. The applicants were unemployed people aged 18 to 34.
+- An [eye-tracking study by the job site Ladders in 2018](https://www.hrdive.com/news/eye-tracking-study-shows-recruiters-look-at-resumes-for-7-seconds/541582/) found that recruiters spent an average of 7.4 seconds on their first look at a resume.
+- A [2024 survey by Canva and the research firm Sago](https://tech.co/news/half-job-seekers-using-ai) asked 5,000 job seekers in eight countries about AI. In India, 74% had used generative AI on their resume, the highest of any country surveyed. When most resumes are polished by the same tools, they tell a recruiter less.
 - A study of nine large firms, published in the [Quarterly Journal of Economics in 2015](https://experts.umn.edu/en/publications/the-value-of-hiring-through-employee-referrals/), found that referred applicants were more likely to be hired than other applicants with similar skills.
 - The hiring software company Lever looked at about 1,000 employers in 2016. It found that 1 in 16 referred candidates was hired, against 1 in 152 who applied through a careers page or a job posting. [SHRM reported the figures](https://www.shrm.org/in/topics-tools/news/talent-acquisition/lever-study-shows-1-100-candidates-hired).
 
-Both studies come from outside India and neither is recent, so treat the exact numbers with care. The direction is what matters.
+Most of these come from outside India and some are several years old, so treat the exact numbers with care. None of them measured GoodWord. The direction is what matters.
 
 ## Five routes to a job, ranked by the proof they carry
 
