@@ -48,6 +48,7 @@ const canonical = new URL(Astro.url.pathname, SITE.url).toString();
     <meta name="twitter:title" content={title} />
     <meta name="twitter:description" content={description} />
     <meta name="twitter:image" content={ogImage} />
+    <script is:inline>if ('IntersectionObserver' in window) document.documentElement.className += ' js';</script>
     <slot name="head" />
   </head>
   <body>
@@ -76,6 +77,20 @@ const canonical = new URL(Astro.url.pathname, SITE.url).toString();
             KEYS.forEach(function (k) { if (got[k]) u.searchParams.set(k, got[k]); });
             a.href = u.toString();
           });
+        }
+        // Things marked "reveal" ease in once as they scroll into view. Things that arrive together follow one another.
+        var reveals = document.querySelectorAll('.reveal');
+        if (reveals.length && 'IntersectionObserver' in window) {
+          var seen = new IntersectionObserver(function (entries) {
+            var n = 0;
+            entries.forEach(function (e) {
+              if (!e.isIntersecting) return;
+              e.target.style.transitionDelay = (n++ * 90) + 'ms';
+              e.target.classList.add('in');
+              seen.unobserve(e.target);
+            });
+          }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
+          reveals.forEach(function (el) { seen.observe(el); });
         }
         // The phone menu opens without any script. This only adds the ways people expect to close it.
         var menu = document.querySelector('.menu');

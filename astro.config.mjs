@@ -38,6 +38,9 @@ export default defineConfig({
   compressHTML: true,
   devToolbar: { enabled: false },
   markdown: { rehypePlugins: [accessibleTables] },
+  // The default CSS minifier folds animation-timeline into the animation shorthand. Chrome rejects that form
+  // and drops the whole animation, so scroll-driven motion silently stops in the built site. esbuild leaves it alone.
+  vite: { build: { cssMinify: 'esbuild' } },
   integrations: [
     sitemap({ filter: (page) => !INTERNAL.some((p) => page.endsWith(p)) }),
   ],

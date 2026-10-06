@@ -511,13 +511,22 @@ a.card:hover { transform: translateY(-3px); box-shadow: var(--sh-2); }
   .card, .rp, .tile, .fact-card { border: 1px solid; }
 }
 
-/* ---------- Reveal: content is visible by default; motion is an enhancement ---------- */
+/* ---------- Reveal ----------
+   Content is visible by default. Where the browser can tell us when something scrolls into view, it eases in once,
+   at its own pace, instead of being dragged along by the scrollbar. That is what makes it feel smooth. */
 @media (prefers-reduced-motion: no-preference) {
-  @supports (animation-timeline: view()) {
-    .reveal { animation: reveal-up linear both; animation-timeline: view(); animation-range: entry 5% entry 45%; }
-    @keyframes reveal-up { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+  .js .reveal { opacity: 0; transform: translateY(22px); transition: opacity 0.8s var(--ease), transform 0.9s var(--ease); }
+  .js .reveal.in { opacity: 1; transform: none; }
+}
+
+/* ---------- Reading progress: a thin gold line under the header that fills as the page is read ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  @supports (animation-timeline: scroll()) {
+    .site-header::after { content: ''; position: absolute; left: 0; right: 0; bottom: -1px; height: 2px; background: var(--gold); transform-origin: 0 50%; animation: read-progress linear both; animation-timeline: scroll(root block); animation-range: 0% 100%; }
+    @keyframes read-progress { from { transform: scaleX(0); } to { transform: scaleX(1); } }
   }
 }
+
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; transition-duration: 0.001ms !important; scroll-behavior: auto !important; }
 }
