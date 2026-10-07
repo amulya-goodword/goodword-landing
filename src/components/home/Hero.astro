@@ -171,17 +171,25 @@ const says = ['His manager says', 'A peer says', 'Someone on his team says'];
 
   /* The three referees take turns. Each card's words arrive one at a time. Hover to pause and read. */
   @media (prefers-reduced-motion: no-preference) {
-    .hv-card, .hv-card:first-child { animation: hv-card 15s var(--ease) infinite both; animation-delay: calc(0.9s + var(--k) * 5s); }
+    /* Each referee's card slides up over the last, as the cards further down the page do. Nothing fades,
+       so the words on a card are at full strength for every moment they are on screen. */
+    .hv-cards { overflow: clip; border-radius: var(--r-lg); box-shadow: var(--sh-3); }
+    .hv-quote { box-shadow: none; }
+    .hv-card, .hv-card:first-child { opacity: 1; animation: hv-card 15s var(--ease) infinite both; animation-delay: calc(0.9s + var(--k) * 5s); }
     @keyframes hv-card {
-      0% { opacity: 0; transform: translateY(16px); }
-      3%, 30% { opacity: 1; transform: none; }
-      33.3%, 100% { opacity: 0; transform: translateY(-12px) scale(0.985); }
+      0% { visibility: visible; z-index: 2; transform: translateY(104%); }
+      4.5% { transform: none; }
+      33.3% { visibility: visible; z-index: 2; transform: none; }
+      33.4% { z-index: 1; }
+      38% { visibility: visible; z-index: 1; transform: none; }
+      38.1%, 100% { visibility: hidden; z-index: 1; transform: none; }
     }
     /* On each turn the resume line is there first. The answer follows a moment later. */
     .hv-ans { animation: hv-ans 15s var(--ease) infinite both; animation-delay: calc(0.9s + var(--k) * 5s); }
     @keyframes hv-ans {
-      0%, 6% { opacity: 0; transform: translateY(10px); }
-      10%, 100% { opacity: 1; transform: none; }
+      0%, 6% { visibility: hidden; transform: translateY(14px); }
+      6.1% { visibility: visible; transform: translateY(14px); }
+      10%, 100% { visibility: visible; transform: none; }
     }
     .hv-card:first-child .hv-w { display: inline-block; animation: hv-word 0.5s var(--ease) both; animation-delay: calc(2000ms + var(--i) * 45ms); }
     /* The words settle into place. They do not fade, so the line is readable from the moment it shows. */
