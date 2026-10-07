@@ -1,0 +1,74 @@
+---
+// The four pieces of the product used to show how it works: the referee list, the questionnaire,
+// the unlocked report and an application that carries it. One at a time, chosen with "kind".
+import Tick from '../Tick.astro';
+import { sample } from '../../data/sample';
+interface Props { kind: string; class?: string }
+const { kind, class: className } = Astro.props;
+const c = sample.candidate;
+const r = sample.referees;
+const initials = (n: string) => n.split(' ').map((w) => w[0]).join('');
+// The candidate always knows who they invited. Recruiters see a name only where the referee chose to be named.
+const invited = [
+  { name: r[0].label, role: r[0].role },
+  { name: 'Rohan Raj', role: r[1].role },
+  { name: 'Nikita Verma', role: r[2].role },
+];
+---
+{kind === 'invite' && (
+  <div class:list={['rp', 'rp-pad', 'dk', className]} role="img" aria-label={`${c.first}’s list of referees. 3 of 5 invited: a direct manager, a peer and a direct report.`}>
+    <div class="dk-top"><p class="rp-label">Your referees</p><p class="meta">3 of 5</p></div>
+    <ul class="dk-people">
+      {invited.map((p) => (
+        <li>
+          <span class="dk-av">{initials(p.name)}</span>
+          <span class="dk-who"><b>{p.name}</b><span class="meta">{p.role}</span></span>
+          <span class="chip">Invite sent</span>
+        </li>
+      ))}
+      <li class="dk-empty"><span class="dk-av">+</span><span class="meta">Add a person</span></li>
+      <li class="dk-empty"><span class="dk-av">+</span><span class="meta">Add a person</span></li>
+    </ul>
+  </div>
+)}
+{kind === 'answer' && (
+  <div class:list={['rp', 'rp-pad', 'dk', className]} role="img" aria-label={`The questionnaire a referee fills in for ${c.first}. It asks where he excels, where he could grow and whether they would want him on their team again.`}>
+    <div class="dk-top"><p class="rp-label">Questionnaire</p><p class="meta">About 5 minutes</p></div>
+    <p class="dk-q">Where does {c.first} excel?</p>
+    <p class="dk-a">{r[0].excelShort}<span class="dk-more"> When our merchant onboarding numbers dropped, three teams had three different explanations.</span><i></i></p>
+    <p class="dk-q dk-later">Where could {c.first} grow?</p>
+    <p class="dk-q dk-later">Would you want {c.first} on your team again?</p>
+  </div>
+)}
+{kind === 'unlock' && (
+  <div class:list={['rp', 'rp-pad', 'dk', className]} role="img" aria-label={`${c.first}’s report, unlocked. 3 of 3 responses in. ${sample.tally} Response Integrity: ${sample.integrity.level}.`}>
+    <div class="dk-top"><p class="rp-label">Your report</p><p class="meta">Unlocked</p></div>
+    <p class="dk-status">3 of 3 responses in.</p>
+    <ol class="dk-meter"><li style="--b:0"></li><li style="--b:1"></li><li style="--b:2"></li></ol>
+    <p class="tally"><span class="ticks"><Tick /><Tick /><Tick /></span><span>{sample.tally}</span></p>
+    <p class="rp-label">Validated strengths</p>
+    <ul class="points">
+      <li><Tick small /><span>{sample.strengths[0]}</span></li>
+      <li><Tick small /><span>{sample.strengths[1]}</span></li>
+    </ul>
+  </div>
+)}
+{kind === 'send' && (
+  <div class:list={['rp', 'rp-pad', 'dk', className]} role="img" aria-label={`A job application from ${c.name}. It carries his resume and his GoodWord report with 3 verified references.`}>
+    <div class="dk-mail">
+      <span class="dk-av">{initials(c.name)}</span>
+      <span class="dk-who"><b>{c.name}</b><span class="meta">Application: {c.role}</span></span>
+    </div>
+    <p class="dk-text">My resume is attached. I have also added verified references from 3 people I have worked with.</p>
+    <ul class="dk-files">
+      <li>
+        <span class="dk-file">PDF</span>
+        <span class="dk-who"><b>{c.name}, resume.pdf</b><span class="meta">Attachment</span></span>
+      </li>
+      <li class="is-gw">
+        <Tick />
+        <span class="dk-who"><b>GoodWord report</b><span class="meta">3 verified references · Response Integrity: {sample.integrity.level}</span></span>
+      </li>
+    </ul>
+  </div>
+)}

@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import Hero from '../components/home/Hero.astro';
 import ReportSheet from '../components/home/ReportSheet.astro';
 import HowItWorks from '../components/home/HowItWorks.astro';
+import Story from '../components/home/Story.astro';
 import WhoFor from '../components/home/WhoFor.astro';
 import Share from '../components/home/Share.astro';
 import Trust from '../components/home/Trust.astro';
@@ -53,6 +54,7 @@ const schema = {
 <Base title={title} description={description} page="home" og="home">
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(schema)} />
   <Hero />
+  <Story />
   <HowItWorks />
   <ReportSheet />
   <WhoFor />

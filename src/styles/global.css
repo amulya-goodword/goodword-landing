@@ -509,7 +509,7 @@ a.card:hover { transform: translateY(-3px); box-shadow: var(--sh-2); }
 @media (forced-colors: active) {
   .tick, .chip, .avatar, .c2-n, .deck-n, .dk-av, .dk-file, .sheet-n, .hv-pause-ui { border: 1px solid; }
   .unlock-steps li, .dk-meter li, .rule, .pdf .bars i, .rpm-page i { border: 1px solid; }
-  .card, .rp, .tile, .fact-card, .deck-card, .who-card { border: 1px solid; }
+  .card, .rp, .tile, .fact-card, .deck-card, .who-card, .st-card, .st-sheet { border: 1px solid; }
 }
 
 /* ---------- Reveal ----------

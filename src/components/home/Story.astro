@@ -1,0 +1,256 @@
+---
+// The home page on a phone: the whole story in eight cards that stack as you scroll.
+// One idea, one short line and one picture to a card. A laptop does not show this. It shows the full sections instead.
+import Tick from '../Tick.astro';
+import AppLink from '../AppLink.astro';
+import Arrow from '../Arrow.astro';
+import StepMock from './StepMock.astro';
+const SOURCES = '/guides/best-way-to-get-a-job/#why-a-good-word-beats-a-good-resume';
+// A figure that rolls up to its value, one column of digits for each digit. A screen reader gets the plain figure.
+const roll = (text: string) => text.split('').map((ch) => {
+  if (!/\d/.test(ch)) return { ch, strip: null as number[] | null, to: 0 };
+  const to = ch === '0' ? 10 : Number(ch);
+  return { ch, strip: Array.from({ length: to + 1 }, (_, d) => d % 10), to };
+});
+const steps = [
+  { k: 'invite', tone: 'canvas', t: 'Invite up to 5 people', d: 'You choose who. Nobody else is contacted.' },
+  { k: 'answer', tone: 'navy', t: 'They answer in 5 minutes', d: 'In their own words.' },
+  { k: 'unlock', tone: 'gold', t: 'Three responses unlock it', d: 'You cannot edit a word.' },
+  { k: 'send', tone: 'navy', t: 'Send it with every application', d: 'A link, a PDF or joined to your resume.' },
+];
+const TOTAL = 8;
+---
+<section class="story" aria-labelledby="story-h">
+  <div class="wrap">
+    <h2 id="story-h" class="sr-only">GoodWord in eight cards</h2>
+    <div class="st">
+      <ol class="st-cards">
+        <li class="st-card is-navy st-spread" style="--i:0">
+          <div class="st-group">
+          <div class="st-copy reveal">
+            <p class="st-k">The problem</p>
+            <h3>A resume gets</h3>
+          </div>
+          <p class="st-big reveal">
+            <span class="odo" aria-hidden="true">{roll('7.4').map((x, n) => x.strip ? <span class="odo-d" style={`--at:${n}`}><span class="odo-g">{x.ch}</span><span class="odo-s" style={`--to:${x.to}`}>{x.strip.map((d) => <b>{d}</b>)}</span></span> : <span>{x.ch}</span>)}</span>
+            <span class="sr-only">7.4</span> <span class="st-unit">seconds</span>
+          </p>
+          </div>
+          <div class="st-pile reveal" aria-hidden="true">
+            {[0, 1, 2, 3, 4].map((n) => <span class="st-sheet" style={`--n:${n}`}><i></i><i></i><i></i><i></i></span>)}
+          </div>
+          <div class="st-group">
+            <p class="st-line reveal"><strong>74%</strong> of job seekers in India have used AI on theirs.</p>
+            <p class="st-src reveal"><a href={SOURCES}>Studies from 2018 and 2024</a></p>
+          </div>
+        </li>
+
+        <li class="st-card is-gold st-spread" style="--i:1">
+          <div class="st-copy reveal">
+            <p class="st-k">The idea</p>
+            <h3>So let people speak for you.</h3>
+          </div>
+          <div class="st-pile is-picked reveal" aria-hidden="true">
+            {[0, 1, 2, 3, 4].map((n) => (
+              <span class="st-sheet" style={`--n:${n}`}><i></i><i></i><i></i><i></i>{n === 2 && <span class="st-dots"><b></b><b></b><b></b></span>}</span>
+            ))}
+          </div>
+          <div class="st-group">
+          <p class="st-big st-big-row reveal">
+            <span class="odo" aria-hidden="true">{roll('60%').map((x, n) => x.strip ? <span class="odo-d" style={`--at:${n}`}><span class="odo-g">{x.ch}</span><span class="odo-s" style={`--to:${x.to}`}>{x.strip.map((d) => <b>{d}</b>)}</span></span> : <span>{x.ch}</span>)}</span>
+            <span class="sr-only">60%</span> <span class="st-unit">more replies</span>
+          </p>
+          <p class="st-line reveal">when a reference letter went with a job application.</p>
+          <p class="st-src reveal"><a href={SOURCES}>Field study, 2020</a></p>
+          </div>
+        </li>
+
+        {steps.map((s, n) => (
+          <li class:list={['st-card', `is-${s.tone}`, 'has-sheet']} style={`--i:${n + 2}`}>
+            <div class="st-copy reveal">
+              <p class="st-k">Step {n + 1} of 4</p>
+              <h3>{s.t}</h3>
+              <p class="st-line">{s.d}</p>
+            </div>
+            <div class="st-visual"><StepMock kind={s.k} class="reveal" /></div>
+          </li>
+        ))}
+
+        <li class="st-card is-canvas st-spread" style="--i:6">
+          <div class="st-copy reveal">
+            <p class="st-k">Why a recruiter trusts it</p>
+            <h3>Nobody can edit a word.</h3>
+          </div>
+          <ul class="st-ticks">
+            <li class="reveal"><Tick /><span>Words only. No ratings, no scores.</span></li>
+            <li class="reveal"><Tick /><span>Every reference names areas to grow.</span></li>
+            <li class="reveal"><Tick /><span>Not a background check. We say so.</span></li>
+          </ul>
+          <figure class="st-quote reveal">
+            <blockquote>It's easier for us to identify the real potential candidates, quicker.</blockquote>
+            <figcaption>A hiring manager in our pilot</figcaption>
+          </figure>
+        </li>
+
+        <li class="st-card is-navy st-spread st-last" style="--i:7">
+          <p class="st-by reveal">
+            <img src="/img/amulya-nidhi-256.webp" srcset="/img/amulya-nidhi-128.webp 128w, /img/amulya-nidhi-256.webp 256w" sizes="56px" width="256" height="256" alt="" loading="lazy" decoding="async" />
+            <span><strong>Made by a candidate, for candidates.</strong><br />Amulya Nidhi, Founder</span>
+          </p>
+          <h3 class="st-end reveal">Your good work deserves a <span class="st-hl">GoodWord</span>.</h3>
+          <div class="st-cta reveal">
+            <AppLink to="register" page="home" section="story" class="btn btn-primary btn-lg">Start my GoodWord <Arrow /></AppLink>
+            <p>Free to sign up. <AppLink to="sample" page="home" section="story" class="link">See a sample report</AppLink></p>
+          </div>
+        </li>
+      </ol>
+      <div class="st-rail" aria-hidden="true">
+        <div class="st-rail-in"><i class="st-rail-on"></i>{Array.from({ length: TOTAL }, () => <span></span>)}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .story { display: none; }
+
+  @media (max-width: 47.99rem) {
+    /* On a phone the story replaces the long sections. The same things are one tap away on the inner pages. */
+    .story { display: block; padding-block: var(--s-6) var(--s-7); background: var(--surface); border-block: 1px solid var(--line); }
+    .how, .stage, .who, .share, .honest, .note, .closer, .hero-facts, .hero-src, .lede-more { display: none; }
+    .hero { padding-bottom: var(--s-7); }
+
+    /* The plain layout: eight cards, one after another */
+    .st-cards { display: grid; gap: var(--s-4); }
+    .st-card { display: grid; gap: var(--s-4); align-content: start; padding: var(--s-5); border-radius: 1.25rem; overflow: clip; }
+    .st-card.is-canvas { background: var(--canvas); box-shadow: inset 0 0 0 1px var(--line); }
+    .st-card.is-navy { background: var(--ink); color: var(--on-navy); }
+    .st-card.is-gold { background: var(--gold-wash); box-shadow: inset 0 0 0 1px var(--gold-line); }
+    .st-copy { display: grid; gap: var(--s-2); justify-items: start; }
+    .st-group { display: grid; gap: var(--s-2); }
+    .st-k { font-size: 0.875rem; font-weight: 750; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gold-ink); }
+    .is-navy .st-k { color: var(--gold); }
+    .st-card h3 { font-size: var(--step-3); font-weight: 850; letter-spacing: -0.035em; line-height: 1.08; }
+    .st-line { font-size: var(--step-0); line-height: 1.45; color: var(--ink-2); }
+    .is-navy .st-line { color: var(--on-navy-2); }
+    .st-line strong { color: var(--ink); font-weight: 850; }
+    .is-navy .st-line strong { color: var(--on-navy); }
+    .st-src { font-size: 0.875rem; }
+    .st-src a { color: var(--ink-3); text-decoration: underline; text-underline-offset: 0.2em; }
+    .is-navy .st-src a { color: var(--on-navy-2); }
+    .st-visual { display: grid; align-content: start; min-height: 0; color: var(--ink); }
+    /* Inside a story card the piece is a whole card when it fits. When it does not, it runs off the foot. */
+    .story .st-card .dk { border: 1px solid var(--line); border-radius: var(--r-lg); }
+
+    /* A big figure. Its digits roll up to their value. */
+    .st-big { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 0.5rem; font-weight: 900; letter-spacing: -0.045em; line-height: 1; color: var(--gold-ink); font-size: clamp(3.25rem, 9.5svh, 5rem); }
+    .is-navy .st-big { color: var(--gold); }
+    .st-big-row { font-size: clamp(2.5rem, 7svh, 3.5rem); }
+    .st-unit { font-size: 0.42em; letter-spacing: -0.03em; font-weight: 850; }
+    .odo { display: inline-flex; }
+    .odo-d { position: relative; display: inline-block; height: 1em; clip-path: inset(0 -0.2em); }
+    .odo-g { visibility: hidden; }
+    .odo-s { position: absolute; top: 0; left: -0.2em; right: -0.2em; text-align: center; transform: translateY(calc(var(--to) * -1em)); }
+    .odo-s b { display: block; height: 1em; font-weight: inherit; }
+
+    /* A pile of resumes that all look the same. On the second card one of them has people in it. */
+    .st-pile { display: flex; justify-content: center; padding-block: 0.5rem; }
+    .st-sheet { position: relative; flex: none; width: 3.75rem; height: 5.0625rem; margin-left: -0.6875rem; padding: 0.5625rem 0.4375rem; border-radius: 6px; background: var(--surface); border: 1px solid var(--line-strong); box-shadow: var(--sh-1); display: grid; gap: 0.3125rem; align-content: start; transform: rotate(calc((var(--n) - 2) * 5deg)); }
+    .st-sheet:first-child { margin-left: 0; }
+    .st-sheet i { display: block; height: 0.25rem; border-radius: var(--r-pill); background: var(--bar-strong); }
+    .st-sheet i:nth-child(1) { width: 60%; } .st-sheet i:nth-child(3) { width: 80%; } .st-sheet i:nth-child(4) { width: 55%; }
+    .is-picked .st-sheet { opacity: 0.5; }
+    .is-picked .st-sheet:nth-child(3) { opacity: 1; z-index: 2; border-color: var(--gold); border-top: 3px solid var(--gold); box-shadow: var(--sh-3); transform: translateY(-0.5rem) scale(1.28); }
+    .st-dots { position: absolute; left: 0; right: 0; bottom: 0.5rem; display: flex; justify-content: center; }
+    .st-dots b { width: 0.75rem; height: 0.75rem; border-radius: 50%; background: var(--ink); border: 1.5px solid var(--surface); margin-left: -0.2rem; }
+    .st-dots b:first-child { margin-left: 0; }
+    .st-dots b:nth-child(2) { background: var(--gold); }
+
+    .st-ticks { display: grid; gap: var(--s-3); }
+    .st-ticks li { display: grid; grid-template-columns: auto 1fr; gap: var(--s-3); align-items: center; font-weight: 700; line-height: 1.3; }
+    .st-quote { display: grid; gap: var(--s-2); padding-left: var(--s-4); border-left: 3px solid var(--gold); }
+    .st-quote blockquote { font-size: var(--step-1); font-weight: 650; letter-spacing: -0.015em; line-height: 1.3; }
+    .st-quote figcaption { font-size: 0.875rem; color: var(--ink-3); }
+
+    .st-by { display: flex; align-items: center; gap: var(--s-3); font-size: 0.9375rem; line-height: 1.4; color: var(--on-navy-2); }
+    .st-by strong { color: var(--on-navy); }
+    .st-by img { flex: none; width: 3.5rem; height: 3.5rem; border-radius: 50%; object-fit: cover; background: var(--navy-2); }
+    .st-card .st-end { font-size: var(--step-4); line-height: 1.04; }
+    .st-hl { position: relative; display: inline-block; }
+    .st-hl::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0.02em; height: 0.085em; border-radius: var(--r-pill); background: var(--gold); transform-origin: 0 50%; }
+    .st-cta { display: grid; gap: var(--s-3); }
+    .st-cta .btn { width: 100%; }
+    .st-cta p { font-size: 0.9375rem; color: var(--on-navy-2); }
+    .st-card.is-navy .link { color: var(--on-navy); }
+    .st-card.is-navy :focus-visible { outline-color: var(--gold); }
+    .st-rail { display: none; }
+  }
+
+  /* Motion inside the cards. Each piece runs once, as it comes into view, and only if motion is welcome.
+     Without script every piece is simply in its finished state. */
+  @media (max-width: 47.99rem) and (prefers-reduced-motion: no-preference) {
+    .odo-s { transition: transform 1.3s cubic-bezier(0.2, 0.75, 0.2, 1); transition-delay: calc(250ms + var(--at) * 140ms); }
+    .js .reveal:not(.in) .odo-s { transform: translateY(0); }
+
+    .st-sheet { transition: transform 0.9s var(--ease), opacity 0.6s var(--ease), box-shadow 0.6s var(--ease); transition-delay: calc(150ms + var(--n) * 70ms); }
+    .js .st-pile.reveal:not(.in) .st-sheet { transform: translateX(calc((2 - var(--n)) * 3.0625rem)); opacity: 1; }
+    .is-picked .st-sheet:nth-child(3) { transition-delay: 0.75s; }
+    .st-dots b { transition: transform 0.45s cubic-bezier(0.2, 1.4, 0.4, 1); transition-delay: 1.15s; }
+    .st-dots b:nth-child(2) { transition-delay: 1.27s; }
+    .st-dots b:nth-child(3) { transition-delay: 1.39s; }
+    .js .st-pile.reveal:not(.in) .st-dots b { transform: scale(0); }
+
+    /* Inside a piece of the product, the rows follow one another */
+    .st-card .dk > *, .st-card .dk-people li, .st-card .dk-files li { transition: opacity 0.5s var(--ease), transform 0.6s var(--ease); transition-delay: calc(200ms + var(--o, 0) * 110ms); }
+    .st-card .dk > :nth-child(2), .st-card .dk-people li:nth-child(2), .st-card .dk-files li:nth-child(2) { --o: 1; }
+    .st-card .dk > :nth-child(3), .st-card .dk-people li:nth-child(3) { --o: 2; }
+    .st-card .dk > :nth-child(4), .st-card .dk-people li:nth-child(4) { --o: 3; }
+    .st-card .dk > :nth-child(n + 5), .st-card .dk-people li:nth-child(5) { --o: 4; }
+    .js .st-card .dk.reveal:not(.in) > *, .js .st-card .dk.reveal:not(.in) .dk-people li, .js .st-card .dk.reveal:not(.in) .dk-files li { opacity: 0; transform: translateY(12px); }
+    .story .dk-meter li::after { animation: none; transition: transform 0.55s var(--ease); transition-delay: calc(650ms + var(--b) * 220ms); }
+    .js .story .dk.reveal:not(.in) .dk-meter li::after { transform: scaleX(0); }
+
+    .st-ticks .tick { transition: transform 0.5s cubic-bezier(0.2, 1.4, 0.4, 1); transition-delay: inherit; }
+    .js .st-ticks .reveal:not(.in) .tick { transform: scale(0); }
+    .st-hl::after { transition: transform 0.7s var(--ease) 0.5s; }
+    .js .st-end.reveal:not(.in) .st-hl::after { transform: scaleX(0); }
+  }
+
+  /* The deck. Each card sticks a little lower than the one before, so the next slides up and covers it. */
+  @media (max-width: 47.99rem) and (prefers-reduced-motion: no-preference) and (min-height: 620px) {
+    .st { --top: 4.75rem; --step: 0.375rem; --h: clamp(26rem, 100svh - 12.5rem, 38rem); --g: 18svh; --d: calc(var(--h) + var(--g) - var(--step)); }
+    .st-cards { gap: var(--g); }
+    .st-cards::after { content: ''; }
+    .st-card { position: sticky; top: calc(var(--top) + var(--i) * var(--step)); z-index: calc(var(--i) + 1); height: var(--h); transform-origin: 50% 0; }
+    .st-card:not(:first-child) { box-shadow: 0 -1.25rem 2.5rem -1.5rem rgba(15, 27, 45, 0.4); }
+    .st-card.is-canvas:not(:first-child) { box-shadow: inset 0 0 0 1px var(--line), 0 -1.25rem 2.5rem -1.5rem rgba(15, 27, 45, 0.4); }
+    .st-card.is-gold:not(:first-child) { box-shadow: inset 0 0 0 1px var(--gold-line), 0 -1.25rem 2.5rem -1.5rem rgba(15, 27, 45, 0.4); }
+    .st-card.has-sheet { grid-template-rows: auto minmax(0, 1fr); padding-bottom: 0; }
+    .st-card.st-spread { align-content: space-between; }
+    .st-card.st-last { align-content: center; gap: var(--s-5); }
+
+    @supports (animation-timeline: view()) {
+      .st { view-timeline-name: --story; view-timeline-axis: block; view-timeline-inset: var(--top) 0px; }
+      .st-card:not(:last-child) { animation: st-under linear both; animation-timeline: --story; animation-range: contain calc((var(--i) + 1) * var(--d) - var(--h) + var(--step)) contain calc((var(--i) + 1) * var(--d)); }
+      @keyframes st-under { to { transform: scale(0.94); } }
+
+      /* Eight dots at the foot of the screen. The gold one moves on as each card passes the middle. */
+      .st-rail { display: block; position: sticky; bottom: 1rem; z-index: 10; width: max-content; margin: var(--s-5) auto 0; pointer-events: none; animation: st-rail-in linear both; animation-timeline: --story; animation-range: entry 78% entry 100%; }
+      @keyframes st-rail-in { from { opacity: 0; transform: translateY(0.75rem); } }
+      .st-rail-in { position: relative; display: grid; grid-template-columns: repeat(8, 1.5rem); padding: 0.375rem 0.5rem; border-radius: var(--r-pill); background: var(--surface); border: 1px solid var(--line); box-shadow: var(--sh-2); }
+      .st-rail-in span { display: grid; place-items: center; height: 1rem; }
+      .st-rail-in span::before { content: ''; width: 0.4375rem; height: 0.4375rem; border-radius: 50%; background: var(--bar-strong); }
+      .st-rail-on { position: absolute; top: 0.375rem; left: 0.5rem; width: 1.5rem; height: 1rem; border-radius: var(--r-pill); background: var(--gold); z-index: 1; animation: st-rail-move linear both; animation-timeline: --story; animation-range: contain calc(var(--d) * 0.45) contain calc(var(--d) * 6.65); }
+      @keyframes st-rail-move {
+        0% { transform: none; }
+        3.23%, 16.13% { transform: translateX(100%); }
+        19.35%, 32.26% { transform: translateX(200%); }
+        35.48%, 48.39% { transform: translateX(300%); }
+        51.61%, 64.52% { transform: translateX(400%); }
+        67.74%, 80.65% { transform: translateX(500%); }
+        83.87%, 96.77% { transform: translateX(600%); }
+        100% { transform: translateX(700%); }
+      }
+    }
+  }
+</style>
