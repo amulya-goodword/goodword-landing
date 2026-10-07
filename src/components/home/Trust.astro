@@ -1,59 +1,30 @@
 ---
-// What keeps it honest, what hiring managers said, the questions and the closing ask.
+// Why a recruiter can trust it, a note from the founder and the closing ask.
 import AppLink from '../AppLink.astro';
 import Arrow from '../Arrow.astro';
 import Tick from '../Tick.astro';
 import Piece from '../report/ReportPieces.astro';
 
-interface Props { faqs: { q: string; a: string }[] }
-const { faqs } = Astro.props;
-
 const honest = [
   'Words only. No ratings, no scores.',
-  'You cannot edit what a referee wrote.',
-  'Every reference names areas to grow.',
-  'Recruiters see roles. A name shows only if the referee chose it. You see every name.',
-  'Not a background check. We do not claim to be one.',
-  'Your data is yours. Export or delete it any time.',
+  'Nobody can edit what a referee wrote.',
+  'Not a background check. We say so.',
 ];
 ---
 <section class="honest on-navy" aria-labelledby="honest-h">
-  <div class="wrap">
-    <div class="honest-head">
-      <p class="eyebrow">Why a recruiter can trust it</p>
-      <h2 id="honest-h">What keeps it honest.</h2>
+  <div class="wrap honest-in">
+    <div>
+      <h2 id="honest-h">Why a recruiter can trust it.</h2>
+      <ul class="honest-list">
+        {honest.map((h) => (
+          <li class="reveal"><Tick small /><p>{h}</p></li>
+        ))}
+      </ul>
     </div>
-    <ul class="honest-list">
-      {honest.map((h) => (
-        <li class="reveal"><Tick small /><p>{h}</p></li>
-      ))}
-    </ul>
-    <div class="honest-voices">
-      <p class="eyebrow">What hiring managers in our pilot told us</p>
-      <div class="honest-quotes">
-        <blockquote class="reveal">It's easier for us to identify the real potential candidates, quicker.</blockquote>
-        <blockquote class="reveal">Since we already know a person's strengths and improvement areas, it's easy to have a real conversation with them and gauge how they think.</blockquote>
-      </div>
-      <p class="honest-links">Got a report or an invite? <a class="link" href="/for-recruiters/">For recruiters</a> · <a class="link" href="/for-referees/">For referees</a></p>
-    </div>
-  </div>
-</section>
-
-<section class="section faq-sec" id="questions" aria-labelledby="faq-h">
-  <div class="wrap-narrow">
-    <div class="faq-head">
-      <p class="eyebrow">Questions</p>
-      <h2 id="faq-h">The short answers.</h2>
-    </div>
-    <div class="faq">
-      {faqs.map((f) => (
-        <details>
-          <summary><span>{f.q}</span><span class="faq-x" aria-hidden="true"></span></summary>
-          <p>{f.a}</p>
-        </details>
-      ))}
-    </div>
-    <p class="faq-more"><a class="link" href="/questions/">All questions</a></p>
+    <figure class="honest-quote reveal">
+      <blockquote>It's easier for us to identify the real potential candidates, quicker.</blockquote>
+      <figcaption>A hiring manager in our pilot · <a class="link" href="/for-recruiters/">For recruiters</a></figcaption>
+    </figure>
   </div>
 </section>
 
@@ -85,28 +56,18 @@ const honest = [
 </section>
 
 <style is:global>
-  .honest, .faq-sec, .note, .closer { content-visibility: auto; contain-intrinsic-size: auto 720px; }
+  .honest, .note, .closer { content-visibility: auto; contain-intrinsic-size: auto 520px; }
   .honest { padding-block: clamp(2.5rem, 1.9rem + 2.6vw, 4rem); }
-  .honest-head { display: grid; gap: var(--s-2); max-width: 44rem; }
-  .honest-head h2 { font-size: var(--step-3); }
-  .honest-list { margin-top: var(--s-5); display: grid; column-gap: var(--s-6); }
-  @media (min-width: 40rem) { .honest-list { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 62rem) { .honest-list { grid-template-columns: repeat(3, 1fr); } }
-  .honest-list li { display: grid; grid-template-columns: auto 1fr; gap: var(--s-3); align-items: start; padding-block: var(--s-4); border-top: 1px solid rgba(255, 255, 255, 0.14); }
+  .honest-in { display: grid; gap: var(--s-6); align-items: center; }
+  @media (min-width: 62rem) { .honest-in { grid-template-columns: 1fr 1fr; gap: var(--s-8); } }
+  .honest h2 { font-size: var(--step-3); }
+  .honest-list { margin-top: var(--s-4); display: grid; }
+  .honest-list li { display: grid; grid-template-columns: auto 1fr; gap: var(--s-3); align-items: start; padding-block: var(--s-3); border-top: 1px solid rgba(255, 255, 255, 0.14); }
   .honest-list .tick { margin-top: 0.1875rem; }
-  .honest-list p { font-size: var(--step-0); font-weight: 650; letter-spacing: -0.005em; line-height: 1.4; }
-  .honest-voices { margin-top: var(--s-6); padding-top: var(--s-5); border-top: 1px solid rgba(255, 255, 255, 0.14); display: grid; gap: var(--s-4); }
-  .honest-quotes { display: grid; gap: var(--s-4); }
-  @media (min-width: 48rem) { .honest-quotes { grid-template-columns: repeat(2, 1fr); gap: var(--s-6); } }
-  .honest-quotes blockquote { padding-left: var(--s-4); border-left: 3px solid var(--gold); font-size: var(--step-1); font-weight: 650; letter-spacing: -0.015em; line-height: 1.35; }
-  .honest-links { color: var(--on-navy-2); font-size: var(--step--1); }
-  .honest-links .link { color: var(--on-navy); }
-
-
-  .faq-sec { background: var(--surface); border-top: 1px solid var(--line); }
-  .faq-head { display: grid; gap: var(--s-3); }
-  .faq { margin-top: var(--s-6); }
-  .faq-more { margin-top: var(--s-5); }
+  .honest-list p { font-size: var(--step-0); font-weight: 650; line-height: 1.4; }
+  .honest-quote { display: grid; gap: var(--s-3); padding-left: var(--s-5); border-left: 3px solid var(--gold); }
+  .honest-quote blockquote { font-size: var(--step-2); font-weight: 700; letter-spacing: -0.02em; line-height: 1.25; }
+  .honest-quote figcaption { font-size: var(--step--1); color: var(--on-navy-2); }
 
   .note { border-top: 1px solid var(--line); }
   .note-grid { display: grid; gap: var(--s-5); align-items: start; }

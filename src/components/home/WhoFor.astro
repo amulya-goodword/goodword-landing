@@ -1,28 +1,28 @@
 ---
-// Four places a job seeker may be in, and the people who can speak for them in each.
+// Who it is for, as four small pictures and two or three words each.
 // The sample report is a senior manager's. This is here so nobody reads that and thinks it is not for them.
-import Tick from '../Tick.astro';
 const who = [
-  { t: 'Changing jobs', people: ['Former manager', 'Peer', 'Client'], d: 'Ask people from past roles. Your current employer need not know.' },
-  { t: 'Looking for your first job', people: ['Internship manager', 'Professor', 'Project teammate'], d: 'You have more people to ask than you think.' },
-  { t: 'Back after a break', people: ['Former manager', 'Old colleague'], d: 'What they saw of your work still counts.' },
-  { t: 'Laid off', people: ['Manager', 'Peer', 'Direct report'], d: 'The people who saw your work can speak for it.' },
+  { k: 'move', t: 'Changing jobs' },
+  { k: 'first', t: 'Your first job' },
+  { k: 'back', t: 'Back after a break' },
+  { k: 'off', t: 'Laid off' },
 ];
 ---
-<section class="section surface who" aria-labelledby="who-h">
-  <div class="wrap">
-    <div class="sec-head">
-      <p class="eyebrow">Who it is for</p>
-      <h2 id="who-h">Wherever you are in your career.</h2>
-    </div>
-    <ul class="who-grid">
+<section class="who" aria-labelledby="who-h">
+  <div class="wrap who-in">
+    <h2 id="who-h">Wherever you are in your career.</h2>
+    <ul class="who-row">
       {who.map((w) => (
-        <li class="who-card reveal">
-          <h3>{w.t}</h3>
-          <ul class="cluster who-people" aria-label="People you could ask">
-            {w.people.map((p) => <li class="chip chip-gold"><Tick small />{p}</li>)}
-          </ul>
-          <p>{w.d}</p>
+        <li class="reveal">
+          <span class="who-pic" aria-hidden="true">
+            <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              {w.k === 'move' && <><path d="M6 19h18v15H6z" /><path d="M11 19v-4h8v4" /><path class="who-g" d="M30 26h12M37 21l5 5-5 5" /></>}
+              {w.k === 'first' && <><path d="M4 19l20-9 20 9-20 9z" /><path d="M12 23v9c7 5 17 5 24 0v-9" /><path class="who-g" d="M44 19v11" /></>}
+              {w.k === 'back' && <><path d="M9 12v24M17 12v24" /><path class="who-g" d="M27 12l14 12-14 12z" /></>}
+              {w.k === 'off' && <><path d="M8 20h32v18H8z" /><path d="M5 13h38v7H5z" /><path class="who-g" d="M20 28h8" /></>}
+            </svg>
+          </span>
+          <span class="who-t">{w.t}</span>
         </li>
       ))}
     </ul>
@@ -30,11 +30,19 @@ const who = [
 </section>
 
 <style is:global>
-  .who-grid { display: grid; gap: var(--s-4); }
-  @media (min-width: 40rem) { .who-grid { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 62rem) { .who-grid { grid-template-columns: repeat(4, 1fr); } }
-  .who-card { display: grid; grid-template-rows: auto 1fr auto; gap: var(--s-4); padding: var(--s-5); border-radius: var(--r-lg); background: var(--canvas); border: 1px solid var(--line); }
-  .who-card h3 { font-size: var(--step-2); letter-spacing: -0.025em; line-height: 1.12; }
-  .who-people { --cluster: var(--s-2); align-content: start; }
-  .who-card p { color: var(--ink-2); line-height: 1.5; }
+  .who { padding-block: clamp(2.5rem, 2rem + 2.4vw, 4rem); background: var(--surface); border-block: 1px solid var(--line); }
+  .who-in { display: grid; gap: var(--s-6); align-items: center; }
+  .who h2 { font-size: var(--step-3); max-width: 14ch; }
+  .who-row { display: grid; grid-template-columns: repeat(2, 1fr); gap: var(--s-5) var(--s-4); }
+  .who-row li { display: grid; justify-items: center; gap: var(--s-3); text-align: center; }
+  .who-pic { display: grid; place-items: center; width: 5.5rem; height: 5.5rem; border-radius: 50%; background: var(--canvas); border: 1px solid var(--line); color: var(--ink); }
+  .who-pic svg { width: 2.75rem; height: 2.75rem; }
+  .who-g { stroke: var(--gold); }
+  .who-t { font-weight: 750; letter-spacing: -0.01em; line-height: 1.25; }
+  @media (min-width: 40rem) { .who-row { grid-template-columns: repeat(4, 1fr); } }
+  @media (min-width: 62rem) { .who-in { grid-template-columns: 0.8fr 1.6fr; gap: var(--s-8); } }
+  @media (prefers-reduced-motion: no-preference) {
+    .who-pic { transition: transform 0.5s cubic-bezier(0.2, 1.4, 0.4, 1); transition-delay: inherit; }
+    .js .who-row .reveal:not(.in) .who-pic { transform: scale(0.6); }
+  }
 </style>

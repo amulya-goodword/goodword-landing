@@ -1,100 +1,71 @@
 ---
-// What you can do with a report. Each claim sits beside the piece of the product that backs it.
+// What you can do with a report: four pictures and a name for each. The detail lives on the How it works page.
 import Piece from '../report/ReportPieces.astro';
+import { viewed } from '../../data/sample';
+const initials = (n: string) => n.split(' ').map((w) => w[0]).join('');
+const people = viewed.groups.flatMap((g) => g.people);
 ---
 <section class="section share" aria-labelledby="share-h">
   <div class="wrap">
     <div class="share-head">
-      <p class="eyebrow">With your report</p>
-      <h2 id="share-h">Send it wherever you apply.</h2>
+      <div>
+        <p class="eyebrow">With your report</p>
+        <h2 id="share-h">Send it wherever you apply.</h2>
+      </div>
+      <p class="share-links"><a class="link" href="/how-it-works/#send">How sharing works</a></p>
     </div>
 
-    <div class="bento">
-      <article class="tile tile-link reveal">
-        <div class="tile-copy">
-          <h3>See who opened it</h3>
-          <p>A recruiter confirms a work email before your report opens.</p>
+    <ul class="share-row">
+      <li class="share-tile reveal">
+        <div class="share-pic" aria-hidden="true">
+          <div class="share-seen">
+            <span class="share-avs">{people.map((v) => <span class="avatar">{initials(v.name)}</span>)}</span>
+            <span class="share-seen-t">{viewed.people} people, {viewed.companies} companies</span>
+          </div>
         </div>
-        <Piece piece="viewers" />
-      </article>
-
-      <article class="tile tile-pdf reveal">
-        <div class="tile-copy">
-          <h3>A PDF with a QR code</h3>
-          <p>Scan it to open the live report.</p>
+        <h3>See who opened it</h3>
+      </li>
+      <li class="share-tile reveal">
+        <div class="share-pic" aria-hidden="true"><div class="share-fit share-fit-pdf"><Piece piece="pdf" /></div></div>
+        <h3>A PDF with a QR code</h3>
+      </li>
+      <li class="share-tile reveal">
+        <div class="share-pic" aria-hidden="true"><div class="share-fit share-fit-li"><Piece piece="linkedin" /></div></div>
+        <h3>A card for LinkedIn</h3>
+      </li>
+      <li class="share-tile reveal">
+        <div class="share-pic" aria-hidden="true">
+          <div class="rpm">
+            <span class="rpm-page rpm-resume"><i style="width:60%"></i><i style="width:90%"></i><i style="width:78%"></i><i style="width:84%"></i><i style="width:52%"></i></span>
+            <span class="rpm-page rpm-report"><b></b><i style="width:88%"></i><i style="width:70%"></i><i style="width:80%"></i></span>
+          </div>
         </div>
-        <div class="tile-center"><Piece piece="pdf" /></div>
-      </article>
-
-      <article class="tile tile-li reveal">
-        <div class="tile-copy">
-          <h3>A card for LinkedIn</h3>
-          <p>Shows a report exists. Opens none of it.</p>
-        </div>
-        <Piece piece="linkedin" />
-      </article>
-
-      <article class="tile tile-rpm reveal">
-        <div class="tile-copy">
-          <h3>Resume Pro Max</h3>
-          <p>Your resume and your report, in one file.</p>
-          <p><a class="link" href="/resume-pro-max/">About Resume Pro Max</a></p>
-        </div>
-        <div class="rpm" aria-hidden="true">
-          <span class="rpm-page rpm-resume"><i style="width:60%"></i><i style="width:90%"></i><i style="width:78%"></i><i style="width:84%"></i><i style="width:52%"></i></span>
-          <span class="rpm-page rpm-report"><b></b><i style="width:88%"></i><i style="width:70%"></i><i style="width:80%"></i></span>
-        </div>
-      </article>
-
-      <article class="tile tile-send reveal">
-        <div class="tile-copy">
-          <h3>Send it</h3>
-          <p>We write the message. You send it yourself.</p>
-        </div>
-        <ul class="cluster send-kinds">
-          <li class="chip chip-gold">Writing to a recruiter</li>
-          <li class="chip chip-gold">I have already applied</li>
-          <li class="chip chip-gold">Asking for a referral</li>
-          <li class="chip chip-gold">Following up</li>
-        </ul>
-      </article>
-    </div>
+        <h3><a href="/resume-pro-max/">Resume Pro Max</a></h3>
+      </li>
+    </ul>
   </div>
 </section>
 
 <style is:global>
-  .share-head { display: grid; gap: var(--s-3); max-width: 44rem; }
-  .bento { margin-top: var(--s-7); display: grid; gap: var(--s-4); }
-  /* Each tile is its words, then its picture. The picture sits in the middle of whatever room is left. */
-  .tile { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); padding: clamp(1.25rem, 0.9rem + 1.6vw, 2rem); display: grid; grid-template-rows: auto 1fr; gap: var(--s-5); overflow: hidden; }
-  .tile > :last-child { align-self: center; }
-  .tile-copy { display: grid; gap: var(--s-2); align-content: start; }
-  .tile h3 { font-size: var(--step-2); }
-  .tile-copy p { color: var(--ink-2); max-width: 44ch; }
-  .tile .rp { box-shadow: none; background: var(--canvas); }
-  .tile-center { display: grid; justify-items: center; }
-  .tile-center .pdf { width: 100%; max-width: 14rem; }
-  .tile-li .li-card { max-width: none; }
-  .send-kinds .chip { font-size: var(--step-0); padding: 0.5rem 0.875rem; }
-  /* With room, the list of viewers takes the app's layout, dates on the right, so the card is wide and short. */
-  @media (min-width: 40rem) {
-    .tile-link .viewers li { grid-template-columns: auto 1fr auto; }
-    .tile-link .avatar { grid-row: auto; align-self: center; }
-    .tile-link .viewer-side { grid-column: auto; text-align: right; }
-  }
-  @media (min-width: 62rem) {
-    .bento { grid-template-columns: repeat(6, 1fr); }
-    .tile-link { grid-column: span 4; grid-template-columns: 0.56fr 1.44fr; grid-template-rows: auto; align-items: center; gap: var(--s-6); }
-    .tile-pdf { grid-column: span 2; }
-    .tile-li { grid-column: span 3; }
-    .tile-rpm { grid-column: span 3; }
-    .tile-rpm .rpm { transform: scale(1.35); }
-    .tile-send { grid-column: span 6; grid-template-columns: minmax(14rem, 1fr) auto; grid-template-rows: auto; align-items: center; gap: var(--s-6); }
-    .tile-send .send-kinds { justify-content: flex-end; }
-  }
-  @media (min-width: 40rem) and (max-width: 61.99rem) {
-    .bento { grid-template-columns: repeat(2, 1fr); }
-    .tile-link { grid-column: span 2; }
-  }
-
+  .share-head { display: flex; flex-wrap: wrap; align-items: end; justify-content: space-between; gap: var(--s-3) var(--s-6); }
+  .share-head > div { display: grid; gap: var(--s-3); }
+  .share-row { margin-top: var(--s-6); display: grid; gap: var(--s-4); grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  @media (min-width: 62rem) { .share-row { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+  .share-tile { display: grid; gap: var(--s-3); padding: var(--s-3) var(--s-3) var(--s-4); background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-lg); }
+  .share-tile h3 { font-size: var(--step-0); letter-spacing: -0.01em; padding-inline: var(--s-2); }
+  .share-tile h3 a { color: inherit; text-decoration: underline; text-decoration-color: var(--gold); text-decoration-thickness: 2px; text-underline-offset: 0.25em; }
+  .share-pic { position: relative; height: 11.5rem; border-radius: var(--r-md); background: var(--canvas); overflow: hidden; display: grid; place-items: center; }
+  /* The real pieces, shown small. They are sized as usual and then scaled, so they stay exact. */
+  .share-fit { position: absolute; top: 1rem; left: 50%; transform-origin: 50% 0; }
+  .share-fit-pdf { width: 13rem; margin-left: -6.5rem; transform: scale(0.6); }
+  .share-fit-pdf .pdf { max-width: none; }
+  .share-fit-li { width: 24rem; margin-left: -12rem; top: 1rem; transform: scale(0.46); }
+  .share-fit-li .li-card { max-width: none; }
+  .share-seen { display: grid; justify-items: center; gap: var(--s-3); }
+  .share-avs { display: flex; }
+  .share-avs .avatar { width: 3rem; height: 3rem; margin-left: -0.625rem; border: 3px solid var(--canvas); font-size: 0.9375rem; }
+  .share-avs .avatar:first-child { margin-left: 0; }
+  .share-avs .avatar:nth-child(2) { background: var(--gold); color: var(--ink); }
+  .share-seen-t { font-size: 0.875rem; font-weight: 700; color: var(--ink-2); }
+  .share-pic .rpm { width: 100%; }
 </style>

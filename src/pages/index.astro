@@ -13,13 +13,6 @@ const title = 'GoodWord: verified references for your job applications';
 const description =
   'Collect verified references from managers, peers and clients, and share them as one report with every job application.';
 
-// The questions on the page and the FAQ data search engines read come from this one list.
-const faqs = [
-  { q: 'How many references do I need?', a: 'Three references unlock your report. You can include up to 5. A report is valid for 12 months.' },
-  { q: 'Will my current employer find out?', a: 'Only if you invite someone who works there. You choose every referee and nobody else is contacted. Former managers, old colleagues and clients all count.' },
-  { q: 'What does a referee have to do?', a: 'They open a private link from their email and answer a short questionnaire in their own words. It takes about 5 minutes. The link works for 30 days.' },
-];
-
 const schema = {
   '@context': 'https://schema.org',
   '@graph': [
@@ -44,10 +37,6 @@ const schema = {
       description,
       publisher: { '@id': `${SITE.url}/#organization` },
     },
-    {
-      '@type': 'FAQPage',
-      mainEntity: faqs.map((f) => ({ '@type': 'Question', name: f.q, acceptedAnswer: { '@type': 'Answer', text: f.a } })),
-    },
   ],
 };
 ---
@@ -59,5 +48,5 @@ const schema = {
   <ReportSheet />
   <WhoFor />
   <Share />
-  <Trust faqs={faqs} />
+  <Trust />
 </Base>
