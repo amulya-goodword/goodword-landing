@@ -2,53 +2,43 @@
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import CtaBand from '../components/CtaBand.astro';
-import AppLink from '../components/AppLink.astro';
-import Arrow from '../components/Arrow.astro';
-import Tick from '../components/Tick.astro';
-import QuoteCard from '../components/report/QuoteCard.astro';
-import Piece from '../components/report/ReportPieces.astro';
-import { sample } from '../data/sample';
-import { SITE } from '../config';
-const r = sample.referees;
-import SaysWho from '../components/home/SaysWho.astro';
+import StepMock from '../components/home/StepMock.astro';
 const title = 'Resume Pro Max: your resume and your references in one file';
 const description = 'Resume Pro Max joins the resume you wrote to your GoodWord report, so the people who vouch for you arrive in the same file. Your resume is never stored.';
 ---
 <Base title={title} description={description} page="resume_pro_max" og="resume-pro-max">
-  <PageHead trail={[{ href: '/resume-pro-max/', label: 'Resume Pro Max' }]} eyebrow="Resume Pro Max" title="Your resume and your references, in one file." lede="Resume Pro Max joins the resume you wrote to your GoodWord report. One file to send when a person will open it." />
+  <PageHead trail={[{ href: '/resume-pro-max/', label: 'Resume Pro Max' }]} title="Your resume and your references, in one file." lede="The half you write and the half only other people can, in one PDF you send whenever a person will open it." />
 
-  <SaysWho />
-
-  <section class="section surface">
-    <div class="wrap">
+  <section class="section" style="padding-top: 0">
+    <div class="wrap rows">
       <div class="row">
         <div class="row-copy">
-          <h2>How it works</h2>
-          <ul class="ticks-list">
-            <li><Tick small /><span>Add your resume, as you wrote it.</span></li>
-            <li><Tick small /><span>GoodWord joins it to your report.</span></li>
-            <li><Tick small /><span>Download one file and send it.</span></li>
-          </ul>
-          <p>You need an unlocked report first. That means 3 references.</p>
+          <h2>Your resume + your report = one file</h2>
+          <p>Your resume goes in exactly as you wrote it. Not reformatted and not edited.</p>
+          <p>Your report is rebuilt fresh each time you make the file, so it always carries your latest references. Every report page shows your report ID and a link to the live report.</p>
         </div>
-        <div class="row-visual">
-          <div class="rpm" aria-hidden="true">
-            <span class="rpm-page rpm-resume"><i style="width:60%"></i><i style="width:90%"></i><i style="width:78%"></i><i style="width:84%"></i><i style="width:52%"></i></span>
-            <span class="rpm-page rpm-report"><b></b><i style="width:88%"></i><i style="width:70%"></i><i style="width:80%"></i></span>
-          </div>
+        <div class="row-visual"><StepMock kind="shot-rpm-parts" /></div>
+      </div>
+      <div class="row">
+        <div class="row-copy">
+          <h2>Upload, then download</h2>
+          <p>Choose your resume as a PDF. You get one file back: your pages first, then your report.</p>
+          <p>Your resume is never stored. It is held in memory for that one request and then discarded.</p>
+          <p>You need an unlocked report first. That means three references.</p>
         </div>
+        <div class="row-visual"><StepMock kind="shot-rpm-make" /></div>
       </div>
     </div>
   </section>
 
-  <section class="section">
-    <div class="wrap">
-      <div class="facts-grid three">
-        <div class="fact-card"><h3>Your resume is never stored</h3><p>The file is held in memory for the one request and then discarded.</p></div>
-        <div class="fact-card"><h3>Your words stay yours</h3><p>Your resume goes in as you wrote it. The report is the part you cannot write or edit.</p></div>
-        <div class="fact-card"><h3>For people, not portals</h3><p>Job portals that read resumes automatically work best with a plain resume. Send Resume Pro Max when a person will open the file.</p></div>
-      </div>
+  <section class="section surface">
+    <div class="wrap-narrow">
+      <p class="answer"><strong>For people, not portals.</strong> Job portals that read resumes automatically work best with a plain resume. Send Resume Pro Max when a person will open the file.</p>
     </div>
   </section>
   <CtaBand page="resume_pro_max" />
 </Base>
+
+<style is:global>
+  .row-visual:has(.dk-shot) { justify-items: center; }
+</style>
