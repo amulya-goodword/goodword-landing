@@ -15,6 +15,11 @@ const invited = [
   { name: 'Nikita Verma', role: r[2].role },
 ];
 ---
+{kind === 'shot-invite' && (
+  <figure class:list={['dk-shot', className]}>
+    <img src="/img/app-referees.webp" srcset="/img/app-referees-half.webp 360w, /img/app-referees.webp 720w" sizes="(min-width: 62rem) 26rem, 90vw" width="720" height="1298" loading="lazy" decoding="async" alt="The Referees screen in the app: three references in, enough to unlock the report, with each referee's role and the address the invite went to." />
+  </figure>
+)}
 {kind === 'shot-referee' && (
   <figure class:list={['dk-shot', className]}>
     <img src="/img/app-referee-answer.webp" srcset="/img/app-referee-answer-half.webp 372w, /img/app-referee-answer.webp 744w" sizes="(min-width: 62rem) 26rem, 90vw" width="744" height="1160" loading="lazy" decoding="async" alt="A referee's answer as it appears in the app: Neha Kapoor, Direct Manager, on where Aarav excels and where he could grow." />
