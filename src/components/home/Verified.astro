@@ -1,0 +1,23 @@
+---
+// What "verified" means, in plain words, with what we do not check.
+---
+<section class="vf" aria-labelledby="vf-h">
+  <div class="wrap vf-in">
+    <h2 id="vf-h">What “verified” means here.</h2>
+    <div class="vf-body">
+      <p>We check that each reference came from the email address you gave us. We also look for signs of misuse. Every report says, in a word, how confident we are that its references are real and independent: Basic, Moderate, Good or Strong.</p>
+      <p>We do not check ID documents or employment records, so this is not a background check. Nobody can edit what a referee writes, not you and not us. The short summary at the top of a report is written with AI from their words. Their words are never changed.</p>
+      <p>A report is made once three people respond. If fewer do, there is no report.</p>
+      <p><a class="link" href="/questions/">More questions, answered</a></p>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .vf { padding-block: var(--section); }
+  .vf-in { display: grid; gap: var(--s-5); }
+  @media (min-width: 62rem) { .vf-in { grid-template-columns: 0.8fr 1.2fr; gap: var(--s-8); align-items: start; } }
+  .vf h2 { max-width: 12ch; }
+  .vf-body { display: grid; gap: var(--s-4); max-width: 38rem; }
+  .vf-body p { font-size: var(--step-1); line-height: 1.6; color: var(--ink-2); }
+</style>

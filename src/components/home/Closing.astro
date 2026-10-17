@@ -1,0 +1,25 @@
+---
+// The last word and the last button.
+import AppLink from '../AppLink.astro';
+import Arrow from '../Arrow.astro';
+import { SITE } from '../../config';
+---
+<section class="end on-navy" aria-labelledby="end-h">
+  <div class="wrap end-in">
+    <h2 id="end-h" class="display">{SITE.signature}</h2>
+    <div class="end-cta">
+      <AppLink to="register" page="home" section="closer" class="btn btn-primary btn-lg">Start my GoodWord <Arrow /></AppLink>
+      <AppLink to="sample" page="home" section="closer" class="btn btn-ghost btn-lg">See a sample report</AppLink>
+    </div>
+    <p class="end-by">Free to use. Made by a candidate, for candidates. <a class="link" href="/about/">Why it exists</a></p>
+  </div>
+</section>
+
+<style is:global>
+  .end { padding-block: var(--section); }
+  .end-in { display: grid; justify-items: center; text-align: center; gap: var(--s-5); }
+  .end h2 { max-width: 12ch; }
+  .end-cta { display: flex; flex-wrap: wrap; justify-content: center; gap: var(--s-3); }
+  @media (max-width: 30rem) { .end-cta { width: 100%; } .end-cta .btn { width: 100%; } }
+  .end-by { font-size: var(--step--1); color: var(--on-navy-2); }
+</style>

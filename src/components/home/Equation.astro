@@ -1,0 +1,33 @@
+---
+// The whole idea in two lines.
+---
+<section class="eq" aria-labelledby="eq-h">
+  <div class="wrap eq-in">
+    <h2 id="eq-h" class="sr-only">Why a resume alone is not enough</h2>
+    <div class="eq-pair reveal">
+      <p class="eq-line eq-robot">You <span class="eq-op">+</span> a resume <span class="eq-op">=</span> <span class="eq-r">a robot.</span></p>
+      <p class="eq-note">Most resumes now pass through the same AI tools and come out sounding the same. To a recruiter, you read like everyone else.</p>
+    </div>
+    <div class="eq-pair reveal">
+      <p class="eq-line eq-human">You <span class="eq-op">+</span> GoodWord <span class="eq-op">=</span> <span class="eq-r">a human.</span></p>
+      <p class="eq-note">Three people who have worked with you describe your work in their own words. It gives recruiters and hiring managers what a resume never can: the word of someone who was there.</p>
+    </div>
+  </div>
+</section>
+
+<style is:global>
+  .eq { padding-block: var(--section); background: var(--surface); border-block: 1px solid var(--line); }
+  .eq-in { display: grid; gap: clamp(2.5rem, 1.5rem + 4vw, 5rem); }
+  .eq-pair { display: grid; gap: var(--s-4); }
+  @media (min-width: 62rem) { .eq-pair { justify-items: center; text-align: center; } .eq-note { margin-inline: auto; } }
+  .eq-line { font-family: var(--serif); font-size: var(--step-6); font-weight: 500; letter-spacing: -0.025em; line-height: 1.02; text-wrap: balance; }
+  .eq-op { color: var(--gold); font-weight: 400; }
+  .eq-robot .eq-r { color: var(--ink-3); }
+  .eq-human .eq-r { position: relative; display: inline-block; }
+  .eq-human .eq-r::after { content: ''; position: absolute; left: 0; right: 0.3em; bottom: 0.04em; height: 0.07em; border-radius: var(--r-pill); background: var(--gold); transform-origin: 0 50%; }
+  .eq-note { font-size: var(--step-1); line-height: 1.5; color: var(--ink-2); max-width: 36rem; }
+  @media (prefers-reduced-motion: no-preference) {
+    .eq-human .eq-r::after { transition: transform 0.8s var(--ease) 0.5s; }
+    .js .eq-pair.reveal:not(.in) .eq-r::after { transform: scaleX(0); }
+  }
+</style>
