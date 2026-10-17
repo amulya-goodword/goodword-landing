@@ -16,8 +16,8 @@ const invited = [
 ];
 ---
 {kind === 'shot-invite' && (
-  <figure class:list={['dk-shot', className]}>
-    <img src="/img/app-invite.webp" srcset="/img/app-invite-half.webp 328w, /img/app-invite.webp 656w" sizes="(min-width: 62rem) 26rem, 90vw" width="656" height="812" loading="lazy" decoding="async" alt="The first screen in the app, Who will vouch for you: three empty places to invite people, the button to invite the first referee and a line to WhatsApp Amulya, who built GoodWord and replies personally." />
+  <figure class:list={['dk-shot', 'dk-shot-narrow', className]}>
+    <img src="/img/app-invite.webp" srcset="/img/app-invite-half.webp 360w, /img/app-invite.webp 720w" sizes="(min-width: 62rem) 22rem, 90vw" width="720" height="1020" loading="lazy" decoding="async" alt="The first screen in the app: a greeting, then Who will vouch for you, with three empty places to invite people, the button to invite the first referee and a line to WhatsApp Amulya, who built GoodWord and replies personally." />
   </figure>
 )}
 {kind === 'shot-referee' && (
