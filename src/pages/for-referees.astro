@@ -42,7 +42,7 @@ const schema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntit
       <div class="stack" style="--stack: var(--s-4)">
         <h2 id="rf-words">How your words appear</h2>
         <p class="lede">As you wrote them, under your role. Your name shows only if you choose to be named.</p>
-        <p class="lede">Please be honest about where they could grow. Every reference includes it, and it is what makes the rest believable. GoodWord writes a short summary of all the references with AI. Your own words are never changed.</p>
+        <p class="lede">Please be honest about where they could grow. Every reference includes it. It is what makes the rest believable. GoodWord writes a short summary of all the references with AI. Your own words are never changed.</p>
       </div>
       <figure class="rf-quote">
         <blockquote>{r.excel}</blockquote>
@@ -56,7 +56,7 @@ const schema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntit
       <h2 id="rf-who">Who reads it</h2>
       <ul class="rf-list">
         <li><Tick small /><span><strong>The person who invited you</strong> reads every word and knows it was you. They cannot edit any of it.</span></li>
-        <li><Tick small /><span><strong>The recruiters they share it with</strong> see your role, such as Direct Manager, and your name only if you chose to be named.</span></li>
+        <li><Tick small /><span><strong>The recruiters they share it with</strong> see your role, such as Direct Manager. They see your name only if you chose to be named.</span></li>
         <li><Tick small /><span><strong>It is not public.</strong> A report opens only for people the candidate sends it to, after they confirm a work email.</span></li>
       </ul>
     </div>
@@ -67,7 +67,7 @@ const schema = { '@context': 'https://schema.org', '@type': 'FAQPage', mainEntit
       <div class="facts-grid three">
         <div class="fact-card"><h3>Is this real?</h3><p>{qs[0].a}</p></div>
         <div class="fact-card"><h3>Can I change my mind?</h3><p>{qs[5].a}</p></div>
-        <div class="fact-card"><h3>Something not right?</h3><p>If you did not expect the invite, or have a concern about how your words are used, write to <a class="link" href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p></div>
+        <div class="fact-card"><h3>Something not right?</h3><p>If you did not expect the invite or have a concern about how your words are used, write to <a class="link" href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p></div>
       </div>
     </div>
   </section>
