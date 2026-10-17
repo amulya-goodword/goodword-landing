@@ -13,8 +13,21 @@ const r = sample.referees;
 
 const title = 'About GoodWord';
 const description = 'Why GoodWord exists, who is behind it and what we promise the people who use it.';
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'AboutPage',
+  mainEntity: {
+    '@type': 'Person',
+    name: SITE.founder.name,
+    jobTitle: 'Founder',
+    image: `${SITE.url}/img/amulya-nidhi-typing-900.webp`,
+    sameAs: [SITE.founder.linkedin],
+    worksFor: { '@type': 'Organization', '@id': `${SITE.url}/#organization`, name: SITE.name, url: `${SITE.url}/`, sameAs: [SITE.instagram] },
+  },
+};
 ---
 <Base title={title} description={description} page="about" og="about">
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(schema)} />
   <PageHead trail={[{ href: '/about/', label: 'About' }]} title="Bringing humans back to job applications." />
 
   <section class="section" style="padding-top: 0">

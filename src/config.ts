@@ -11,6 +11,8 @@ export const SITE = {
   email: 'hello@goodword.tech',
   grievanceEmail: 'grievance@goodword.tech',
   grievanceOfficer: 'Amulya Nidhi',
+  instagram: 'https://www.instagram.com/goodword.tech/',
+  founder: { name: 'Amulya Nidhi', linkedin: 'https://www.linkedin.com/in/amulyanidhi/' },
 };
 
 // Paste the codes Google Search Console and Bing Webmaster Tools give you. Empty means no tag is added.
