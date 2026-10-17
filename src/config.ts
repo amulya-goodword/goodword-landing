@@ -12,6 +12,7 @@ export const SITE = {
   grievanceEmail: 'grievance@goodword.tech',
   grievanceOfficer: 'Amulya Nidhi',
   instagram: 'https://www.instagram.com/goodword.tech/',
+  linkedin: 'https://www.linkedin.com/company/goodwordtech',
   founder: { name: 'Amulya Nidhi', linkedin: 'https://www.linkedin.com/in/amulyanidhi/' },
 };
 

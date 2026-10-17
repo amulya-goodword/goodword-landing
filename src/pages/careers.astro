@@ -1,0 +1,109 @@
+---
+// Open roles. Each role is also described to search engines as a job posting, so it can appear in Google's job listings.
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import Tick from '../components/Tick.astro';
+import { SITE } from '../config';
+
+const title = 'Careers at GoodWord';
+const description = 'Work with GoodWord, a small team building a better way to apply for jobs. Open now: a remote marketing internship.';
+
+const role = {
+  title: 'Marketing intern',
+  facts: ['Work from home', 'Full time', '6 months', '₹10,000 a month', '2 openings'],
+  applyBy: '30 October 2026',
+  start: 'immediately, no later than 4 November 2026',
+  intro: 'If you question every rule around you and do not believe in "conditions apply", we would like to hear from you.',
+  work: [
+    'Run our Instagram and LinkedIn',
+    'Plan content around launches, campaigns and cultural moments',
+    'Work with influencers and creators, from the brief to the approval',
+    'Run social and influencer campaigns',
+    'Track what works and turn it into better ideas',
+  ],
+  you: 'Ideally someone in the final year of an MBA who can work full time. Other backgrounds are welcome. All you need to do is catch our attention.',
+  skills: ['Instagram and LinkedIn', 'Social media marketing', 'Content editing', 'Video making', 'Working with AI tools'],
+  perks: ['A certificate', 'A letter of recommendation', 'Flexible working hours'],
+};
+const apply = `mailto:${SITE.email}?subject=${encodeURIComponent('Application: Marketing intern')}`;
+
+const posting = {
+  '@context': 'https://schema.org',
+  '@type': 'JobPosting',
+  title: 'Marketing Intern',
+  description: `<p>${role.intro}</p><p>What you will work on:</p><ul>${role.work.map((w) => `<li>${w}</li>`).join('')}</ul><p>${role.you}</p><p>Duration: 6 months. Full time and remote. Stipend: ₹10,000 a month.</p>`,
+  datePosted: '2026-09-22',
+  validThrough: '2026-10-30T23:59:00+05:30',
+  employmentType: 'INTERN',
+  jobLocationType: 'TELECOMMUTE',
+  applicantLocationRequirements: { '@type': 'Country', name: 'India' },
+  hiringOrganization: { '@type': 'Organization', name: SITE.name, sameAs: SITE.url, logo: `${SITE.url}/icon-512.png` },
+  baseSalary: { '@type': 'MonetaryAmount', currency: 'INR', value: { '@type': 'QuantitativeValue', value: 10000, unitText: 'MONTH' } },
+  totalJobOpenings: 2,
+};
+---
+<Base title={title} description={description} page="careers" og="default">
+  <script type="application/ld+json" slot="head" set:html={JSON.stringify(posting)} />
+  <PageHead trail={[{ href: '/careers/', label: 'Careers' }]} title="Work with us." lede="GoodWord is a small team building a better way to apply for jobs. Here is what is open." />
+
+  <section class="section" style="padding-top: 0">
+    <div class="wrap">
+      <article class="job" aria-labelledby="job-h">
+        <div class="job-head">
+          <h2 id="job-h">{role.title}</h2>
+          <ul class="job-facts">{role.facts.map((f) => <li>{f}</li>)}</ul>
+          <p class="job-dates">Apply by {role.applyBy}. Start: {role.start}.</p>
+        </div>
+
+        <p class="job-intro">{role.intro}</p>
+
+        <div class="job-cols">
+          <div>
+            <h3>What you will work on</h3>
+            <ul class="job-list">{role.work.map((w) => <li><Tick small /><span>{w}</span></li>)}</ul>
+          </div>
+          <div class="job-side">
+            <div>
+              <h3>Who we are looking for</h3>
+              <p>{role.you}</p>
+            </div>
+            <div>
+              <h3>Skills that help</h3>
+              <p>{role.skills.join(', ').replace(/, ([^,]*)$/, ' and $1')}.</p>
+            </div>
+            <div>
+              <h3>What you get</h3>
+              <p>{role.perks.join(', ').replace(/, ([^,]*)$/, ' and $1')}.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="job-apply">
+          <a class="btn btn-primary btn-lg" href={apply}>Apply by email</a>
+          <p class="meta">Write to <a class="link" href={apply}>{SITE.email}</a> with a few lines about yourself and anything you have made that we should see.</p>
+        </div>
+      </article>
+
+      <p class="job-none">Nothing here that fits, but you want to work with us anyway? Write to <a class="link" href={`mailto:${SITE.email}`}>{SITE.email}</a>.</p>
+    </div>
+  </section>
+</Base>
+
+<style is:global>
+  .job { display: grid; gap: var(--s-6); padding: clamp(1.25rem, 0.75rem + 2.4vw, 2.5rem); border-radius: var(--r-lg); background: var(--surface); border: 1px solid var(--line); }
+  .job-head { display: grid; gap: var(--s-3); }
+  .job-facts { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+  .job-facts li { padding: 0.25rem 0.75rem; border-radius: var(--r-pill); background: var(--canvas); border: 1px solid var(--line); font-size: var(--step--1); font-weight: 650; color: var(--ink-2); }
+  .job-dates { font-weight: 650; color: var(--gold-ink); }
+  .job-intro { font-family: var(--serif); font-size: var(--step-2); line-height: 1.35; max-width: 40rem; }
+  .job-cols { display: grid; gap: var(--s-6); }
+  @media (min-width: 62rem) { .job-cols { grid-template-columns: 1.1fr 0.9fr; gap: var(--s-8); } }
+  .job h3 { font-size: var(--step-1); margin-bottom: var(--s-3); }
+  .job-list { display: grid; gap: var(--s-3); }
+  .job-list li { display: grid; grid-template-columns: auto 1fr; gap: var(--s-3); align-items: start; line-height: 1.5; color: var(--ink-2); }
+  .job-list .tick { margin-top: 0.2rem; }
+  .job-side { display: grid; gap: var(--s-5); }
+  .job-side p { color: var(--ink-2); line-height: 1.55; }
+  .job-apply { display: grid; gap: var(--s-3); justify-items: start; padding-top: var(--s-5); border-top: 1px solid var(--line); }
+  .job-none { margin-top: var(--s-6); color: var(--ink-2); }
+</style>
