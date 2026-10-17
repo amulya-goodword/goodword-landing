@@ -91,34 +91,6 @@ const steps = [
   .dk-shot-narrow { max-width: 22rem; }
   .deck-visual:has(.dk-shot) { align-self: start; }
 
-  /* The pieces of the product inside the cards */
-  .dk { display: grid; gap: var(--s-3); align-content: start; width: 100%; max-width: 30rem; justify-self: center; box-shadow: var(--sh-3); }
-  .dk-top { display: flex; align-items: baseline; justify-content: space-between; gap: var(--s-3); }
-  .dk-av { flex: none; display: grid; place-items: center; width: 2.25rem; height: 2.25rem; border-radius: 50%; background: var(--ink); color: var(--on-navy); font-size: 0.875rem; font-weight: 800; letter-spacing: 0.02em; }
-  .dk-who { display: grid; min-width: 0; line-height: 1.3; }
-  .dk-who b { font-weight: 750; }
-  .dk-people { display: grid; }
-  .dk-people li { display: flex; align-items: center; gap: var(--s-3); padding-block: 0.625rem; border-top: 1px solid var(--line); }
-  .dk-people .dk-who { flex: 1; }
-  .dk-people .chip { flex: none; }
-  .dk-empty .dk-av { background: none; color: var(--ink-3); border: 1.5px dashed var(--line-strong); font-size: 1.125rem; font-weight: 500; }
-  .dk-q { font-weight: 750; line-height: 1.35; }
-  .dk-a { position: relative; padding: var(--s-3) var(--s-4); border-radius: var(--r-md); border: 1.5px solid var(--ink); line-height: 1.55; }
-  .dk-a i { display: inline-block; width: 2px; height: 1.1em; margin-left: 2px; background: var(--gold); vertical-align: -0.2em; }
-  .dk-later { padding: var(--s-3) var(--s-4); border-radius: var(--r-md); background: var(--canvas); color: var(--ink-2); font-weight: 650; }
-  .dk-status { font-weight: 750; line-height: 1.3; }
-  .dk-meter { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.375rem; }
-  .dk-meter li { height: 0.5rem; border-radius: var(--r-pill); background: var(--bar); overflow: hidden; position: relative; }
-  .dk-meter li::after { content: ''; position: absolute; inset: 0; border-radius: inherit; background: var(--gold); transform-origin: 0 50%; }
-  .dk-mail { display: flex; align-items: center; gap: var(--s-3); padding-bottom: var(--s-3); border-bottom: 1px solid var(--line); }
-  .dk-text { line-height: 1.55; }
-  .dk-files { display: grid; gap: var(--s-2); }
-  .dk-files li { display: flex; align-items: center; gap: var(--s-3); padding: 0.625rem var(--s-3); border-radius: var(--r-md); border: 1px solid var(--line); }
-  .dk-files .is-gw { background: var(--gold-wash); border-color: var(--gold-line); }
-  .dk-files .tick { width: 2.25rem; height: 2.25rem; }
-  .dk-files .tick svg { width: 1rem; height: 1rem; }
-  .dk-file { flex: none; display: grid; place-items: center; width: 2.5rem; height: 2.25rem; border-radius: var(--r-sm); background: var(--canvas); border: 1px solid var(--line); font-size: 0.875rem; font-weight: 800; letter-spacing: 0; color: var(--ink-2); }
-  @media (max-width: 26rem) { .dk-people .chip { display: none; } }
 
   /* The deck. Each card sticks a little lower than the one before, so the next one slides up and covers it.
      This part needs no script and no animation support, only a screen tall enough to hold a card. */
@@ -133,13 +105,11 @@ const steps = [
     .deck-card.is-gold:not(:first-child) { box-shadow: inset 0 0 0 1px var(--gold-line), 0 -1.25rem 2.5rem -1.5rem rgba(15, 27, 45, 0.4); }
 
     /* Where the browser can tie motion to the scroll position: a covered card steps back a little,
-       the three bars fill as the third card arrives and the rail follows along. Transform and opacity only. */
+       and the rail follows along. Transform and opacity only. */
     @supports (animation-timeline: view()) {
       .deck { view-timeline-name: --deck; view-timeline-axis: block; view-timeline-inset: var(--top) 0px; }
       .deck-card:not(:last-child) { animation: deck-under linear both; animation-timeline: --deck; animation-range: contain calc((var(--i) + 1) * var(--d) - var(--h) + var(--step)) contain calc((var(--i) + 1) * var(--d)); }
       @keyframes deck-under { to { transform: scale(0.94); } }
-      .dk-meter li::after { animation: deck-fill linear both; animation-timeline: --deck; animation-range: contain calc(2 * var(--d) - var(--h) * (0.62 - var(--b) * 0.16)) contain calc(2 * var(--d) - var(--h) * (0.46 - var(--b) * 0.16)); }
-      @keyframes deck-fill { from { transform: scaleX(0); } }
 
       .deck-rail { display: block; position: sticky; bottom: 1rem; z-index: 10; width: min(100%, 23rem); margin: var(--s-5) auto 0; pointer-events: none; animation: deck-rail-in linear both; animation-timeline: --deck; animation-range: entry 78% entry 100%; }
       @keyframes deck-rail-in { from { opacity: 0; transform: translateY(0.75rem); } }
@@ -155,9 +125,8 @@ const steps = [
     /* On a phone the piece of the product is a sheet that runs off the foot of the card, whatever the height of the screen. */
     .deck-card { gap: var(--s-4); padding-bottom: 0; grid-template-rows: auto minmax(0, 1fr); }
     .deck-visual { min-height: 0; }
-    .dk, .dk-shot { border-bottom: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+    .dk-shot { border-bottom: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
     .dk-shot { max-height: none; align-self: stretch; }
-    .dk-more, .dk-text, .dk .points li + li { display: none; }
     .deck-copy { gap: var(--s-2); }
     .deck-copy h3 { font-size: var(--step-3); max-width: none; }
     .deck-copy p { font-size: var(--step-0); max-width: none; }
