@@ -11,8 +11,6 @@ const description = 'Work with GoodWord, a small team building a better way to a
 const role = {
   title: 'Marketing intern',
   facts: ['Work from home', 'Full time', '6 months', '₹10,000 a month', '2 openings'],
-  applyBy: '30 October 2026',
-  start: 'immediately, no later than 4 November 2026',
   intro: 'If you have a 20 to 30 percent problem with everything around you, challenge every rule that exists and do not believe in "conditions apply", we would like to hear from you.',
   work: [
     'Run our Instagram and LinkedIn',
@@ -33,7 +31,6 @@ const posting = {
   title: 'Marketing Intern',
   description: `<p>${role.intro}</p><p>What you will work on:</p><ul>${role.work.map((w) => `<li>${w}</li>`).join('')}</ul><p>${role.you}</p><p>Duration: 6 months. Full time and remote. Stipend: ₹10,000 a month.</p>`,
   datePosted: '2026-09-22',
-  validThrough: '2026-10-30T23:59:00+05:30',
   employmentType: 'INTERN',
   jobLocationType: 'TELECOMMUTE',
   applicantLocationRequirements: { '@type': 'Country', name: 'India' },
@@ -52,7 +49,6 @@ const posting = {
         <div class="job-head">
           <h2 id="job-h">{role.title}</h2>
           <ul class="job-facts">{role.facts.map((f) => <li>{f}</li>)}</ul>
-          <p class="job-dates">Apply by {role.applyBy}. Start: {role.start}.</p>
         </div>
 
         <p class="job-intro">{role.intro}</p>
@@ -94,7 +90,6 @@ const posting = {
   .job-head { display: grid; gap: var(--s-3); }
   .job-facts { display: flex; flex-wrap: wrap; gap: var(--s-2); }
   .job-facts li { padding: 0.25rem 0.75rem; border-radius: var(--r-pill); background: var(--canvas); border: 1px solid var(--line); font-size: var(--step--1); font-weight: 650; color: var(--ink-2); }
-  .job-dates { font-weight: 650; color: var(--gold-ink); }
   .job-intro { font-family: var(--serif); font-size: var(--step-2); line-height: 1.35; max-width: 40rem; }
   .job-cols { display: grid; gap: var(--s-6); }
   @media (min-width: 62rem) { .job-cols { grid-template-columns: 1.1fr 0.9fr; gap: var(--s-8); } }
