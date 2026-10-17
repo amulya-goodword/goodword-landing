@@ -12,6 +12,7 @@
       <p class="eq-line eq-human">You <span class="eq-op">+</span> GoodWord <span class="eq-op">=</span> <span class="eq-r">a human.</span></p>
       <p class="eq-note">Three people who have worked with you describe your work in their own words. It gives recruiters and hiring managers what a resume never can: the word of someone who was there.</p>
     </div>
+    <p class="eq-more"><a class="link" href="/resume-vs-goodword/">See the difference, side by side</a></p>
   </div>
 </section>
 
@@ -26,6 +27,8 @@
   .eq-human .eq-r { position: relative; display: inline-block; }
   .eq-human .eq-r::after { content: ''; position: absolute; left: 0; right: 0.3em; bottom: 0.04em; height: 0.07em; border-radius: var(--r-pill); background: var(--gold); transform-origin: 0 50%; }
   .eq-note { font-size: var(--step-1); line-height: 1.5; color: var(--ink-2); max-width: 36rem; }
+  .eq-more { margin-top: calc(var(--s-5) * -1); }
+  @media (min-width: 62rem) { .eq-more { text-align: center; } }
   @media (prefers-reduced-motion: no-preference) {
     .eq-human .eq-r::after { transition: transform 0.8s var(--ease) 0.5s; }
     .js .eq-pair.reveal:not(.in) .eq-r::after { transform: scaleX(0); }

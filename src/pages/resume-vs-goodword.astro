@@ -1,0 +1,113 @@
+---
+// A resume alone and a resume with a GoodWord, side by side, in the manner of a product comparison page.
+// It compares what each one is and does today. It makes no claim about interviews or offers.
+import Base from '../layouts/Base.astro';
+import PageHead from '../components/PageHead.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Tick from '../components/Tick.astro';
+
+const title = 'Your resume alone vs your resume with a GoodWord';
+const description = 'A side-by-side look at applying with a resume alone and with a GoodWord report: who wrote it, how it is checked, when it reaches a recruiter and how you send it.';
+const A = 'Your resume alone';
+const B = 'Your resume with a GoodWord';
+const groups = [
+  { h: 'Who wrote it', rows: [
+    ['Who wrote it', 'You', 'You, plus three people who worked with you'],
+    ['What it shows', 'What you say you did', 'What others saw you do, with examples'],
+    ['Areas to grow', 'Never mentioned', 'Every reference names them'],
+  ] },
+  { h: 'Trust', rows: [
+    ['Can it be edited?', 'Any time, by you', 'Your resume, yes. Their words, never.'],
+    ['How it is checked', 'Usually not, until a background check later on', 'Each reference confirmed from the email you gave, with a Response Integrity level'],
+  ] },
+  { h: 'Timing', rows: [
+    ['When a recruiter hears from your references', 'At the end, by phone, if they ask', 'With your application, at the start'],
+    ['Your referees', 'Called again for each employer', 'Answer once, in about 5 minutes'],
+  ] },
+  { h: 'Sharing', rows: [
+    ['Who looked at it', 'You never know', 'You see the name and company of each viewer'],
+    ['How you send it', 'A file', 'A private link, a PDF with a QR code, a LinkedIn card or one file with your resume'],
+    ['Cost', 'Nothing', 'Free to use'],
+  ] },
+];
+---
+<Base title={title} description={description} page="compare" og="resume-vs-goodword">
+  <PageHead trail={[{ href: '/resume-vs-goodword/', label: 'Resume vs GoodWord' }]} title="Your resume alone or with a GoodWord." lede="GoodWord does not replace your resume. It adds what a resume cannot say. Here is the difference, side by side." />
+
+  <section class="cmp" aria-label="The comparison">
+    <div class="wrap cmp-in">
+      <div class="cmp-top" aria-hidden="true">
+        <span></span>
+        <figure class="cmp-pic">
+          <span class="cmp-sheet"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+        </figure>
+        <figure class="cmp-pic">
+          <span class="cmp-sheet cmp-sheet-back"><i></i><i></i><i></i><i></i><i></i><i></i></span>
+          <img class="cmp-report" src="/img/app-report-top-half.webp" srcset="/img/app-report-top-half.webp 404w, /img/app-report-top.webp 808w" sizes="9rem" width="404" height="730" alt="" loading="lazy" decoding="async" />
+        </figure>
+      </div>
+
+      <div class="cmp-bar" aria-hidden="true">
+        <span></span>
+        <span class="cmp-bar-a">{A}</span>
+        <span class="cmp-bar-b">{B}</span>
+      </div>
+
+      {groups.map((g) => (
+        <div class="cmp-group">
+          <h2 class="cmp-h">{g.h}</h2>
+          <div class="cmp-table" role="table" aria-label={g.h}>
+            <div role="rowgroup" class="sr-only">
+              <div role="row"><span role="columnheader">Compared</span><span role="columnheader">{A}</span><span role="columnheader">{B}</span></div>
+            </div>
+            <div role="rowgroup">
+              {g.rows.map(([label, a, b]) => (
+                <div class="cmp-row reveal" role="row">
+                  <span class="cmp-label" role="rowheader">{label}</span>
+                  <span class="cmp-a" role="cell">{a}</span>
+                  <span class="cmp-b" role="cell"><Tick small /><span>{b}</span></span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+  <CtaBand page="compare" />
+</Base>
+
+<style is:global>
+  .cmp { padding-block: 0 var(--section); }
+  .cmp-in { max-width: 62rem; }
+  /* Three columns on a laptop: what is compared, then the two ways to apply. On a phone the label sits above the two. */
+  .cmp-top, .cmp-bar, .cmp-row { display: grid; grid-template-columns: 1fr 1fr; gap: var(--s-3) var(--s-4); }
+  .cmp-top > span:first-child, .cmp-bar > span:first-child { display: none; }
+  @media (min-width: 48rem) {
+    .cmp-top, .cmp-bar, .cmp-row { grid-template-columns: 0.9fr 1fr 1fr; gap: var(--s-6); }
+    .cmp-top > span:first-child, .cmp-bar > span:first-child { display: block; }
+  }
+
+  .cmp-pic { position: relative; height: 12rem; display: grid; place-items: end center; }
+  .cmp-sheet { width: 8.5rem; height: 11rem; padding: 1rem 0.875rem; display: grid; gap: 0.5rem; align-content: start; border-radius: 8px; background: var(--surface); border: 1px solid var(--line-strong); box-shadow: var(--sh-2); }
+  .cmp-sheet i { display: block; height: 0.3125rem; border-radius: var(--r-pill); background: var(--bar-strong); }
+  .cmp-sheet i:nth-child(1) { width: 55%; height: 0.5rem; background: var(--ink); }
+  .cmp-sheet i:nth-child(3) { width: 85%; } .cmp-sheet i:nth-child(4) { width: 70%; } .cmp-sheet i:nth-child(6) { width: 60%; }
+  .cmp-sheet-back { position: absolute; bottom: 0; left: calc(50% - 6.5rem); transform: rotate(-4deg); }
+  .cmp-report { position: relative; width: 9rem; height: 11.5rem; object-fit: cover; object-position: top; margin-left: 4rem; border-radius: 8px; border: 1px solid var(--line); border-top: 4px solid var(--gold); box-shadow: var(--sh-3); transform: rotate(3deg); background: var(--surface); }
+
+  /* The two names stay pinned under the site header while the rows scroll by */
+  .cmp-bar { position: sticky; top: 4rem; z-index: 5; margin-top: var(--s-5); padding-block: var(--s-3); background: var(--canvas); border-bottom: 1px solid var(--line-strong); font-family: var(--serif); font-size: var(--step-2); line-height: 1.15; letter-spacing: -0.01em; }
+  .cmp-bar-a { color: var(--ink-3); }
+  .cmp-bar-b { color: var(--ink); }
+
+  .cmp-group { margin-top: var(--s-7); }
+  .cmp-h { font-size: var(--step-3); padding-bottom: var(--s-3); }
+  .cmp-row { padding-block: var(--s-4); border-top: 1px solid var(--line); align-items: start; }
+  .cmp-label { grid-column: 1 / -1; font-weight: 700; font-size: var(--step--1); color: var(--ink-3); }
+  @media (min-width: 48rem) { .cmp-label { grid-column: auto; font-size: var(--step-0); color: var(--ink); } }
+  .cmp-a { color: var(--ink-3); line-height: 1.45; }
+  .cmp-b { display: grid; grid-template-columns: auto 1fr; gap: var(--s-2); align-items: start; font-weight: 650; line-height: 1.45; color: var(--ink); }
+  .cmp-b .tick { margin-top: 0.2rem; }
+  @media (max-width: 47.99rem) { .cmp-bar { font-size: var(--step-0); font-family: var(--font); font-weight: 750; } .cmp-pic { height: 9rem; } .cmp-sheet { width: 6.5rem; height: 8.5rem; } .cmp-report { width: 7rem; height: 9rem; margin-left: 3rem; } .cmp-sheet-back { left: calc(50% - 5rem); } }
+</style>

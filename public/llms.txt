@@ -18,6 +18,7 @@
 - [How it works](https://goodword.tech/how-it-works/)
 - [Sample report](https://app.goodword.tech/sample)
 - [Resume Pro Max](https://goodword.tech/resume-pro-max/)
+- [Your resume alone vs with a GoodWord](https://goodword.tech/resume-vs-goodword/)
 - [For referees](https://goodword.tech/for-referees/)
 - [For recruiters](https://goodword.tech/for-recruiters/)
 - [Questions](https://goodword.tech/questions/)
