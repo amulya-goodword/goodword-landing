@@ -2,7 +2,7 @@ import { defineConfig } from 'astro/config';
 import sitemap from '@astrojs/sitemap';
 
 // Pages that exist for review only and must never be indexed or listed.
-const INTERNAL = ['/styleguide/'];
+const INTERNAL = [];
 
 // Tables written in a guide's Markdown get two things a plain Markdown table lacks:
 // a region that can scroll sideways on a phone, and proper headers so a screen reader can read each cell with its row and column.

@@ -91,6 +91,6 @@ Never pay for a referral or a job. Real employers and real referrers do not char
 
 ## Where GoodWord fits and where it does not
 
-GoodWord helps with the second and fourth routes. If nobody inside the company can vouch for you, you send the people who can. Three people you have worked with answer a short questionnaire. Their words become [one report](/sample-report/) you attach to an application or join to your resume with [Resume Pro Max](/resume-pro-max/).
+GoodWord helps with the second and fourth routes. If nobody inside the company can vouch for you, you send the people who can. Three people you have worked with answer a short questionnaire. Their words become [one report](https://app.goodword.tech/sample) you attach to an application or join to your resume with [Resume Pro Max](/resume-pro-max/).
 
 It does not find you jobs and it does not refer you to anyone. It will not help with exam-based hiring. It is not a background check.

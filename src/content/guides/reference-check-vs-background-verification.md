@@ -75,6 +75,6 @@ This is general guidance and not legal advice.
 
 ## Where GoodWord fits and where it does not
 
-GoodWord sits on the reference side only. It collects what people you have worked with say about you and puts it in [one report](/sample-report/) you can send at the start of an application, before anyone asks.
+GoodWord sits on the reference side only. It collects what people you have worked with say about you and puts it in [one report](https://app.goodword.tech/sample) you can send at the start of an application, before anyone asks.
 
 It is not a background verification. GoodWord checks that each reference came from the email address you gave and looks for signs of misuse. It does not verify identity documents, employment records or degrees. An employer who runs a background verification will still run it.

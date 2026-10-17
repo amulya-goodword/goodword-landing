@@ -88,6 +88,6 @@ If you are the one writing, our guide on [how to write a reference for a colleag
 
 ## Where GoodWord fits and where it does not
 
-Most private employers in India never ask for a written letter. They ask for names and call them late in the process. If you would like references a recruiter can read at the start, GoodWord collects them from the people you have worked with and puts them in [one report](/sample-report/) you send with every application.
+Most private employers in India never ask for a written letter. They ask for names and call them late in the process. If you would like references a recruiter can read at the start, GoodWord collects them from the people you have worked with and puts them in [one report](https://app.goodword.tech/sample) you send with every application.
 
 A GoodWord report is not a letter on letterhead. If a university, an embassy or a government body asks for one in a set format, you still need that letter.

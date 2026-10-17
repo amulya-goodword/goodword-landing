@@ -15,7 +15,7 @@ const title = 'About GoodWord';
 const description = 'Why GoodWord exists, who is behind it and what we promise the people who use it.';
 ---
 <Base title={title} description={description} page="about" og="about">
-  <PageHead trail={[{ href: '/about/', label: 'About' }]} eyebrow="About" title="Bringing humans back to job applications." />
+  <PageHead trail={[{ href: '/about/', label: 'About' }]} title="Bringing humans back to job applications." />
 
   <section class="section" style="padding-top: 0">
     <div class="wrap about-grid">
@@ -23,24 +23,13 @@ const description = 'Why GoodWord exists, who is behind it and what we promise t
         <p class="eyebrow">Made by a candidate, for candidates</p>
         <p class="answer">When I was job hunting, my applications landed in a pile. Nothing set them apart.</p>
         <p>It is harder now. AI has made everyone a superhero on paper, so a well written resume no longer tells a recruiter much.</p>
-        <p>A resume is the one thing most of us are allowed to send. It is also the one document we write about ourselves. The people who could say what we are really like to work with are asked last, over a phone call, if they are asked at all.</p>
         <p>GoodWord turns that around. You ask the people you have worked with to vouch for you, in their own words. Then you send what they said with every application, at the start, when it can still change who gets a conversation.</p>
         <p>That is the differentiator I wished I had. I think it is the best one there is.</p>
-        <p class="about-sign"><img class="about-photo" src="/img/amulya-nidhi-256.webp" srcset="/img/amulya-nidhi-128.webp 128w, /img/amulya-nidhi-256.webp 256w, /img/amulya-nidhi-512.webp 512w" sizes="88px" width="256" height="256" alt="" loading="lazy" decoding="async" /><span><strong>Amulya Nidhi</strong>, Founder<br /><a href="https://www.linkedin.com/in/amulyanidhi/" rel="noopener me">Amulya on LinkedIn</a></span></p>
+        <p class="about-sign"><span><strong>Amulya Nidhi</strong>, Founder<br /><a href="https://www.linkedin.com/in/amulyanidhi/" rel="noopener me">Amulya on LinkedIn</a></span></p>
       </div>
 
-      <figure class="pile-wrap">
-        <div class="pile" role="img" aria-label="Five job applications in a row. Four are a resume alone. One has three people vouching for it, and it stands out.">
-          {[0, 1, 2, 3, 4].map((i) => (
-            <span class:list={['pile-card', { 'is-vouched': i === 2 }]} style={`--n:${i}`}>
-              <i style="width:62%"></i><i style="width:90%"></i><i style="width:76%"></i><i style="width:84%"></i><i style="width:54%"></i>
-              {i === 2 && (
-                <span class="pile-people"><b></b><b></b><b></b></span>
-              )}
-            </span>
-          ))}
-        </div>
-        <figcaption>Same pile of applications. One has people in it.</figcaption>
+      <figure class="about-pic">
+        <img src="/img/amulya-nidhi-typing-900.webp" srcset="/img/amulya-nidhi-typing-520.webp 520w, /img/amulya-nidhi-typing-900.webp 900w" sizes="(min-width: 56rem) 28rem, 90vw" width="900" height="1125" alt="Amulya Nidhi at work on GoodWord." decoding="async" />
       </figure>
     </div>
   </section>
@@ -64,41 +53,8 @@ const description = 'Why GoodWord exists, who is behind it and what we promise t
   .about-grid { display: grid; gap: var(--s-7); align-items: center; }
   .prose .eyebrow { color: var(--gold-ink); line-height: 1.4; }
   .about-sign { display: flex; align-items: center; gap: var(--s-4); }
-  .about-photo { flex: none; width: 5.5rem; height: 5.5rem; border-radius: 50%; object-fit: cover; background: var(--bar); }
   @media (min-width: 56rem) { .about-grid { grid-template-columns: 1.05fr 0.95fr; gap: var(--s-8); } }
-  .pile-wrap { display: grid; gap: var(--s-4); justify-items: center; }
-  .pile-wrap figcaption { font-size: var(--step-1); }
-  @media (max-width: 55.99rem) { .pile-wrap { order: -1; } }
-  .pile-wrap figcaption { font-weight: 750; letter-spacing: -0.01em; text-align: center; color: var(--ink); }
 
-  /* Five applications. One has people in it. This is the finished state, shown when motion is off.
-     Sizes follow the width of the picture, so it fills its column on a laptop and still fits a phone. */
-  .pile-wrap { width: 100%; }
-  .pile { container-type: inline-size; width: min(100%, 34rem); display: flex; justify-content: center; align-items: flex-end; padding: 14% 0 3%; }
-  .pile-card { position: relative; flex: none; width: 21%; aspect-ratio: 1 / 1.36; margin-left: -2.5%; border-radius: 8px; background: var(--surface); border: 1px solid var(--line-strong); box-shadow: var(--sh-1); padding: 2.6cqw 2.2cqw; display: grid; gap: 1.4cqw; align-content: start; opacity: 0.55; transform: rotate(calc((var(--n) - 2) * 3deg)); }
-  .pile-card:first-child { margin-left: 0; }
-  .pile-card i { display: block; height: 1.1cqw; min-height: 3px; border-radius: var(--r-pill); background: var(--bar-strong); }
-  .pile-card.is-vouched { z-index: 2; opacity: 1; border-color: var(--gold); border-top: 4px solid var(--gold); box-shadow: var(--sh-3); transform: translateY(-14%) scale(1.2); }
-  .pile-card.is-vouched i { background: var(--bar); }
-  .pile-people { position: absolute; left: 0; right: 0; bottom: 9%; display: flex; justify-content: center; }
-  .pile-people b { width: 5cqw; height: 5cqw; min-width: 14px; min-height: 14px; border-radius: 50%; background: var(--ink); border: 2px solid var(--surface); margin-left: -1.2cqw; }
-  .pile-people b:first-child { margin-left: 0; }
-  .pile-people b:nth-child(2) { background: var(--gold); }
-
-  /* As it scrolls into view: the pile sits flat, three people arrive, and their application rises. */
-  @media (prefers-reduced-motion: no-preference) {
-    @supports (animation-timeline: view()) {
-      .pile { view-timeline-name: --pile; view-timeline-axis: block; }
-      .pile-card, .pile-people b { animation-timeline: --pile; animation-timing-function: linear; animation-fill-mode: both; }
-      .pile-card:not(.is-vouched) { animation-name: pile-fade; animation-range: entry 60% cover 42%; }
-      .pile-card.is-vouched { animation-name: pile-rise; animation-range: entry 60% cover 42%; }
-      .pile-people b { animation-name: pile-pop; }
-      .pile-people b:nth-child(1) { animation-range: entry 20% entry 55%; }
-      .pile-people b:nth-child(2) { animation-range: entry 40% entry 75%; }
-      .pile-people b:nth-child(3) { animation-range: entry 60% entry 95%; }
-      @keyframes pile-fade { from { opacity: 1; } to { opacity: 0.55; } }
-      @keyframes pile-rise { from { transform: none; } to { transform: translateY(-14%) scale(1.2); } }
-      @keyframes pile-pop { from { opacity: 0; transform: translateY(6px) scale(0.4); } to { opacity: 1; transform: none; } }
-    }
-  }
+  .about-pic img { width: min(100%, 28rem); aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--r-lg); background: var(--surface); margin-inline: auto; }
+  @media (max-width: 55.99rem) { .about-pic { order: -1; } .about-pic img { width: min(100%, 22rem); } }
 </style>

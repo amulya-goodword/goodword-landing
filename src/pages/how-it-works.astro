@@ -2,105 +2,88 @@
 import Base from '../layouts/Base.astro';
 import PageHead from '../components/PageHead.astro';
 import CtaBand from '../components/CtaBand.astro';
-import AppLink from '../components/AppLink.astro';
-import Arrow from '../components/Arrow.astro';
-import Tick from '../components/Tick.astro';
-import QuoteCard from '../components/report/QuoteCard.astro';
-import Piece from '../components/report/ReportPieces.astro';
-import { sample } from '../data/sample';
-import { SITE } from '../config';
-const r = sample.referees;
+import StepMock from '../components/home/StepMock.astro';
 
 const title = 'How GoodWord works: from first invite to finished report';
-const description = 'Invite up to 5 people you have worked with. Each answers a short questionnaire. Three responses unlock a report you send with every application.';
+const description = 'Invite up to 5 people you have worked with. Each answers a short questionnaire. Three answers make a report you send with every application.';
 const steps = [
-  { name: 'Invite up to 5 people you have worked with', text: 'Choose managers, peers, people who reported to you or clients, and give the email address to reach each of them at.' },
-  { name: 'They answer in their own words', text: 'Each person gets an email with a private link and answers a short questionnaire. It takes about 5 minutes and the link works for 30 days.' },
-  { name: 'Three responses unlock your report', text: 'When 3 people have responded your report unlocks. You can read every word and you cannot edit any of it.' },
-  { name: 'Send it with every application', text: 'Share a private link, a PDF, a card for LinkedIn or Resume Pro Max, which joins your resume and your report into one file.' },
+  {
+    n: 1, shot: 'shot-invite',
+    name: 'Invite up to 5 people you have worked with',
+    text: 'Former managers, peers, people who reported to you and clients. You choose who. Nobody else is contacted.',
+  },
+  {
+    n: 2, shot: 'shot-referee',
+    name: 'They answer in their own words',
+    text: 'Each one gets a private link to a short questionnaire: where you excel, where you could grow and whether they would work with you again. It takes about 5 minutes. The link works for 30 days. We remind them on day 3 and day 7.',
+  },
+  {
+    n: 3, shot: 'shot-report',
+    name: 'Three answers make your report',
+    text: 'You read every word and cannot edit any of it. The short summary at the top is written with AI from their words. You can include up to 5 references. A report is valid for 12 months. If fewer than three people respond, no report is made.',
+  },
+];
+const ways = [
+  'A private link. A recruiter confirms a work email to open it, and you see who viewed it.',
+  'A PDF with a QR code that opens the live report.',
+  'A card for LinkedIn.',
+  'Resume Pro Max: your resume and your report in one file.',
+  'A message we draft for you to send from your own email, WhatsApp or LinkedIn.',
 ];
 const schema = {
   '@context': 'https://schema.org',
   '@type': 'HowTo',
   name: 'How to collect and share verified references with GoodWord',
   description,
-  step: steps.map((s, i) => ({ '@type': 'HowToStep', position: i + 1, name: s.name, text: s.text })),
+  step: steps.map((s) => ({ '@type': 'HowToStep', position: s.n, name: s.name, text: s.text })),
 };
 ---
 <Base title={title} description={description} page="how_it_works" og="how-it-works">
   <script type="application/ld+json" slot="head" set:html={JSON.stringify(schema)} />
-  <PageHead trail={[{ href: '/how-it-works/', label: 'How it works' }]} eyebrow="How it works" title="From your first invite to a report you can send." lede="Four steps. Most of the work is done by the people who know yours." />
+  <PageHead trail={[{ href: '/how-it-works/', label: 'How it works' }]} title="From your first invite to a report you can send." lede="Three steps. Most of the work is done by the people who know yours." />
 
   <section class="section" style="padding-top: 0">
     <div class="wrap rows">
-      <div class="row">
-        <div class="row-copy">
-          <span class="num" aria-hidden="true">1</span>
-          <h2>Invite up to 5 people you have worked with</h2>
-          <p>You choose who. Pick people who saw your work up close and can give an example of it.</p>
-          <ul class="ticks-list">
-            <li><Tick small /><span>Managers</span></li>
-            <li><Tick small /><span>Peers</span></li>
-            <li><Tick small /><span>People who reported to you</span></li>
-            <li><Tick small /><span>Clients</span></li>
-          </ul>
+      {steps.map((s) => (
+        <div class="row">
+          <div class="row-copy">
+            <span class="num" aria-hidden="true">{s.n}</span>
+            <h2>{s.name}</h2>
+            <p>{s.text}</p>
+          </div>
+          <div class="row-visual"><StepMock kind={s.shot} /></div>
         </div>
-        <div class="row-visual"><Piece piece="unlock" responded={0} /></div>
-      </div>
-
-      <div class="row">
-        <div class="row-copy">
-          <span class="num" aria-hidden="true">2</span>
-          <h2>They answer in their own words</h2>
-          <p>Each person gets an email with a private link to a short questionnaire. It takes about 5 minutes. The link works for 30 days.</p>
-          <ul class="ticks-list">
-            <li><Tick small /><span>What you do better than most</span></li>
-            <li><Tick small /><span>Where you could grow</span></li>
-            <li><Tick small /><span>Whether they would work with you again</span></li>
-          </ul>
-        </div>
-        <div class="row-visual"><QuoteCard referee={r[1]} variant="full" /></div>
-      </div>
-
-      <div class="row">
-        <div class="row-copy">
-          <span class="num" aria-hidden="true">3</span>
-          <h2>Three responses unlock your report</h2>
-          <p>GoodWord writes a short summary from your referees' words, with the help of AI. You can read everything. You cannot edit any of it.</p>
-          <p>You can include up to 5 references. A report is valid for 12 months.</p>
-        </div>
-        <div class="row-visual">
-          <Piece piece="unlock" responded={3} />
-          <Piece piece="strengths" />
-        </div>
-      </div>
-
-      <div class="row" id="send" style="scroll-margin-top: 6rem">
-        <div class="row-copy">
-          <span class="num" aria-hidden="true">4</span>
-          <h2>Send it with every application</h2>
-          <ul class="ticks-list">
-            <li><Tick small /><span>A private link. A recruiter confirms a work email to open it. You then see who viewed it.</span></li>
-            <li><Tick small /><span>A PDF with a QR code that opens the live report.</span></li>
-            <li><Tick small /><span>A card for LinkedIn.</span></li>
-            <li><Tick small /><span><a class="link" href="/resume-pro-max/">Resume Pro Max</a>, your resume and your report in one file.</span></li>
-            <li><Tick small /><span>Send it, a message we draft for you to send from your own email, WhatsApp or LinkedIn.</span></li>
-          </ul>
-        </div>
-        <div class="row-visual"><Piece piece="viewers" /></div>
-      </div>
+      ))}
     </div>
   </section>
 
-  <section class="section surface">
+  <section class="section surface" id="send" style="scroll-margin-top: 6rem">
+    <div class="wrap hw-send">
+      <h2>How you send it</h2>
+      <ul class="hw-ways">
+        {ways.map((w) => <li>{w}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
     <div class="wrap">
       <div class="sec-head"><h2>Good to know</h2></div>
       <div class="facts-grid three">
         <div class="fact-card"><h3>A referee can withdraw</h3><p>One click and a confirm, from a link shown after they submit and in their confirmation email.</p></div>
-        <div class="fact-card"><h3>Recruiters see roles, not names</h3><p>Unless that referee chose to be named. You always know who wrote what.</p></div>
+        <div class="fact-card"><h3>Recruiters see roles</h3><p>A name shows only if that referee chose to be named. You always know who wrote what.</p></div>
         <div class="fact-card"><h3>It is not a background check</h3><p>We check that each reference came from the email address you gave and look for signs of misuse. We do not verify identity documents or employment records.</p></div>
       </div>
     </div>
   </section>
   <CtaBand page="how_it_works" />
 </Base>
+
+<style is:global>
+  .row-visual:has(.dk-shot) { justify-items: center; }
+  .hw-send { display: grid; gap: var(--s-5); }
+  @media (min-width: 62rem) { .hw-send { grid-template-columns: 0.8fr 1.2fr; gap: var(--s-8); align-items: start; } }
+  .hw-ways { display: grid; }
+  .hw-ways li { padding-block: var(--s-3); border-top: 1px solid var(--line); font-size: var(--step-1); line-height: 1.5; color: var(--ink-2); }
+  .hw-ways li:last-child { border-bottom: 1px solid var(--line); }
+</style>

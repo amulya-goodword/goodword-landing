@@ -70,6 +70,6 @@ The easiest time to ask is the week one of you moves on. The work is fresh and n
 
 ## Where GoodWord fits and where it does not
 
-GoodWord is built for exactly that moment. You invite the person while they still remember the work. They answer a short questionnaire once, in about 5 minutes. Their words go into [a report](/sample-report/) that stays valid for 12 months, so you still have them after you lose touch.
+GoodWord is built for exactly that moment. You invite the person while they still remember the work. They answer a short questionnaire once, in about 5 minutes. Their words go into [a report](https://app.goodword.tech/sample) that stays valid for 12 months, so you still have them after you lose touch.
 
 It does not help you find a manager you have lost contact with. It also does not confirm where you worked or for how long. For that you still need your employment documents.

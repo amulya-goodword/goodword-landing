@@ -13,7 +13,6 @@ const PAGES: Record<string, [string, string]> = {
   default: ['Your resume says it.', 'They back it up.'],
   home: ['Your good work', 'deserves a GoodWord.'],
   'how-it-works': ['Three people who know your work.', 'One report.'],
-  'sample-report': ['What a GoodWord report', 'looks like.'],
   'resume-pro-max': ['Your resume and your references,', 'in one file.'],
   'for-referees': ['Someone asked you', 'to vouch for them.'],
   'for-recruiters': ['A candidate sent you', 'a GoodWord report.'],

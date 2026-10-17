@@ -16,7 +16,7 @@
 ## Pages
 
 - [How it works](https://goodword.tech/how-it-works/)
-- [Sample report](https://goodword.tech/sample-report/)
+- [Sample report](https://app.goodword.tech/sample)
 - [Resume Pro Max](https://goodword.tech/resume-pro-max/)
 - [For referees](https://goodword.tech/for-referees/)
 - [For recruiters](https://goodword.tech/for-recruiters/)

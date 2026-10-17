@@ -523,6 +523,13 @@ a.card:hover { transform: translateY(-3px); box-shadow: var(--sh-2); }
   @keyframes vt-in { from { opacity: 0; transform: translateY(10px); } }
 }
 
+
+/* ---------- Real screenshots from the app ---------- */
+/* Top-aligned in a white frame. Where there is no room, the foot is cut off. */
+.dk-shot { width: 100%; max-width: 26rem; max-height: 34rem; justify-self: center; align-self: start; overflow: hidden; border-radius: var(--r-lg); border: 1px solid var(--line); background: var(--surface); box-shadow: var(--sh-3); }
+.dk-shot img { width: 100%; height: auto; }
+.dk-shot-narrow { max-width: 22rem; }
+
 /* ---------- Windows high contrast mode: shapes drawn with background colour need an outline to stay visible ---------- */
 @media (forced-colors: active) {
   .tick, .chip, .avatar, .c2-n, .deck-n { border: 1px solid; }

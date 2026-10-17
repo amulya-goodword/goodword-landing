@@ -78,6 +78,6 @@ Thank them and tell them how it ended. People like to know whether their word he
 
 ## Where GoodWord fits and where it does not
 
-If you would like to ask once and reuse the answer, GoodWord sends each person a short questionnaire and turns what they write into [one report](/sample-report/) you can send with every application. Your referees answer once, in about 5 minutes. They are not called by every recruiter.
+If you would like to ask once and reuse the answer, GoodWord sends each person a short questionnaire and turns what they write into [one report](https://app.goodword.tech/sample) you can send with every application. Your referees answer once, in about 5 minutes. They are not called by every recruiter.
 
 It does not replace a formal letter on company letterhead. Some universities, government bodies and visa applications ask for exactly that. For those you still need the letter. [This guide](/guides/reference-letter-vs-experience-letter-vs-relieving-letter/) explains which document is which.

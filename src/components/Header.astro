@@ -6,7 +6,7 @@ const { page } = Astro.props;
 const path = Astro.url.pathname;
 const main = [
   { href: '/how-it-works/', label: 'How it works' },
-  { href: '/sample-report/', label: 'Sample report' },
+  { href: '', app: 'sample', label: 'Sample report' },
   { href: '/resume-pro-max/', label: 'Resume Pro Max' },
   { href: '/guides/', label: 'Guides' },
   { href: '/about/', label: 'About' },
@@ -17,13 +17,13 @@ const more = [
   { href: '/questions/', label: 'Questions' },
   { href: '/contact/', label: 'Contact' },
 ];
-const current = (href: string) => (path.startsWith(href) ? 'page' : undefined);
+const current = (href: string) => (href && path.startsWith(href) ? 'page' : undefined);
 ---
 <header class="site-header">
   <div class="wrap bar">
     <a class="wordmark-link" href="/" aria-label="GoodWord home"><Wordmark decorative /></a>
     <nav class="site-nav" aria-label="Main">
-      {main.map((l) => <a href={l.href} aria-current={current(l.href)}>{l.label}</a>)}
+      {main.map((l) => (l.app ? <AppLink to="sample" page={page} section="nav">{l.label}</AppLink> : <a href={l.href} aria-current={current(l.href)}>{l.label}</a>))}
     </nav>
     <div class="header-actions">
       <AppLink to="login" page={page} section="header" class="signin">Sign in</AppLink>
@@ -31,7 +31,7 @@ const current = (href: string) => (path.startsWith(href) ? 'page' : undefined);
       <details class="menu">
         <summary aria-label="Menu"><span class="menu-icon" aria-hidden="true"></span></summary>
         <nav class="menu-panel" aria-label="All pages">
-          {[...main, ...more].map((l) => <a href={l.href} aria-current={current(l.href)}>{l.label}</a>)}
+          {[...main, ...more].map((l) => (l.app ? <AppLink to="sample" page={page} section="menu">{l.label}</AppLink> : <a href={l.href} aria-current={current(l.href)}>{l.label}</a>))}
           <AppLink to="login" page={page} section="menu">Sign in</AppLink>
         </nav>
       </details>

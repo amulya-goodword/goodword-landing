@@ -68,6 +68,6 @@ Most campus hiring does not ask for references at all. If a form does, a profess
 
 ## Where GoodWord fits and where it does not
 
-Everything above is about being ready when someone asks. GoodWord is for sending the references before anyone asks. Three people you have worked with answer a short questionnaire. Their words become [one report](/sample-report/) you can attach to an application or join to your resume with [Resume Pro Max](/resume-pro-max/).
+Everything above is about being ready when someone asks. GoodWord is for sending the references before anyone asks. Three people you have worked with answer a short questionnaire. Their words become [one report](https://app.goodword.tech/sample) you can attach to an application or join to your resume with [Resume Pro Max](/resume-pro-max/).
 
 If an application form has its own reference fields, fill those in as asked. A report does not replace them.
