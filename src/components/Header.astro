@@ -17,7 +17,7 @@ const more = [
   { href: '/questions/', label: 'Questions' },
   { href: '/contact/', label: 'Contact' },
 ];
-const current = (href: string) => (href && path.startsWith(href) ? 'page' : undefined);
+const current = (href: string) => (!href ? undefined : href === '/' ? (path === '/' ? 'page' : undefined) : path.startsWith(href) ? 'page' : undefined);
 ---
 <header class="site-header">
   <div class="wrap bar">
@@ -31,7 +31,7 @@ const current = (href: string) => (href && path.startsWith(href) ? 'page' : unde
       <details class="menu">
         <summary aria-label="Menu"><span class="menu-icon" aria-hidden="true"></span></summary>
         <nav class="menu-panel" aria-label="All pages">
-          {[...main, ...more].map((l) => (l.app ? <AppLink to="sample" page={page} section="menu">{l.label}</AppLink> : <a href={l.href} aria-current={current(l.href)}>{l.label}</a>))}
+          {[{ href: '/', label: 'Home' }, ...main, ...more].map((l: { href: string; label: string; app?: string }) => (l.app ? <AppLink to="sample" page={page} section="menu">{l.label}</AppLink> : <a href={l.href} aria-current={current(l.href)}>{l.label}</a>))}
           <AppLink to="login" page={page} section="menu">Sign in</AppLink>
         </nav>
       </details>
