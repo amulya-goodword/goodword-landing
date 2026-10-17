@@ -5,9 +5,9 @@ import AppLink from '../AppLink.astro';
 import StepMock from './StepMock.astro';
 import Arrow from '../Arrow.astro';
 const steps = [
-  { k: 'invite', tone: 'canvas', rail: 'Invite', t: 'Invite up to 5 people', d: 'Former managers, peers and clients. You choose who. Nobody else is contacted.' },
-  { k: 'answer', tone: 'navy', rail: 'Answer', t: 'They answer in about 5 minutes', d: 'Each one gets a private link and a short questionnaire to answer in their own words.' },
-  { k: 'unlock', tone: 'gold', rail: 'Report', t: 'Three answers make your report', d: 'You cannot edit what they wrote. Send it with every application as a link or a PDF.' },
+  { k: 'invite', v: 'invite', tone: 'canvas', rail: 'Invite', t: 'Invite up to 5 people', d: 'Former managers, peers and clients. You choose who. Nobody else is contacted.' },
+  { k: 'answer', v: 'shot-referee', tone: 'navy', rail: 'Answer', t: 'They answer in about 5 minutes', d: 'Each one gets a private link and a short questionnaire to answer in their own words.' },
+  { k: 'unlock', v: 'shot-report', tone: 'gold', rail: 'Report', t: 'Three answers make your report', d: 'You cannot edit what they wrote. Send it with every application as a link or a PDF.' },
 ];
 ---
 <section class="how" id="how-it-works" aria-labelledby="how-h">
@@ -32,7 +32,7 @@ const steps = [
               )}
             </div>
             <div class="deck-visual">
-              <StepMock kind={s.k} />
+              <StepMock kind={s.v} />
             </div>
           </li>
         ))}
@@ -84,6 +84,11 @@ const steps = [
   .is-navy .deck-copy p { color: var(--on-navy-2); }
   .deck-visual { display: grid; color: var(--ink); }
   .deck-rail { display: none; }
+
+  /* Real screenshots from the app's own sample report. Top-aligned: where there is no room, the foot is cut off. */
+  .dk-shot { width: 100%; max-width: 26rem; max-height: 34rem; justify-self: center; align-self: start; overflow: hidden; border-radius: var(--r-lg); border: 1px solid var(--line); background: var(--surface); box-shadow: var(--sh-3); }
+  .dk-shot img { width: 100%; height: auto; }
+  .deck-visual:has(.dk-shot) { align-self: start; }
 
   /* The pieces of the product inside the cards */
   .dk { display: grid; gap: var(--s-3); align-content: start; width: 100%; max-width: 30rem; justify-self: center; box-shadow: var(--sh-3); }
@@ -149,7 +154,8 @@ const steps = [
     /* On a phone the piece of the product is a sheet that runs off the foot of the card, whatever the height of the screen. */
     .deck-card { gap: var(--s-4); padding-bottom: 0; grid-template-rows: auto minmax(0, 1fr); }
     .deck-visual { min-height: 0; }
-    .dk { border-bottom: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+    .dk, .dk-shot { border-bottom: 0; border-bottom-left-radius: 0; border-bottom-right-radius: 0; }
+    .dk-shot { max-height: none; align-self: stretch; }
     .dk-more, .dk-text, .dk .points li + li { display: none; }
     .deck-copy { gap: var(--s-2); }
     .deck-copy h3 { font-size: var(--step-3); max-width: none; }
