@@ -10,6 +10,18 @@ import Piece from '../components/report/ReportPieces.astro';
 import { sample } from '../data/sample';
 import { SITE } from '../config';
 const r = sample.referees;
+// One of the six referees on the founder's own report, word for word. Shown by role, as on the report.
+const mine = {
+  label: 'Referee 5',
+  named: false,
+  role: 'Direct Report',
+  worked: 'Worked together 1 to 2 years',
+  context: 'Team',
+  given: 'Given October 2026',
+  excel: 'Amulya stands out in the way he supports his team members. He provides guidance without micromanaging and creates an environment where his team members feel trusted and valued',
+  excelShort: '',
+  grow: 'He could work on maintaining regular work timings rather than late nights :)',
+};
 
 const title = 'About GoodWord';
 const description = 'Why GoodWord exists, who is behind it and what we promise the people who use it.';
@@ -47,7 +59,22 @@ const schema = {
     </div>
   </section>
 
-  <section class="section surface">
+  <section class="section surface" id="my-goodword" aria-labelledby="mine-h">
+    <div class="wrap mine">
+      <div class="mine-copy">
+        <h2 id="mine-h">My own GoodWord.</h2>
+        <p class="lede">Before I asked anyone else to use GoodWord, I used it myself. Six people I have worked with answered.</p>
+        <p>Their names are hidden here. Their words are not, including where I could grow.</p>
+        <QuoteCard referee={mine} class="mine-card reveal" />
+        <p class="mine-link"><a class="link" href="/amulya-nidhi-goodword-report.pdf">Read the full report</a> <span class="meta">PDF, 4 pages</span></p>
+      </div>
+      <figure class="dk-shot mine-top reveal">
+        <img src="/img/amulya-report-top.webp" srcset="/img/amulya-report-top-half.webp 416w, /img/amulya-report-top.webp 832w, /img/amulya-report-top-3x.webp 1248w" sizes="(min-width: 56rem) 26rem, 92vw" width="832" height="977" loading="lazy" decoding="async" alt="The top of Amulya Nidhi's GoodWord report. Summary from 6 verified referees: a logical, technically strong problem solver who simplifies work through technology and data. All 6 referees would want Amulya on their team again." />
+      </figure>
+    </div>
+  </section>
+
+  <section class="section">
     <div class="wrap">
       <div class="sec-head"><h2>What we promise</h2></div>
       <div class="facts-grid">
@@ -70,4 +97,14 @@ const schema = {
 
   .about-pic img { width: min(100%, 28rem); aspect-ratio: 4 / 5; object-fit: cover; border-radius: var(--r-lg); background: var(--surface); margin-inline: auto; }
   @media (max-width: 55.99rem) { .about-pic { order: -1; } .about-pic img { width: min(100%, 22rem); } }
+
+  .mine { display: grid; gap: var(--s-7); align-items: start; }
+  @media (min-width: 56rem) { .mine { grid-template-columns: 1.1fr 0.9fr; gap: var(--s-8); } }
+  .mine-copy { display: grid; gap: var(--s-4); align-content: start; }
+  .mine-copy p { color: var(--ink-2); max-width: 34rem; }
+  .mine-copy .lede { color: var(--ink); }
+  .mine .dk-shot { padding: var(--s-3); }
+  .mine-card { max-width: 34rem; margin-top: var(--s-2); }
+  .mine-top { max-height: none; }
+  .mine-link .meta { margin-left: var(--s-2); }
 </style>
