@@ -56,26 +56,26 @@
 
 /* ---------- Tokens ---------- */
 :root {
-  /* Colour. Three brand colours and nothing else: navy, gold and the canvas.
-     Every grey is the navy at an opacity, the same way the app makes its greys. There is no separate grey palette. */
-  --ink: #0f1b2d;
-  --ink-2: rgba(15, 27, 45, 0.8);      /* secondary text, 9.1:1 on white */
-  --ink-3: rgba(15, 27, 45, 0.68);     /* meta text, 6.0:1 on white and 5.7:1 on the canvas */
-  --line: rgba(15, 27, 45, 0.1);       /* borders and dividers, as in the app */
-  --line-strong: rgba(15, 27, 45, 0.22);
-  --bar: #e2e4e6;                      /* filled placeholder shapes: navy at 12% on white, kept solid so overlaps stay clean */
-  --bar-strong: #c5c8cd;               /* navy at 24% on white */
+  /* Colour. Three brand colours and nothing else: the warm ink, gold and the canvas, matching the app (the ink
+     replaced navy in the app on 24 Oct 2026). Every grey is the ink at an opacity, the same way the app makes its greys. */
+  --ink: #1b1916;
+  --ink-2: rgba(27, 25, 22, 0.8);      /* secondary text, 9.1:1 on white */
+  --ink-3: rgba(27, 25, 22, 0.68);     /* meta text, 6.0:1 on white and 5.7:1 on the canvas */
+  --line: rgba(27, 25, 22, 0.1);       /* borders and dividers, as in the app */
+  --line-strong: rgba(27, 25, 22, 0.22);
+  --bar: #e4e3e3;                      /* filled placeholder shapes: navy at 12% on white, kept solid so overlaps stay clean */
+  --bar-strong: #c8c8c7;               /* navy at 24% on white */
   --gold: #d4a442;                     /* fills, rules, icons, text on navy */
   --gold-ink: #8a6410;                 /* gold-coloured text on light backgrounds, 5.4:1 on white */
   --gold-deep: #c0902f;                /* gold button, pressed and hover */
   --gold-tint: rgba(212, 164, 66, 0.16);
   --gold-line: rgba(212, 164, 66, 0.55);
   --gold-wash: #fbf6ea;                /* the gold tint as a solid, for chips that sit on mixed backgrounds */
-  --canvas: #f3f5f8;
+  --canvas: #f4f4f2;
   --surface: #ffffff;
-  --navy-2: #1d293a;                   /* a raised panel on navy: white at 6% */
-  --on-navy: #ffffff;
-  --on-navy-2: rgba(255, 255, 255, 0.74); /* secondary text on navy, 9.8:1 */
+  --navy-2: #292724;                   /* a raised panel on the ink: white at 6% */
+  --on-navy: #faf7f2;                  /* cream text on the ink, as in the app */
+  --on-navy-2: rgba(250, 247, 242, 0.74); /* secondary text on the ink */
   --error: #b42318;
   --error-tint: #fef3f2;
 
@@ -112,9 +112,9 @@
   --r-md: 14px;
   --r-lg: 16px;
   --r-pill: 999px;
-  --sh-1: 0 1px 2px rgba(15, 27, 45, 0.06), 0 1px 1px rgba(15, 27, 45, 0.04);
-  --sh-2: 0 8px 20px -6px rgba(15, 27, 45, 0.12), 0 2px 4px rgba(15, 27, 45, 0.05);
-  --sh-3: 0 28px 56px -20px rgba(15, 27, 45, 0.22), 0 6px 14px rgba(15, 27, 45, 0.06);
+  --sh-1: 0 1px 2px rgba(27, 25, 22, 0.06), 0 1px 1px rgba(27, 25, 22, 0.04);
+  --sh-2: 0 8px 20px -6px rgba(27, 25, 22, 0.12), 0 2px 4px rgba(27, 25, 22, 0.05);
+  --sh-3: 0 28px 56px -20px rgba(27, 25, 22, 0.22), 0 6px 14px rgba(27, 25, 22, 0.06);
 
   /* Motion: transform and opacity only */
   --ease: cubic-bezier(0.2, 0.7, 0.2, 1);
@@ -253,9 +253,9 @@ a.card:hover { transform: translateY(-3px); box-shadow: var(--sh-2); }
 .check input { width: 1.25rem; height: 1.25rem; margin: 0.125rem 0 0; flex: none; accent-color: var(--ink); cursor: pointer; }
 
 /* ---------- Header and footer ---------- */
-.site-header { position: sticky; top: 0; z-index: 50; background: rgba(243, 245, 248, 0.97); border-bottom: 1px solid var(--line); }
+.site-header { position: sticky; top: 0; z-index: 50; background: rgba(244, 244, 242, 0.97); border-bottom: 1px solid var(--line); }
 /* The frosted header is for larger screens. On phones it stays solid, which scrolls more smoothly on mid-range devices. */
-@media (min-width: 48rem) { @supports (backdrop-filter: blur(8px)) { .site-header { background: rgba(243, 245, 248, 0.78); backdrop-filter: saturate(1.4) blur(10px); } } }
+@media (min-width: 48rem) { @supports (backdrop-filter: blur(8px)) { .site-header { background: rgba(244, 244, 242, 0.78); backdrop-filter: saturate(1.4) blur(10px); } } }
 .site-header .bar { display: flex; align-items: center; justify-content: space-between; gap: var(--s-4); min-height: 4rem; }
 .site-nav { display: none; gap: var(--s-5); }
 .site-nav a { font-size: var(--step--1); font-weight: 650; text-decoration: none; color: var(--ink-2); padding: 0.5rem 0; }
@@ -369,14 +369,14 @@ a.card:hover { transform: translateY(-3px); box-shadow: var(--sh-2); }
   background:
     linear-gradient(to right, var(--surface) 40%, rgba(255, 255, 255, 0)) left center / 2.5rem 100% no-repeat local,
     linear-gradient(to left, var(--surface) 40%, rgba(255, 255, 255, 0)) right center / 2.5rem 100% no-repeat local,
-    radial-gradient(farthest-side at 0 50%, rgba(15, 27, 45, 0.2), transparent) left center / 0.875rem 100% no-repeat scroll,
-    radial-gradient(farthest-side at 100% 50%, rgba(15, 27, 45, 0.2), transparent) right center / 0.875rem 100% no-repeat scroll,
+    radial-gradient(farthest-side at 0 50%, rgba(27, 25, 22, 0.2), transparent) left center / 0.875rem 100% no-repeat scroll,
+    radial-gradient(farthest-side at 100% 50%, rgba(27, 25, 22, 0.2), transparent) right center / 0.875rem 100% no-repeat scroll,
     var(--surface);
 }
 .prose table { width: 100%; border-collapse: collapse; font-size: var(--step--1); }
 .prose th, .prose td { text-align: left; padding: 0.75rem 0.875rem; border-bottom: 1px solid var(--line); vertical-align: top; min-width: 9rem; color: var(--ink-2); line-height: 1.5; }
 .prose tr:last-child > * { border-bottom: 0; }
-.prose thead th, .prose thead td { background: rgba(243, 245, 248, 0.85); color: var(--ink); font-weight: 700; }
+.prose thead th, .prose thead td { background: rgba(244, 244, 242, 0.85); color: var(--ink); font-weight: 700; }
 .prose tbody th { color: var(--ink); font-weight: 650; }
 @media (max-width: 30rem) {
   .prose th, .prose td { min-width: 6.25rem; padding: 0.625rem 0.625rem; }

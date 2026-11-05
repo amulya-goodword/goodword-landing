@@ -91,9 +91,9 @@ const steps = [
     /* An empty last row, so the fourth card rests for a moment before the deck moves on. */
     .deck-cards::after { content: ''; }
     .deck-card { position: sticky; top: calc(var(--top) + var(--i) * var(--step)); z-index: calc(var(--i) + 1); height: var(--h); transform-origin: 50% 0; }
-    .deck-card:not(:first-child) { box-shadow: 0 -1.25rem 2.5rem -1.5rem rgba(15, 27, 45, 0.4); }
-    .deck-card.is-canvas:not(:first-child) { box-shadow: inset 0 0 0 1px var(--line), 0 -1.25rem 2.5rem -1.5rem rgba(15, 27, 45, 0.4); }
-    .deck-card.is-gold:not(:first-child) { box-shadow: inset 0 0 0 1px var(--gold-line), 0 -1.25rem 2.5rem -1.5rem rgba(15, 27, 45, 0.4); }
+    .deck-card:not(:first-child) { box-shadow: 0 -1.25rem 2.5rem -1.5rem rgba(27, 25, 22, 0.4); }
+    .deck-card.is-canvas:not(:first-child) { box-shadow: inset 0 0 0 1px var(--line), 0 -1.25rem 2.5rem -1.5rem rgba(27, 25, 22, 0.4); }
+    .deck-card.is-gold:not(:first-child) { box-shadow: inset 0 0 0 1px var(--gold-line), 0 -1.25rem 2.5rem -1.5rem rgba(27, 25, 22, 0.4); }
 
     /* Where the browser can tie motion to the scroll position: a covered card steps back a little,
        and the rail follows along. Transform and opacity only. */

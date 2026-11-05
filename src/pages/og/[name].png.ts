@@ -35,7 +35,7 @@ const el = (type: string, style: Record<string, unknown>, children: unknown) => 
 export const GET: APIRoute = async ({ props }) => {
   const { line, gold, kicker } = props as { line: string; gold: string; kicker: string };
   const size = (line + gold).length > 70 ? 60 : (line + gold).length > 46 ? 72 : 86;
-  const tree = el('div', { width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', background: '#0f1b2d', color: '#ffffff', padding: '72px 80px', fontFamily: 'Inter' }, [
+  const tree = el('div', { width: '100%', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'space-between', background: '#1b1916', color: '#ffffff', padding: '72px 80px', fontFamily: 'Inter' }, [
     el('div', { display: 'flex', fontSize: 44, fontWeight: 900, letterSpacing: '-0.035em' }, [el('span', {}, 'Good'), el('span', { color: '#d4a442' }, 'Word')]),
     el('div', { display: 'flex', flexDirection: 'column' }, [
       el('div', { width: 96, height: 6, background: '#d4a442', borderRadius: 3, marginBottom: 28 }, ''),
@@ -44,7 +44,7 @@ export const GET: APIRoute = async ({ props }) => {
         el('span', { color: '#d4a442' }, gold),
       ]),
     ]),
-    el('div', { display: 'flex', justifyContent: 'space-between', fontSize: 26, fontWeight: 600, color: '#c1c4c9' }, [el('span', {}, kicker), el('span', {}, 'goodword.tech')]),
+    el('div', { display: 'flex', justifyContent: 'space-between', fontSize: 26, fontWeight: 600, color: '#c6c4c1' }, [el('span', {}, kicker), el('span', {}, 'goodword.tech')]),
   ]);
   const svg = await satori(tree as any, {
     width: 1200,
