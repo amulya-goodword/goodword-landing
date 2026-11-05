@@ -12,15 +12,23 @@ import { SITE } from '../config';
 const r = sample.referees;
 // One of the six referees on the founder's own report, word for word. Shown by role, as on the report.
 const mine = {
-  label: 'Referee 5',
+  label: 'Referee 1',
   named: false,
-  role: 'Direct Report',
+  role: 'Direct Manager',
   worked: 'Worked together 1 to 2 years',
-  context: 'Team',
+  context: 'Amulya led the HR Tech and Analytics function at [company] and was part of my HR leadership team',
   given: 'Given October 2026',
-  excel: 'Amulya stands out in the way he supports his team members. He provides guidance without micromanaging and creates an environment where his team members feel trusted and valued',
+  excel: `1. Technically solid
+2. Functionally logical and clear
+3. Extremely committed and conscientious- also always pragmatic and Honest in his commitments
+4. Very hard working
+5. Excellent team player
+6. Manages pressure and stress exceedingly well
+
+While working on a proposal to change our HRMS platform, he led the discussions with the founder with data, facts, logic and intent and managed to create a compelling business case which went through with the founder`,
   excelShort: '',
-  grow: 'He could work on maintaining regular work timings rather than late nights :)',
+  grow: `1. He can be more assertive when he has an input to give as he can be of even more value by being more expressive. For a young mind, he is professionally quite mature
+Always felt that in my leadership team meetings he held himself back, being respectful of the seniors in the forum, more than required`,
 };
 
 const title = 'About GoodWord';
@@ -105,6 +113,8 @@ const schema = {
   .mine-copy .lede { color: var(--ink); }
   .mine .dk-shot { padding: var(--s-3); }
   .mine-card { max-width: 34rem; margin-top: var(--s-2); }
+  .mine-card .quote-words { white-space: pre-line; }
   .mine-top { max-height: none; }
+  @media (min-width: 56rem) { .mine-top { position: sticky; top: 6rem; } }
   .mine-link .meta { margin-left: var(--s-2); }
 </style>
